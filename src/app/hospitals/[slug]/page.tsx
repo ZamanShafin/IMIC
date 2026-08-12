@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 import { db } from '@/lib/db';
 import { MapPin, ShieldCheck, Calendar, FileText, UserCheck, ChevronLeft, Building2 } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 interface PageProps {

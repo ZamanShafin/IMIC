@@ -2,6 +2,7 @@ import React from 'react';
 import { db } from '@/lib/db';
 import { FileText, Phone, Mail, Clock } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function AdminQuotesPage() {

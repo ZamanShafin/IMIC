@@ -3,6 +3,7 @@ import { db } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import { Building2, Stethoscope, BookOpen, MessageSquare, Users, Settings, Plus, Edit3, ShieldCheck, HelpCircle } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 interface PageProps {
