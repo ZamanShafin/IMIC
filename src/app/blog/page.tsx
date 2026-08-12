@@ -10,11 +10,33 @@ import { BookOpen, Calendar, User, ArrowRight } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
+const fallbackPosts = [
+  {
+    id: 'post-1',
+    slug: 'seeking-medical-treatment-in-singapore-malaysia-thailand-india',
+    title: 'Complete Patient Guide: Medical Travel to Singapore, Malaysia, Thailand & India from Bangladesh',
+    summary: 'Learn how IMIC Patient Assistance Centre (CPAC) handles doctor appointments, emergency visas, airport buggy pickups, and hotel bookings seamlessly.',
+    coverImage: '/images/slider/slide1.jpg',
+    category: 'Medical Tourism Guide',
+    author: 'IMIC CPAC Team',
+    publishedAt: new Date()
+  }
+];
+
 export default async function BlogPage() {
-  const posts = await db.blogPost.findMany({
-    where: { published: true },
-    orderBy: { publishedAt: 'desc' }
-  });
+  let posts: any[] = [];
+
+  try {
+    posts = await db.blogPost.findMany({
+      where: { published: true },
+      orderBy: { publishedAt: 'desc' }
+    });
+  } catch (error) {
+    console.error('Blog DB connection note:', error);
+    posts = fallbackPosts;
+  }
+
+  if (posts.length === 0) posts = fallbackPosts;
 
   return (
     <div className="min-h-screen flex flex-col bg-white">

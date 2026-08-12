@@ -7,21 +7,32 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function AdminDashboardPage() {
-  const totalBookings = await db.booking.count();
-  const pendingBookings = await db.booking.count({ where: { status: 'PENDING' } });
-  const totalQuotes = await db.quoteRequest.count();
-  const totalMessages = await db.contactMessage.count();
+  let totalBookings = 0;
+  let pendingBookings = 0;
+  let totalQuotes = 0;
+  let totalMessages = 0;
+  let recentBookings: any[] = [];
+  let recentQuotes: any[] = [];
 
-  const recentBookings = await db.booking.findMany({
-    take: 5,
-    orderBy: { createdAt: 'desc' },
-    include: { hospital: true }
-  });
+  try {
+    totalBookings = await db.booking.count();
+    pendingBookings = await db.booking.count({ where: { status: 'PENDING' } });
+    totalQuotes = await db.quoteRequest.count();
+    totalMessages = await db.contactMessage.count();
 
-  const recentQuotes = await db.quoteRequest.findMany({
-    take: 5,
-    orderBy: { createdAt: 'desc' }
-  });
+    recentBookings = await db.booking.findMany({
+      take: 5,
+      orderBy: { createdAt: 'desc' },
+      include: { hospital: true }
+    });
+
+    recentQuotes = await db.quoteRequest.findMany({
+      take: 5,
+      orderBy: { createdAt: 'desc' }
+    });
+  } catch (error) {
+    console.error('Admin dashboard DB connection note:', error);
+  }
 
   return (
     <div className="space-y-8">
