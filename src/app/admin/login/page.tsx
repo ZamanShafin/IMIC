@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Lock, Mail, ShieldAlert, ArrowRight } from 'lucide-react';
+import { Lock, Mail, ShieldAlert, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -11,6 +11,11 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('admin123');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Prefetch admin dashboard bundle for instant client-side navigation
+  useEffect(() => {
+    router.prefetch('/admin');
+  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,10 +33,10 @@ export default function AdminLoginPage() {
         router.push('/admin');
       } else {
         setError(data.error || 'Invalid credentials');
+        setLoading(false);
       }
     } catch (err) {
       setError('Login connection error');
-    } finally {
       setLoading(false);
     }
   };
@@ -86,10 +91,19 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-imic-navy hover:bg-imic-navy-dark text-white font-bold text-sm py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2"
+            className="w-full bg-imic-navy hover:bg-imic-navy-dark text-white font-bold text-sm py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2 disabled:opacity-80"
           >
-            <span>{loading ? 'Authenticating...' : 'Sign In to Dashboard'}</span>
-            <ArrowRight className="w-4 h-4 text-imic-teal" />
+            {loading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin text-imic-teal" />
+                <span>Authenticating & Loading...</span>
+              </>
+            ) : (
+              <>
+                <span>Sign In to Dashboard</span>
+                <ArrowRight className="w-4 h-4 text-imic-teal" />
+              </>
+            )}
           </button>
         </form>
 
