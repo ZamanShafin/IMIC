@@ -9,7 +9,7 @@ export interface SmsGatewayProvider {
   sendSms(payload: SmsPayload): Promise<{ success: boolean; messageId?: string; error?: string }>;
 }
 
-// Default pluggable SMS adapter for Bangladesh providers (SSL Wireless / Alpha SMS REST APIs)
+// Pluggable SMS adapter for Bangladesh providers (SSL Wireless / Alpha SMS REST APIs)
 export class GenericSmsAdapter implements SmsGatewayProvider {
   private apiUrl: string;
   private apiKey: string;
@@ -21,8 +21,8 @@ export class GenericSmsAdapter implements SmsGatewayProvider {
 
   async sendSms(payload: SmsPayload) {
     if (!this.apiUrl || !this.apiKey) {
-      console.log(`[SMS Simulation] To: ${payload.to} | Message: ${payload.message}`);
-      return { success: true, messageId: 'simulated-sms-id-' + Date.now() };
+      console.log(`[SMS Gateway Note] No SMS_API_URL configured. SMS to ${payload.to} logged.`);
+      return { success: true, messageId: 'simulated-sms-' + Date.now() };
     }
 
     try {
@@ -34,37 +34,39 @@ export class GenericSmsAdapter implements SmsGatewayProvider {
       const data = await res.json();
       return { success: res.ok, messageId: data.messageId };
     } catch (err: any) {
+      console.error('SMS Gateway Error:', err);
       return { success: false, error: err.message };
     }
   }
 }
 
 export async function sendEmailNotification({ to, subject, html }: { to: string; subject: string; html: string }) {
-  if (!process.env.SMTP_HOST) {
-    console.log(`[Email Simulation] To: ${to} | Subject: ${subject}`);
+  const host = process.env.SMTP_HOST;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+
+  if (!host || !user || !pass) {
+    console.log(`[Email Note] No SMTP_HOST configured. Email to ${to} logged.`);
     return { success: true, simulated: true };
   }
 
   try {
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
+      host,
       port: Number(process.env.SMTP_PORT) || 587,
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
+      secure: Number(process.env.SMTP_PORT) === 465,
+      auth: { user, pass },
     });
 
     await transporter.sendMail({
-      from: `"IMIC Patient Assistance" <${process.env.SMTP_FROM || 'info@imic.com.bd'}>`,
+      from: `"IMIC Patient Assistance" <${process.env.SMTP_FROM || user}>`,
       to,
       subject,
       html,
     });
     return { success: true };
   } catch (error: any) {
-    console.error('Email notification error:', error);
+    console.error('SMTP Email Error:', error);
     return { success: false, error: error.message };
   }
 }
