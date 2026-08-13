@@ -5,10 +5,11 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import Link from 'next/link';
 import Image from 'next/image';
 import { db } from '@/lib/db';
-import { ArrowRight, Calendar, User } from 'lucide-react';
+import { ArrowRight, Calendar } from 'lucide-react';
 import fallbackBlogs from '@/data/blogs.json';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function BlogPage() {
   let posts: any[] = [];
@@ -22,7 +23,7 @@ export default async function BlogPage() {
     console.error('Blog DB connection note:', error);
   }
 
-  // Use authentic scraped blog posts from imic.com.bd if database table is initializing
+  // Fallback to extracted authentic blog JSON if database table is initializing
   if (!posts || posts.length === 0) {
     posts = fallbackBlogs.map((b, i) => ({
       id: `scraped-${i}`,
