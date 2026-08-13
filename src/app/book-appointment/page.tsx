@@ -44,12 +44,15 @@ export default function BookAppointmentPage() {
         body: JSON.stringify(formData)
       });
       const data = await res.json();
-      if (res.ok) {
+      if (res.ok && data.success) {
         setBookingRef(data.refNumber);
         setStep(5);
+      } else {
+        alert(data.error || 'Failed to submit booking. Please check details.');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      alert('Connection error submitting booking request.');
     } finally {
       setLoading(false);
     }
