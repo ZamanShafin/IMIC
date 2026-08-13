@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import SmoothScroll from '@/components/SmoothScroll';
 
 export const preferredRegion = 'sin1';
 
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased text-slate-800 bg-white">
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );
