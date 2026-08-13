@@ -15,21 +15,28 @@ export default async function AdminDashboardPage() {
   let recentQuotes: any[] = [];
 
   try {
-    totalBookings = await db.booking.count();
-    pendingBookings = await db.booking.count({ where: { status: 'PENDING' } });
-    totalQuotes = await db.quoteRequest.count();
-    totalMessages = await db.contactMessage.count();
+    const [
+      bCount,
+      pCount,
+      qCount,
+      mCount,
+      recBookings,
+      recQuotes
+    ] = await Promise.all([
+      db.booking.count(),
+      db.booking.count({ where: { status: 'PENDING' } }),
+      db.quoteRequest.count(),
+      db.contactMessage.count(),
+      db.booking.findMany({ take: 5, orderBy: { createdAt: 'desc' }, include: { hospital: true } }),
+      db.quoteRequest.findMany({ take: 5, orderBy: { createdAt: 'desc' } })
+    ]);
 
-    recentBookings = await db.booking.findMany({
-      take: 5,
-      orderBy: { createdAt: 'desc' },
-      include: { hospital: true }
-    });
-
-    recentQuotes = await db.quoteRequest.findMany({
-      take: 5,
-      orderBy: { createdAt: 'desc' }
-    });
+    totalBookings = bCount;
+    pendingBookings = pCount;
+    totalQuotes = qCount;
+    totalMessages = mCount;
+    recentBookings = recBookings;
+    recentQuotes = recQuotes;
   } catch (error) {
     console.error('Admin dashboard DB connection note:', error);
   }

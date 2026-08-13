@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
+export const preferredRegion = 'sin1';
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://imic.com.bd'),
   title: 'IMIC — International Medical Information Center | Medical Tourism Bangladesh',
