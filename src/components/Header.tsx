@@ -51,8 +51,8 @@ export default function Header() {
       {/* Main Navigation */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo & Branded Title */}
-        <Link href="/" className="flex items-center gap-3 sm:gap-4 py-1 group">
-          <div className="relative h-12 sm:h-14 w-44 sm:w-52 shrink-0">
+        <Link href="/" className="flex items-center gap-2.5 py-1 group">
+          <div className="relative h-11 sm:h-13 w-[120px] sm:w-[140px] shrink-0">
             <Image
               src="/images/logo/logo.png"
               alt="IMIC — International Medical Information Center"
@@ -61,7 +61,7 @@ export default function Header() {
               priority
             />
           </div>
-          <div className="border-l-2 border-imic-teal/30 pl-3 hidden md:flex flex-col justify-center py-0.5">
+          <div className="border-l-2 border-imic-teal/40 pl-2.5 hidden md:flex flex-col justify-center py-0.5">
             <span className="text-[11px] font-extrabold text-imic-navy uppercase tracking-wider block leading-tight group-hover:text-imic-teal transition">
               International Medical
             </span>
