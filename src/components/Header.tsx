@@ -50,9 +50,9 @@ export default function Header() {
 
       {/* Main Navigation */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center py-1">
-          <div className="relative h-14 sm:h-16 w-52 sm:w-64">
+        {/* Logo & Full Name */}
+        <Link href="/" className="flex items-center gap-3.5 py-1 group">
+          <div className="relative h-12 w-36 shrink-0">
             <Image
               src="/images/logo/logo.jpeg"
               alt="IMIC — International Medical Information Center"
@@ -60,6 +60,14 @@ export default function Header() {
               className="object-contain object-left"
               priority
             />
+          </div>
+          <div className="border-l-2 border-imic-teal/40 pl-3 hidden sm:flex flex-col justify-center">
+            <span className="font-black text-xl text-imic-navy block tracking-tight leading-none group-hover:text-imic-teal transition">
+              IMIC
+            </span>
+            <span className="text-[11px] font-bold text-imic-teal block mt-0.5 tracking-wide">
+              International Medical Information Center
+            </span>
           </div>
         </Link>
 
