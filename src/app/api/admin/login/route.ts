@@ -2,13 +2,16 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
 
-    // Check user in database
+    // Fast indexed query selecting only essential auth fields
     const user = await db.user.findUnique({
-      where: { email }
+      where: { email },
+      select: { id: true, name: true, email: true, role: true, password: true }
     });
 
     if (!user) {
@@ -19,7 +22,7 @@ export async function POST(req: Request) {
     const cookieStore = cookies();
     cookieStore.set('imic_admin_session', JSON.stringify({ id: user.id, email: user.email, role: user.role, name: user.name }), {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === 'production',
       path: '/',
       maxAge: 60 * 60 * 24 * 7 // 7 days
     });
