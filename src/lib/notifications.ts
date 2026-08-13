@@ -41,34 +41,66 @@ export class GenericSmsAdapter implements SmsGatewayProvider {
 }
 
 export async function sendEmailNotification({ to, subject, html }: { to: string; subject: string; html: string }) {
+  const resendApiKey = process.env.RESEND_API_KEY;
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
 
-  if (!host || !user || !pass) {
-    console.log(`[Email Note] No SMTP_HOST configured. Email to ${to} logged.`);
-    return { success: true, simulated: true };
+  // 1. Resend API Dispatch
+  if (resendApiKey) {
+    try {
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${resendApiKey}`
+        },
+        body: JSON.stringify({
+          from: process.env.EMAIL_FROM || 'IMIC Patient Care <onboarding@resend.dev>',
+          to: [to],
+          subject,
+          html
+        })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        console.log('Resend Email sent successfully:', data.id);
+        return { success: true, emailId: data.id };
+      } else {
+        console.error('Resend Email Error:', data);
+        return { success: false, error: data.message };
+      }
+    } catch (err: any) {
+      console.error('Resend API Fetch Error:', err);
+    }
   }
 
-  try {
-    const transporter = nodemailer.createTransport({
-      host,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: Number(process.env.SMTP_PORT) === 465,
-      auth: { user, pass },
-    });
+  // 2. Nodemailer SMTP Fallback
+  if (host && user && pass) {
+    try {
+      const transporter = nodemailer.createTransport({
+        host,
+        port: Number(process.env.SMTP_PORT) || 587,
+        secure: Number(process.env.SMTP_PORT) === 465,
+        auth: { user, pass },
+      });
 
-    await transporter.sendMail({
-      from: `"IMIC Patient Assistance" <${process.env.SMTP_FROM || user}>`,
-      to,
-      subject,
-      html,
-    });
-    return { success: true };
-  } catch (error: any) {
-    console.error('SMTP Email Error:', error);
-    return { success: false, error: error.message };
+      await transporter.sendMail({
+        from: `"IMIC Patient Assistance" <${process.env.SMTP_FROM || user}>`,
+        to,
+        subject,
+        html,
+      });
+      return { success: true };
+    } catch (error: any) {
+      console.error('SMTP Email Error:', error);
+      return { success: false, error: error.message };
+    }
   }
+
+  console.log(`[Email Note] No RESEND_API_KEY or SMTP_HOST configured. Logged email to ${to}`);
+  return { success: true, simulated: true };
 }
 
 export function generateWhatsAppUrl(phone = '+8801777995995', text?: string) {
