@@ -52,12 +52,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-slate-200">
+          <div className="relative w-14 h-12 rounded-xl overflow-hidden bg-white border border-slate-100 shadow-sm p-0.5">
             <Image
               src="/images/logo/logo.jpeg"
-              alt="IMIC Logo"
+              alt="IMIC — International Medical Information Center"
               fill
-              className="object-cover"
+              className="object-contain"
               priority
             />
           </div>
