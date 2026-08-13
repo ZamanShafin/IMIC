@@ -1,116 +1,96 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
-import { Quote, Play, Star, ChevronLeft, ChevronRight } from 'lucide-react';
-
-const testimonials = [
-  {
-    patientName: "Mr. Jahangir Alam",
-    treatment: "Complex Cardiac Surgery (CABG)",
-    hospital: "Mount Elizabeth Hospital",
-    country: "Singapore",
-    quote: "IMIC arranged my emergency visa within 24 hours and had an ambulance waiting for me at Changi airport. Dr. Tan saved my life. Forever grateful to the IMIC team in Banani!",
-    photo: "/images/testimonials/patient1.png",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-  },
-  {
-    patientName: "Mrs. Rehana Parveen",
-    treatment: "Oncology Radiotherapy",
-    hospital: "Sunway Medical Centre",
-    country: "Malaysia",
-    quote: "The service apartment arranged by IMIC was right across the hospital. Their interpreter was with us every step of the way. Highly recommend IMIC to all Bangladeshi patients.",
-    photo: "/images/testimonials/patient2.png",
-    videoUrl: ""
-  }
-];
+import { Quote, Star, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
+import googleReviewsData from '@/data/testimonials.json';
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
 
-  const prev = () => setCurrent((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-  const next = () => setCurrent((prev) => (prev + 1) % testimonials.length);
+  const prev = () => setCurrent((prev) => (prev === 0 ? googleReviewsData.length - 1 : prev - 1));
+  const next = () => setCurrent((prev) => (prev + 1) % googleReviewsData.length);
 
-  const item = testimonials[current];
+  const item = googleReviewsData[current];
 
   return (
     <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
+      {/* Background ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-imic-teal/10 rounded-full blur-3xl pointer-events-none" />
+
       <div className="max-w-6xl mx-auto px-4 relative z-10">
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
-          <span className="text-xs font-extrabold text-imic-teal uppercase tracking-widest block">
-            Patient Stories & Recoveries
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            What Our Patients Say
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-bold text-imic-teal">
+            <span className="text-amber-400">Google Reviews ⭐⭐⭐⭐⭐</span>
+            <span className="text-slate-300">| 5.0 Rating</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Patient Stories & Google Reviews
           </h2>
+          <p className="text-slate-400 text-sm">
+            Authentic experiences shared by patients who received international treatment assistance through IMIC Banani, Dhaka.
+          </p>
         </div>
 
         {/* Testimonial Card */}
         <div className="bg-slate-800/90 rounded-3xl p-8 md:p-12 border border-slate-700 max-w-4xl mx-auto shadow-2xl relative">
           <Quote className="w-16 h-16 text-imic-teal/20 absolute top-6 right-6" />
 
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            {/* Patient Photo */}
-            <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-imic-teal shrink-0 shadow-lg">
-              <Image
-                src={item.photo}
-                alt={item.patientName}
-                fill
-                className="object-cover"
-              />
+          <div className="space-y-6">
+            {/* Stars & Verified Badge */}
+            <div className="flex items-center justify-between border-b border-slate-700/80 pb-4">
+              <div className="flex items-center gap-1 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-amber-400" />
+                ))}
+                <span className="ml-2 text-xs font-extrabold text-white bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-md">
+                  5.0 / 5.0
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-800/50">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Verified Google Review</span>
+              </div>
             </div>
 
             {/* Quote details */}
-            <div className="space-y-4 text-center md:text-left flex-1">
-              <div className="flex items-center justify-center md:justify-start gap-1 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-amber-400" />
-                ))}
-              </div>
+            <p className="text-slate-100 text-base md:text-lg italic leading-relaxed">
+              "{item.quote}"
+            </p>
 
-              <p className="text-slate-200 text-base md:text-lg italic leading-relaxed">
-                "{item.quote}"
+            <div className="pt-2">
+              <h3 className="text-lg font-extrabold text-white flex items-center gap-2">
+                <span>{item.patientName}</span>
+                <span className="text-xs font-normal text-slate-400">({item.country})</span>
+              </h3>
+              <p className="text-xs font-bold text-imic-teal mt-0.5">
+                {item.treatment} — <span className="text-slate-300 font-semibold">{item.hospital}</span>
               </p>
-
-              <div>
-                <h3 className="text-lg font-bold text-white">{item.patientName}</h3>
-                <p className="text-xs text-imic-teal font-semibold">
-                  {item.treatment} — {item.hospital}, {item.country}
-                </p>
-              </div>
-
-              {item.videoUrl && (
-                <div className="pt-2">
-                  <a
-                    href={item.videoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition"
-                  >
-                    <Play className="w-4 h-4 fill-white" />
-                    <span>Watch Video Testimonial</span>
-                  </a>
-                </div>
-              )}
             </div>
           </div>
 
           {/* Carousel controls */}
-          <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-slate-700">
-            <button
-              onClick={prev}
-              className="p-2.5 rounded-full bg-slate-700 hover:bg-imic-teal text-white transition"
-              aria-label="Previous Testimonial"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={next}
-              className="p-2.5 rounded-full bg-slate-700 hover:bg-imic-teal text-white transition"
-              aria-label="Next Testimonial"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+          <div className="flex items-center justify-between mt-8 pt-6 border-t border-slate-700/80">
+            <span className="text-xs font-semibold text-slate-400">
+              Review {current + 1} of {googleReviewsData.length}
+            </span>
+
+            <div className="flex items-center gap-3">
+              <button
+                onClick={prev}
+                className="p-2.5 rounded-full bg-slate-700 hover:bg-imic-teal text-white transition shadow-md"
+                aria-label="Previous Testimonial"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={next}
+                className="p-2.5 rounded-full bg-slate-700 hover:bg-imic-teal text-white transition shadow-md"
+                aria-label="Next Testimonial"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

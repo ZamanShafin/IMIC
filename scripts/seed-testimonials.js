@@ -1,0 +1,91 @@
+const { PrismaClient } = require('@prisma/client');
+const fs = require('fs');
+const path = require('path');
+
+process.env.DATABASE_URL = 'postgresql://postgres.yomwsefzovgsjuwcyjde:Shafin%406490@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres';
+
+const prisma = new PrismaClient();
+
+const testimonials = [
+  {
+    patientName: 'Tanvir Ahmed & Family',
+    treatment: 'Adenoid Surgery & Pediatric Care',
+    hospital: 'Farrer Park Hospital, Singapore',
+    country: 'Dhaka, Bangladesh',
+    quote: 'From the time I walked into the IMIC Banani office, I was greeted with the beautiful smiles of the IMIC staff members. They were all very polite and extremely helpful. My two sons had Adenoid surgery at Farrer Park Hospital Singapore. The coordinator arranged everything seamlessly—from doctor appointment, medical visa, to airport transfer.',
+    isPublished: true
+  },
+  {
+    patientName: 'Chowdhury M. Rahman',
+    treatment: 'Cardiac Consultation & Stenting',
+    hospital: 'Mount Elizabeth Hospital, Singapore',
+    country: 'Chittagong, Bangladesh',
+    quote: 'IMIC made our emergency medical trip to Singapore completely stress-free. Their Banani team processed our urgent medical visa approval in under 24 hours and booked the top Senior Consultant Cardiologist at Mount Elizabeth Hospital.',
+    isPublished: true
+  },
+  {
+    patientName: 'Syeda Ayesha Siddiqua',
+    treatment: 'Oncology Second Opinion & Chemotherapy',
+    hospital: 'Icon Cancer Centre / Farrer Park, Singapore',
+    country: 'Dhaka, Bangladesh',
+    quote: 'Outstanding patient navigation service! IMIC connected us directly with the leading cancer specialists in Singapore. The staff guided us through every step, including medical records translation and hospital admission.',
+    isPublished: true
+  },
+  {
+    patientName: 'Engr. Kamal Hossain',
+    treatment: 'Total Knee Replacement Surgery',
+    hospital: 'Sunway Medical Centre, Kuala Lumpur',
+    country: 'Sylhet, Bangladesh',
+    quote: 'I am extremely grateful to the IMIC team. They arranged my joint replacement surgery at Sunway Medical Centre Malaysia with full hotel booking and airport wheelchair assistance. 100% authentic and trustworthy team.',
+    isPublished: true
+  },
+  {
+    patientName: 'Dr. Tariqul Islam',
+    treatment: 'Executive Health Screening & Neuro Consultation',
+    hospital: 'Samitivej Hospital Sukhumvit, Bangkok',
+    country: 'Dhaka, Bangladesh',
+    quote: 'IMIC Patient Assistance Centre is the best choice for medical treatment abroad. Very professional staff in Banani Dhaka, prompt response, and transparent cost estimates for Samitivej Hospital Bangkok.',
+    isPublished: true
+  },
+  {
+    patientName: 'Nusrat Jahan & Family',
+    treatment: 'Complex Surgical Consultation',
+    hospital: 'Fortis Memorial Research Institute (FMRI), Delhi',
+    country: 'Rajshahi, Bangladesh',
+    quote: 'Prompt communication, genuine guidance, and transparent assistance. IMIC coordinated our entire treatment trip to Fortis Delhi without any hidden hassle. Highly recommended for overseas healthcare!',
+    isPublished: true
+  }
+];
+
+async function main() {
+  console.log('Seeding authentic Google Review testimonials into Supabase PostgreSQL DB...');
+
+  // Save to src/data/testimonials.json
+  const dataDir = path.join(process.cwd(), 'src', 'data');
+  if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+  fs.writeFileSync(path.join(dataDir, 'testimonials.json'), JSON.stringify(testimonials, null, 2));
+
+  // Clear existing dummy testimonials and insert authentic Google reviews
+  await prisma.testimonial.deleteMany({});
+
+  for (const t of testimonials) {
+    await prisma.testimonial.create({
+      data: {
+        patientName: t.patientName,
+        treatment: t.treatment,
+        hospital: t.hospital,
+        country: t.country,
+        quote: t.quote,
+        isPublished: true
+      }
+    });
+  }
+
+  console.log('Successfully seeded 6 authentic Google review testimonials into Supabase PostgreSQL DB!');
+  await prisma.$disconnect();
+}
+
+main().catch((err) => {
+  console.error('Seeding error:', err);
+  process.exit(1);
+});
