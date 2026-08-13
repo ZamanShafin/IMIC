@@ -37,19 +37,22 @@ export default function Testimonials() {
           <Quote className="w-16 h-16 text-imic-teal/20 absolute top-6 right-6" />
 
           <div className="space-y-6">
-            {/* Stars & Verified Badge */}
-            <div className="flex items-center justify-between border-b border-slate-700/80 pb-4">
-              <div className="flex items-center gap-1 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-amber-400" />
-                ))}
-                <span className="ml-2 text-xs font-extrabold text-white bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-md">
-                  5.0 / 5.0
-                </span>
-              </div>
-              <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-800/50">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Verified Google Review</span>
+            {/* Stars & Verified Badge (Unified Left Alignment) */}
+            <div className="flex items-center justify-start border-b border-slate-700/80 pb-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-1 text-amber-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-amber-400" />
+                  ))}
+                  <span className="ml-1.5 text-xs font-extrabold text-white bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-md">
+                    5.0 / 5.0
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-800/50">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Verified Google Review</span>
+                </div>
               </div>
             </div>
 
