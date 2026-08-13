@@ -51,19 +51,15 @@ export default function Header() {
       {/* Main Navigation */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <div className="relative w-14 h-12 rounded-xl overflow-hidden bg-white border border-slate-100 shadow-sm p-0.5">
+        <Link href="/" className="flex items-center py-1">
+          <div className="relative h-14 sm:h-16 w-52 sm:w-64">
             <Image
               src="/images/logo/logo.jpeg"
               alt="IMIC — International Medical Information Center"
               fill
-              className="object-contain"
+              className="object-contain object-left"
               priority
             />
-          </div>
-          <div>
-            <span className="font-bold text-lg text-imic-navy block leading-tight">IMIC</span>
-            <span className="text-xs text-slate-500 block">International Medical Information Center</span>
           </div>
         </Link>
 
