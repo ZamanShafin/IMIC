@@ -7,7 +7,6 @@ import Image from 'next/image';
 import { db } from '@/lib/db';
 import { BookOpen, Calendar, User, ArrowRight } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 
 const fallbackPosts = [
