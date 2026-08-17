@@ -18,11 +18,11 @@ const partnerLogos = [
 ];
 
 export default function PartnerLogos() {
-  // Duplicate array for seamless infinite marquee loop
-  const marqueeItems = [...partnerLogos, ...partnerLogos];
+  // Quadruple items to ensure 100% gapless continuous marquee across all ultrawide & 4K screen resolutions
+  const marqueeItems = [...partnerLogos, ...partnerLogos, ...partnerLogos, ...partnerLogos];
 
   return (
-    <section className="py-12 bg-white border-y border-slate-200 overflow-hidden">
+    <section className="py-12 bg-white border-y border-slate-200 w-full overflow-hidden max-w-[100vw]">
       <div className="max-w-7xl mx-auto px-4 mb-6">
         <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-widest text-center">
           <Building2 className="w-4 h-4 text-imic-teal" />
@@ -31,12 +31,12 @@ export default function PartnerLogos() {
       </div>
 
       {/* Infinite Marquee Track */}
-      <div className="relative w-full overflow-hidden mask-gradient">
+      <div className="relative w-full overflow-hidden">
         {/* Subtle Edge Fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
-        <div className="animate-marquee flex items-center gap-12 py-2">
+        <div className="animate-marquee flex items-center gap-6 py-2 will-change-transform">
           {marqueeItems.map((partner, index) => (
             <div
               key={index}
@@ -47,6 +47,7 @@ export default function PartnerLogos() {
                 src={partner.logo}
                 alt={partner.name}
                 fill
+                sizes="144px"
                 className="object-contain p-2 grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
               />
             </div>

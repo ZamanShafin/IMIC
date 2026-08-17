@@ -13,14 +13,22 @@ const accreditationList = [
 ];
 
 export default function AccreditationLogos() {
-  const marqueeItems = [...accreditationList, ...accreditationList];
+  // Multiply 6x to ensure dense, continuous, gapless marquee scrolling across all monitor widths
+  const marqueeItems = [
+    ...accreditationList,
+    ...accreditationList,
+    ...accreditationList,
+    ...accreditationList,
+    ...accreditationList,
+    ...accreditationList
+  ];
 
   return (
-    <section className="py-10 bg-slate-900 text-white overflow-hidden border-t border-slate-800">
+    <section className="py-10 bg-slate-900 text-white w-full overflow-hidden border-t border-slate-800 max-w-[100vw]">
       <div className="max-w-7xl mx-auto px-4 mb-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-emerald-400" />
+            <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
             <div>
               <span className="text-xs font-black uppercase tracking-wider text-white block">
                 International Quality & Accreditation Standards
@@ -40,10 +48,10 @@ export default function AccreditationLogos() {
       {/* Infinite Marquee Track */}
       <div className="relative w-full overflow-hidden">
         {/* Subtle Edge Fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-slate-900 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-slate-900 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-slate-900 via-slate-900/80 to-transparent z-10 pointer-events-none" />
 
-        <div className="animate-marquee flex items-center gap-8 py-2">
+        <div className="animate-marquee flex items-center gap-6 py-2 will-change-transform">
           {marqueeItems.map((item, index) => (
             <div
               key={index}
@@ -54,6 +62,7 @@ export default function AccreditationLogos() {
                 src={item.logo}
                 alt={item.name}
                 fill
+                sizes="144px"
                 className="object-contain p-1.5 brightness-95 contrast-105 group-hover:scale-105 transition-transform"
               />
             </div>
