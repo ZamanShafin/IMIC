@@ -7,8 +7,8 @@ const countryTiles = [
   {
     name: 'Singapore',
     flagImg: '/images/flags/singapore.png',
-    hospitalCount: '7 Premier Hospitals',
-    highlights: 'Gleneagles, NCCS, SNEC, Farrer Park, Mount Elizabeth, ICON Cancer',
+    hospitalCount: '11 Premier Hospitals',
+    highlights: 'Gleneagles, NCCS, SNEC, Farrer Park, Mount Elizabeth Novena, Mount Elizabeth Orchard, ICON Cancer',
     image: '/images/hospitals/farrer-park-1.jpg',
     href: '/our-hospitals?country=Singapore',
     badge: 'JCI Accredited Centres'
@@ -52,7 +52,7 @@ const countryTiles = [
   {
     name: 'India',
     flagImg: '/images/flags/india.png',
-    hospitalCount: '32+ Super Speciality Hospitals',
+    hospitalCount: '36+ Super Speciality Hospitals',
     highlights: 'Apollo, Fortis, Max, Medanta, Manipal, Global, Sankara Nethralaya, AIG & KIMS across Kolkata, Delhi, Chennai, Bangalore, Mumbai & Hyderabad',
     image: '/images/hospitals/fortis-1.jpg',
     href: '/our-hospitals?country=India',
