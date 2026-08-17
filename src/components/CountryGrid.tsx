@@ -43,11 +43,11 @@ const countryTiles = [
   {
     name: 'China',
     flagImg: '/images/flags/china.png',
-    hospitalCount: '2 Top National Medical Hubs',
-    highlights: 'Peking Union Medical College (PUMCH), Fudan University Cancer Center',
-    image: '/images/hospitals/pumch-beijing.jpg',
+    hospitalCount: '7 Premier Tertiary Hospitals',
+    highlights: 'Modern Cancer Hospital Guangzhou, Foshan Chancheng, Guangzhou Xinshi, Shenzhen Hengsheng, StarKids Shanghai, Zhuhai Chancheng, Xuzhou Star',
+    image: '/images/hospitals/modern-cancer-guangzhou.jpg',
     href: '/our-hospitals?country=China',
-    badge: 'Advanced Proton & Research'
+    badge: 'Minimally Invasive Oncology & Surgery'
   },
   {
     name: 'India',
