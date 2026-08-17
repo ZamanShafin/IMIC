@@ -89,13 +89,10 @@ export default function ClinicalServicesSection() {
                 className="bg-white rounded-3xl p-7 border border-slate-200 shadow-sm hover:shadow-xl hover:border-imic-teal/50 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div>
                     <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border shadow-sm group-hover:scale-105 transition-transform ${item.color}`}>
                       <Icon className="w-7 h-7" />
                     </div>
-                    <span className="text-[10px] font-extrabold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full uppercase tracking-wider">
-                      Centre 0{index + 1}
-                    </span>
                   </div>
 
                   <div className="space-y-2">
