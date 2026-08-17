@@ -52,11 +52,11 @@ const countryTiles = [
   {
     name: 'India',
     flagImg: '/images/flags/india.png',
-    hospitalCount: '4 Quaternary Super Speciality Hubs',
-    highlights: 'Fortis FMRI Delhi, HCG Bangalore, Reliance Mumbai, Rajagiri Kochi',
+    hospitalCount: '32+ Super Speciality Hospitals',
+    highlights: 'Apollo, Fortis, Max, Medanta, Manipal, Global, Sankara Nethralaya, AIG & KIMS across Kolkata, Delhi, Chennai, Bangalore, Mumbai & Hyderabad',
     image: '/images/hospitals/fortis-1.jpg',
     href: '/our-hospitals?country=India',
-    badge: 'Cost-Effective High Tech'
+    badge: 'Pan-India Super Specialty Network'
   },
 ];
 
