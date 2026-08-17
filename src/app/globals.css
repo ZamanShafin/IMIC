@@ -77,7 +77,7 @@ body {
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 40s linear infinite;
+  animation: marquee 70s linear infinite;
   backface-visibility: hidden;
   perspective: 1000px;
 }
@@ -89,7 +89,7 @@ body {
 .animate-marquee-reverse {
   display: flex;
   width: max-content;
-  animation: marquee 40s linear infinite reverse;
+  animation: marquee 70s linear infinite reverse;
   backface-visibility: hidden;
   perspective: 1000px;
 }
