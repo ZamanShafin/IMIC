@@ -94,8 +94,8 @@ export default function HowWeWork() {
           </p>
         </div>
 
-        {/* Step Selector Horizontal Bar with Full Step Names (No dots!) */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-10">
+        {/* Step Selector Horizontal Bar - Uniform Equal Dimensions Across All 7 Steps */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-10 items-stretch">
           {steps.map((step, idx) => {
             const Icon = step.icon;
             const isActive = idx === activeStep;
@@ -104,22 +104,22 @@ export default function HowWeWork() {
               <button
                 key={idx}
                 onClick={() => setActiveStep(idx)}
-                className={`p-3.5 rounded-2xl text-left transition-all duration-300 flex flex-col justify-between border ${
+                className={`h-28 w-full p-3.5 rounded-2xl text-left transition-all duration-200 flex flex-col justify-between border ${
                   isActive
-                    ? 'bg-imic-navy text-white border-imic-teal shadow-lg scale-[1.03] ring-2 ring-imic-teal/40'
-                    : 'bg-white text-slate-700 border-slate-200 hover:border-imic-teal/50 hover:bg-slate-50'
+                    ? 'bg-imic-navy text-white border-imic-teal shadow-lg ring-2 ring-imic-teal/50'
+                    : 'bg-white text-slate-700 border-slate-200 hover:border-imic-teal/40 hover:bg-slate-50'
                 }`}
               >
-                <div className="flex items-center justify-between w-full mb-3">
+                <div className="flex items-center justify-between w-full">
                   <div
-                    className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs ${
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 ${
                       isActive ? 'bg-imic-teal text-white' : 'bg-slate-100 text-slate-600'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
                   </div>
                   <span
-                    className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                    className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider ${
                       isActive ? 'bg-white/20 text-imic-teal' : 'bg-slate-100 text-slate-500'
                     }`}
                   >
@@ -127,10 +127,12 @@ export default function HowWeWork() {
                   </span>
                 </div>
 
-                {/* Full Step Name */}
-                <span className={`text-xs font-bold line-clamp-2 leading-tight ${isActive ? 'text-white' : 'text-slate-800'}`}>
-                  {step.shortTitle}
-                </span>
+                {/* Step Name - Equal Height text container for 100% uniform button height */}
+                <div className="h-8 flex items-center">
+                  <span className={`text-xs font-bold leading-snug line-clamp-2 ${isActive ? 'text-white' : 'text-slate-800'}`}>
+                    {step.shortTitle}
+                  </span>
+                </div>
               </button>
             );
           })}
@@ -152,36 +154,40 @@ export default function HowWeWork() {
               {steps[activeStep].description}
             </p>
 
-            <div className="pt-4 flex items-center gap-4">
-              <button
-                disabled={activeStep === 0}
-                onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
-                className="text-xs font-bold text-slate-500 disabled:opacity-30 hover:text-imic-navy transition"
-              >
-                ← Previous Step
-              </button>
-              <button
-                disabled={activeStep === steps.length - 1}
-                onClick={() => setActiveStep((prev) => Math.min(steps.length - 1, prev + 1))}
-                className="text-xs font-bold text-imic-teal flex items-center gap-1 hover:text-imic-teal-hover transition"
-              >
-                <span>Next Step</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+            <div className="pt-4 flex items-center gap-4 text-xs font-bold">
+              {activeStep > 0 && (
+                <button
+                  onClick={() => setActiveStep(activeStep - 1)}
+                  className="text-slate-500 hover:text-imic-navy transition"
+                >
+                  ← Previous Step
+                </button>
+              )}
+              {activeStep < steps.length - 1 && (
+                <button
+                  onClick={() => setActiveStep(activeStep + 1)}
+                  className="text-imic-teal hover:text-imic-teal-hover transition flex items-center gap-1"
+                >
+                  <span>Next Step</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              )}
             </div>
           </div>
 
-          <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col items-center justify-center text-center space-y-3">
-            <div className="w-16 h-16 rounded-2xl bg-imic-teal/10 text-imic-teal flex items-center justify-center shadow-inner">
-              {React.createElement(steps[activeStep].icon, { className: "w-8 h-8 text-imic-teal" })}
+          <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 text-center space-y-3">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-imic-teal/10 text-imic-teal flex items-center justify-center">
+              {React.createElement(steps[activeStep].icon, { className: "w-7 h-7" })}
             </div>
-            <div className="flex items-center gap-1 text-xs font-bold text-imic-navy uppercase tracking-wider">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>IMIC Care Guarantee</span>
+            <div className="space-y-1">
+              <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-imic-navy">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>IMIC CARE GUARANTEE</span>
+              </div>
+              <p className="text-[11px] text-slate-500 leading-normal">
+                Assigned dedicated medical case officer from Dhaka CPAC to overseas hospital bedside.
+              </p>
             </div>
-            <p className="text-[11px] text-slate-500 leading-relaxed">
-              Assigned dedicated medical case officer from Dhaka CPAC to overseas hospital bedside.
-            </p>
           </div>
         </div>
       </div>
