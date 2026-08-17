@@ -99,18 +99,21 @@ export default function CountryGrid() {
                   {tile.badge}
                 </div>
 
-                {/* Country Logo Flag Image + Name */}
+                {/* Country Logo Flag Image Badge + Name */}
                 <div className="absolute bottom-3.5 left-3.5 right-3.5 text-white">
-                  <div className="flex items-center gap-2.5">
-                    <div className="relative w-8 h-5.5 rounded overflow-hidden shadow-md border border-white/60 shrink-0">
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-9 h-6 rounded-md overflow-hidden shadow-md border border-white/80 shrink-0 bg-white/10 flex items-center justify-center">
                       <Image
                         src={tile.flagImg}
                         alt={`${tile.name} Flag`}
-                        fill
-                        className="object-cover"
+                        width={36}
+                        height={24}
+                        className="w-full h-full object-cover"
                       />
                     </div>
-                    <h3 className="text-xl font-bold leading-tight drop-shadow">{tile.name}</h3>
+                    <h3 className="text-xl font-extrabold leading-tight text-white drop-shadow-md">
+                      {tile.name}
+                    </h3>
                   </div>
                 </div>
               </div>
