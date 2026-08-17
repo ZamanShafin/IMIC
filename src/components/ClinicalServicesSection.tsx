@@ -12,7 +12,8 @@ import {
   Stethoscope, 
   ShieldPlus, 
   ArrowRight,
-  CheckCircle2
+  CheckCircle2,
+  ChevronRight
 } from 'lucide-react';
 
 const clinicalSpecialties = [
@@ -57,33 +58,12 @@ const clinicalSpecialties = [
     color: 'text-pink-500 bg-pink-50 border-pink-200',
     description: 'Advanced In-Vitro Fertilization (IVF), ICSI, Pre-implantation Genetic Testing (PGT-A/M), egg freezing, and reproductive endocrinology.',
     keyTreatments: ['IVF & ICSI Cycles', 'PGT Genetic Screening', 'Recurrent Miscarriage Clinic', 'Fertility Preservation']
-  },
-  {
-    title: 'Gastroenterology & Hepatology',
-    icon: Activity,
-    color: 'text-emerald-500 bg-emerald-50 border-emerald-200',
-    description: 'Endoscopic Ultrasound (EUS), ERCP, advanced therapeutic endoscopy, liver cirrhosis management, and bariatric metabolic surgery.',
-    keyTreatments: ['Therapeutic ERCP & EUS', 'Liver Cirrhosis Care', 'Laparoscopic GI Surgery', 'Bariatric Surgery']
-  },
-  {
-    title: 'Ophthalmology & Eye Microsurgery',
-    icon: Eye,
-    color: 'text-cyan-500 bg-cyan-50 border-cyan-200',
-    description: 'Laser vision correction (SMILE / Femto-LASIK), corneal endothelial transplants, vitreo-retinal microsurgery, and complex glaucoma care.',
-    keyTreatments: ['SMILE Laser Surgery', 'Corneal Grafting (DMEK)', 'Retina Detachment Care', 'Glaucoma Shunt Surgery']
-  },
-  {
-    title: 'Executive Health Screening & Wellness',
-    icon: Stethoscope,
-    color: 'text-blue-500 bg-blue-50 border-blue-200',
-    description: 'Same-day full-body health screening packages, coronary CT calcium scoring, low-dose lung cancer screening, and genetic health risk profiling.',
-    keyTreatments: ['Comprehensive Health Screen', 'Cardiac Calcium Score', 'Low-Dose Chest CT', 'Genetic Profiling']
   }
 ];
 
 export default function ClinicalServicesSection() {
   return (
-    <section className="py-20 bg-slate-50 border-t border-slate-200">
+    <section className="py-20 bg-slate-50 border-t border-slate-200" id="clinical-services-preview">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-14">
@@ -99,7 +79,7 @@ export default function ClinicalServicesSection() {
           </p>
         </div>
 
-        {/* 9 Clinical Services Cards */}
+        {/* 6 Preview Clinical Services Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {clinicalSpecialties.map((item, index) => {
             const Icon = item.icon;
@@ -162,6 +142,22 @@ export default function ClinicalServicesSection() {
               </div>
             );
           })}
+        </div>
+
+        {/* View All Clinical Services Button linking to /service-specialities#clinical-services */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/service-specialities#clinical-services"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-imic-navy via-slate-800 to-imic-navy hover:from-imic-teal hover:to-imic-navy text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-sm sm:text-base group"
+          >
+            <span>Explore All 15+ Clinical Disciplines & Detailed Procedures</span>
+            <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+              <ChevronRight className="w-4 h-4 text-white" />
+            </div>
+          </Link>
+          <p className="text-xs text-slate-500 mt-2.5">
+            Includes Orthopaedics, Neurology, ENT, Oncology, Organ Transplants, Cardiology, Urology, Gynaecology & more
+          </p>
         </div>
       </div>
     </section>
