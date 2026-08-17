@@ -52,8 +52,8 @@ const countryTiles = [
   {
     name: 'India',
     flagImg: '/images/flags/india.png',
-    hospitalCount: '36+ Super Speciality Hospitals',
-    highlights: 'Apollo, Fortis, Max, Medanta, Manipal, Global, Sankara Nethralaya, AIG & KIMS across Kolkata, Delhi, Chennai, Bangalore, Mumbai & Hyderabad',
+    hospitalCount: '39+ Super Speciality Hospitals',
+    highlights: 'Kokilaben, Jaslok, Apollo, Fortis, Max, Medanta, Manipal, Global, Sankara Nethralaya, AIG & KIMS across Mumbai, Delhi, Kolkata, Chennai, Bangalore & Hyderabad',
     image: '/images/hospitals/fortis-1.jpg',
     href: '/our-hospitals?country=India',
     badge: 'Pan-India Super Specialty Network'

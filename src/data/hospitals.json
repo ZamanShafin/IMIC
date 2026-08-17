@@ -434,6 +434,20 @@
     "createdAt": "2026-08-17T10:49:24.040Z"
   },
   {
+    "id": "a6003080-f994-4dc5-87ec-c8b2b4954ace",
+    "slug": "jaslok-hospital-research-centre-mumbai",
+    "name": "Jaslok Hospital & Research Centre",
+    "country": "India",
+    "city": "Mumbai, Maharashtra",
+    "address": "15, Dr. Deshmukh Marg, Pedder Road, Cumballa Hill, Mumbai, Maharashtra 400026",
+    "description": "One of India’s most iconic landmark multi-specialty institutions on Pedder Road, South Mumbai. Renowned pioneer in kidney & liver transplantation, interventional cardiology, MR-guided Focused Ultrasound (MRgFUS), neurosurgery, IVF genetics, and high-dose oncology radiation.",
+    "image": "/images/hospitals/jaslok-mumbai.jpg",
+    "photos": "[\"/images/hospitals/jaslok-mumbai.jpg\"]",
+    "accreditations": "[\"NABH Accredited\",\"NABL Certified\",\"JCI Benchmark Partner\",\"Pioneer Transplant Institute\"]",
+    "featured": true,
+    "createdAt": "2026-08-17T13:56:16.177Z"
+  },
+  {
     "id": "9bc83cc3-308c-46a6-8a04-ad88aeab6d78",
     "slug": "kauvery-hospital-chennai",
     "name": "Kauvery Hospital Chennai",
@@ -460,6 +474,20 @@
     "accreditations": "[\"NABH Accredited\",\"NABL Certified\",\"Green Hospital Award\"]",
     "featured": true,
     "createdAt": "2026-08-17T10:49:24.259Z"
+  },
+  {
+    "id": "964dfeed-1bcb-4c51-9f25-8ad3aa151581",
+    "slug": "kokilaben-dhirubhai-ambani-hospital-mumbai",
+    "name": "Kokilaben Dhirubhai Ambani Hospital and Medical Research Institute",
+    "country": "India",
+    "city": "Mumbai, Maharashtra",
+    "address": "Rao Saheb Achutrao Patwardhan Marg, Four Bungalows, Andheri West, Mumbai, Maharashtra 400053",
+    "description": "Flagship JCI, NABH, and CAP-accredited quaternary super-speciality healthcare institute in Mumbai. Pioneering Full Time Specialist System (FTSS), da Vinci Xi robotic cancer surgery, pediatric cardiac surgery, comprehensive neurosciences, multi-organ transplants, and advanced sports medicine.",
+    "image": "/images/hospitals/kokilaben-mumbai.jpg",
+    "photos": "[\"/images/hospitals/kokilaben-mumbai.jpg\"]",
+    "accreditations": "[\"JCI Accredited\",\"NABH Accredited\",\"CAP Accredited\",\"NABL Certified\"]",
+    "featured": true,
+    "createdAt": "2026-08-17T13:56:15.976Z"
   },
   {
     "id": "d7ab367e-abb3-4fb3-bd31-08717467c647",
@@ -600,6 +628,20 @@
     "accreditations": "[\"JCI Accredited\",\"NABH Accredited\"]",
     "featured": true,
     "createdAt": "2026-08-17T10:32:22.213Z"
+  },
+  {
+    "id": "bbbf9fc3-ca6d-499a-ad6b-7e9663aaaf18",
+    "slug": "sushrut-hospital-research-centre-mumbai",
+    "name": "Sushrut Hospital & Research Centre",
+    "country": "India",
+    "city": "Mumbai, Maharashtra",
+    "address": "365, Swastik Park, Chembur East, Mumbai, Maharashtra 400071",
+    "description": "Distinguished multi-speciality tertiary hospital and research centre in Chembur, Mumbai, specializing in advanced nephrology, kidney transplants, high-dependency ICU critical care, laparoscopic general surgery, orthopaedics, and interventional cardiology.",
+    "image": "/images/hospitals/sushrut-mumbai.jpg",
+    "photos": "[\"/images/hospitals/sushrut-mumbai.jpg\"]",
+    "accreditations": "[\"NABH Accredited\",\"ISO 9001 Certified\",\"Apex Renal Care Center\"]",
+    "featured": true,
+    "createdAt": "2026-08-17T13:56:16.121Z"
   },
   {
     "id": "71b33d40-0aba-4633-9dda-dc2f56217de0",
