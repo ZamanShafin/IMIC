@@ -13,7 +13,7 @@ const accreditationList = [
 ];
 
 export default function AccreditationLogos() {
-  // Multiply 6x to ensure dense, continuous, gapless marquee scrolling across all monitor widths
+  // Multiply items for continuous dense loop
   const marqueeItems = [
     ...accreditationList,
     ...accreditationList,
@@ -24,9 +24,11 @@ export default function AccreditationLogos() {
   ];
 
   return (
-    <section className="py-10 bg-slate-900 text-white w-full overflow-hidden border-t border-slate-800 max-w-[100vw]">
-      <div className="max-w-7xl mx-auto px-4 mb-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+    <section className="py-10 bg-slate-900 text-white border-t border-slate-800">
+      {/* Contained within maximum content container */}
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
             <div>
@@ -43,30 +45,30 @@ export default function AccreditationLogos() {
             100% Verified Quality
           </div>
         </div>
-      </div>
 
-      {/* Infinite Marquee Track */}
-      <div className="relative w-full overflow-hidden">
-        {/* Subtle Edge Fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-slate-900 via-slate-900/80 to-transparent z-10 pointer-events-none" />
+        {/* Infinite Marquee Track - Constrained within max-w-7xl container */}
+        <div className="relative w-full overflow-hidden rounded-2xl bg-slate-800/40 border border-slate-800/80 p-2">
+          {/* Subtle Edge Fades within container boundary */}
+          <div className="absolute left-0 top-0 bottom-0 w-10 sm:w-16 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-10 sm:w-16 bg-gradient-to-l from-slate-900/90 via-slate-900/60 to-transparent z-10 pointer-events-none" />
 
-        <div className="animate-marquee flex items-center gap-6 py-2 will-change-transform">
-          {marqueeItems.map((item, index) => (
-            <div
-              key={index}
-              className="relative w-36 h-14 bg-slate-800/90 hover:bg-slate-700 p-2.5 rounded-2xl border border-slate-700/80 shadow-md flex items-center justify-center shrink-0 group transition-all duration-300 cursor-pointer"
-              title={item.name}
-            >
-              <Image
-                src={item.logo}
-                alt={item.name}
-                fill
-                sizes="144px"
-                className="object-contain p-1.5 brightness-95 contrast-105 group-hover:scale-105 transition-transform"
-              />
-            </div>
-          ))}
+          <div className="animate-marquee flex items-center gap-6 py-2 will-change-transform">
+            {marqueeItems.map((item, index) => (
+              <div
+                key={index}
+                className="relative w-36 h-14 bg-slate-800/90 hover:bg-slate-700 p-2.5 rounded-2xl border border-slate-700/80 shadow-md flex items-center justify-center shrink-0 group transition-all duration-300 cursor-pointer"
+                title={item.name}
+              >
+                <Image
+                  src={item.logo}
+                  alt={item.name}
+                  fill
+                  sizes="144px"
+                  className="object-contain p-1.5 brightness-95 contrast-105 group-hover:scale-105 transition-transform"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
