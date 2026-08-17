@@ -6,7 +6,7 @@ import { ArrowRight, Building2 } from 'lucide-react';
 const countryTiles = [
   {
     name: 'Singapore',
-    flag: '🇸🇬',
+    flagImg: '/images/flags/singapore.png',
     hospitalCount: '7 Premier Hospitals',
     highlights: 'Gleneagles, NCCS, SNEC, Farrer Park, Mount Elizabeth, ICON Cancer',
     image: '/images/hospitals/farrer-park-1.jpg',
@@ -15,7 +15,7 @@ const countryTiles = [
   },
   {
     name: 'Malaysia',
-    flag: '🇲🇾',
+    flagImg: '/images/flags/malaysia.png',
     hospitalCount: '5 Quaternary Medical Centres',
     highlights: 'Sunway Medical, Prince Court, Beacon, SJMC, Gleneagles KL',
     image: '/images/hospitals/sunway-medical-1.jpg',
@@ -24,7 +24,7 @@ const countryTiles = [
   },
   {
     name: 'Thailand',
-    flag: '🇹🇭',
+    flagImg: '/images/flags/thailand.png',
     hospitalCount: '5 Top International Hospitals',
     highlights: 'Samitivej Sukhumvit, BNH, Vejthani, Bangkok Hospital, MedPark',
     image: '/images/hospitals/samitivej-1.jpg',
@@ -33,7 +33,7 @@ const countryTiles = [
   },
   {
     name: 'Indonesia',
-    flag: '🇮🇩',
+    flagImg: '/images/flags/indonesia.png',
     hospitalCount: '2 National Apex Hospitals',
     highlights: 'Medistra Hospital Jakarta, RSUPN Dr. Cipto Mangunkusumo (RSCM)',
     image: '/images/hospitals/medistra-jakarta.jpg',
@@ -42,7 +42,7 @@ const countryTiles = [
   },
   {
     name: 'China',
-    flag: '🇨🇳',
+    flagImg: '/images/flags/china.png',
     hospitalCount: '2 Top National Medical Hubs',
     highlights: 'Peking Union Medical College (PUMCH), Fudan University Cancer Center',
     image: '/images/hospitals/pumch-beijing.jpg',
@@ -51,7 +51,7 @@ const countryTiles = [
   },
   {
     name: 'India',
-    flag: '🇮🇳',
+    flagImg: '/images/flags/india.png',
     hospitalCount: '4 Quaternary Super Speciality Hubs',
     highlights: 'Fortis FMRI Delhi, HCG Bangalore, Reliance Mumbai, Rajagiri Kochi',
     image: '/images/hospitals/fortis-1.jpg',
@@ -93,16 +93,24 @@ export default function CountryGrid() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-imic-navy/90 via-imic-navy/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-imic-navy/95 via-imic-navy/40 to-transparent" />
                 
                 <div className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-imic-navy shadow-sm">
                   {tile.badge}
                 </div>
 
+                {/* Country Logo Flag Image + Name */}
                 <div className="absolute bottom-3.5 left-3.5 right-3.5 text-white">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">{tile.flag}</span>
-                    <h3 className="text-xl font-bold leading-tight">{tile.name}</h3>
+                  <div className="flex items-center gap-2.5">
+                    <div className="relative w-8 h-5.5 rounded overflow-hidden shadow-md border border-white/60 shrink-0">
+                      <Image
+                        src={tile.flagImg}
+                        alt={`${tile.name} Flag`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <h3 className="text-xl font-bold leading-tight drop-shadow">{tile.name}</h3>
                   </div>
                 </div>
               </div>
