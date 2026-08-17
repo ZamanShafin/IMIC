@@ -5,66 +5,15 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import Image from 'next/image';
 import Link from 'next/link';
 import { db } from '@/lib/db';
-import { MapPin, Building2, ShieldCheck, ArrowRight } from 'lucide-react';
+import { MapPin, Building2, ShieldCheck, ArrowRight, Stethoscope } from 'lucide-react';
+import fallbackHospitals from '@/data/hospitals.json';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 interface PageProps {
   searchParams: { country?: string; specialty?: string; query?: string };
 }
-
-const fallbackHospitals = [
-  {
-    id: 'farrer-park',
-    name: 'Farrer Park Hospital',
-    slug: 'farrer-park-hospital',
-    country: 'Singapore',
-    city: 'Singapore',
-    description: 'Premier tertiary hospital integrated with a 5-star hotel and medical centre in Singapore.',
-    image: '/images/hospitals/farrer-park-1.jpg',
-    accreditations: '["JCI Accredited"]'
-  },
-  {
-    id: 'icon-cancer',
-    name: 'ICON Cancer Centre',
-    slug: 'icon-cancer-centre',
-    country: 'Singapore',
-    city: 'Singapore',
-    description: "Singapore's leading private oncology provider offering comprehensive cancer care.",
-    image: '/images/hospitals/icon-cancer-1.jpg',
-    accreditations: '["JCI Accredited"]'
-  },
-  {
-    id: 'sunway-medical',
-    name: 'Sunway Medical Centre',
-    slug: 'sunway-medical-centre',
-    country: 'Malaysia',
-    city: 'Kuala Lumpur',
-    description: "One of Asia's largest private tertiary healthcare institutions in Malaysia.",
-    image: '/images/hospitals/sunway-medical-1.jpg',
-    accreditations: '["ACHS Accredited", "JCI Accredited"]'
-  },
-  {
-    id: 'samitivej',
-    name: 'Samitivej Hospitals',
-    slug: 'samitivej-hospitals',
-    country: 'Thailand',
-    city: 'Bangkok',
-    description: 'Award-winning private medical group in Bangkok recognized for pediatric and specialized care.',
-    image: '/images/hospitals/samitivej-1.jpg',
-    accreditations: '["JCI Accredited"]'
-  },
-  {
-    id: 'fortis-gurugram',
-    name: 'Fortis Memorial Research Institute',
-    slug: 'fortis-memorial-research-institute',
-    country: 'India',
-    city: 'Gurugram',
-    description: 'Multi-super speciality quaternary care hospital with international clinical faculty in Delhi NCR.',
-    image: '/images/hospitals/fortis-1.jpg',
-    accreditations: '["JCI Accredited", "NABH Accredited"]'
-  }
-];
 
 export default async function OurHospitalsPage({ searchParams }: PageProps) {
   const selectedCountry = searchParams.country || '';
@@ -80,30 +29,33 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
     }
     if (searchQuery) {
       whereClause.OR = [
-        { name: { contains: searchQuery } },
-        { description: { contains: searchQuery } },
-        { city: { contains: searchQuery } }
+        { name: { contains: searchQuery, mode: 'insensitive' } },
+        { description: { contains: searchQuery, mode: 'insensitive' } },
+        { city: { contains: searchQuery, mode: 'insensitive' } }
       ];
     }
 
     hospitals = await db.hospital.findMany({
       where: whereClause,
-      orderBy: { name: 'asc' }
+      orderBy: [
+        { featured: 'desc' },
+        { name: 'asc' }
+      ]
     });
   } catch (error) {
     console.error('Hospitals DB connection note:', error);
+  }
+
+  // Fallback to rich dataset if DB is empty or connecting
+  if (!hospitals || hospitals.length === 0) {
     hospitals = fallbackHospitals.filter((h) => {
-      if (selectedCountry && h.country !== selectedCountry) return false;
-      if (searchQuery && !h.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+      if (selectedCountry && h.country.toLowerCase() !== selectedCountry.toLowerCase()) return false;
+      if (searchQuery && !h.name.toLowerCase().includes(searchQuery.toLowerCase()) && !h.city.toLowerCase().includes(searchQuery.toLowerCase())) return false;
       return true;
     });
   }
 
-  if (hospitals.length === 0 && !selectedCountry && !searchQuery) {
-    hospitals = fallbackHospitals;
-  }
-
-  const countriesList = ['Singapore', 'Malaysia', 'Thailand', 'India'];
+  const countriesList = ['Singapore', 'Malaysia', 'Thailand', 'Indonesia', 'China', 'India'];
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -118,7 +70,7 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
             </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold">Our Associated Hospitals</h1>
             <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
-              Explore premier JCI & accredited medical institutions across Singapore, Malaysia, Thailand, and India.
+              Explore premier JCI & internationally accredited medical institutions across Singapore, Malaysia, Thailand, Indonesia, China, and India.
             </p>
           </div>
         </section>
@@ -141,7 +93,7 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
                   key={c}
                   href={`/our-hospitals?country=${encodeURIComponent(c)}`}
                   className={`text-xs font-bold px-4 py-2 rounded-xl transition ${
-                    selectedCountry === c ? 'bg-imic-teal text-white shadow-sm' : 'bg-white text-slate-700 hover:bg-slate-200'
+                    selectedCountry.toLowerCase() === c.toLowerCase() ? 'bg-imic-teal text-white shadow-sm' : 'bg-white text-slate-700 hover:bg-slate-200'
                   }`}
                 >
                   {c}
@@ -170,20 +122,20 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
               {hospitals.map((h) => {
                 let accs: string[] = [];
                 try {
-                  accs = JSON.parse(h.accreditations || '[]');
+                  accs = typeof h.accreditations === 'string' ? JSON.parse(h.accreditations || '[]') : (h.accreditations || []);
                 } catch (e) {
                   accs = [];
                 }
 
                 return (
                   <div
-                    key={h.id}
+                    key={h.id || h.slug}
                     className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
                   >
                     <div className="space-y-4">
                       <div className="relative h-56 w-full overflow-hidden bg-slate-100">
                         <Image
-                          src={h.image}
+                          src={h.image || '/images/hospitals/farrer-park-1.jpg'}
                           alt={h.name}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -220,20 +172,21 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
                       </div>
                     </div>
 
-                    <div className="p-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-4">
+                    <div className="p-6 pt-0 border-t border-slate-100 mt-4 flex items-center justify-between">
+                      <Link
+                        href={`/book-appointment?hospital=${encodeURIComponent(h.name)}`}
+                        className="text-xs font-bold text-imic-teal hover:text-imic-teal-hover flex items-center gap-1"
+                      >
+                        <Stethoscope className="w-3.5 h-3.5" />
+                        <span>Book Doctor</span>
+                      </Link>
+
                       <Link
                         href={`/hospitals/${h.slug}`}
                         className="text-xs font-bold text-imic-navy hover:text-imic-teal flex items-center gap-1 transition"
                       >
-                        <span>View Details & Doctors</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-imic-teal" />
-                      </Link>
-
-                      <Link
-                        href={`/book-appointment?hospital=${encodeURIComponent(h.name)}`}
-                        className="bg-imic-teal hover:bg-imic-teal-hover text-white text-[11px] font-bold px-3.5 py-2 rounded-xl transition"
-                      >
-                        Book Appointment
+                        <span>Hospital Details</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
                   </div>

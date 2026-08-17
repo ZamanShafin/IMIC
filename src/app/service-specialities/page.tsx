@@ -4,111 +4,95 @@ import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import ServicesGrid from '@/components/ServicesGrid';
+import ClinicalServicesSection from '@/components/ClinicalServicesSection';
 import Link from 'next/link';
-import { Search, ChevronRight, Stethoscope, Activity, Calendar, ArrowRight } from 'lucide-react';
+import { Search, ChevronRight, Stethoscope, Activity, Calendar, ArrowRight, Sparkles } from 'lucide-react';
 
 const specialtiesTaxonomy = [
   {
-    category: "Bones (Orthopaedics)",
+    category: "Bones & Joints (Orthopaedics)",
     slug: "orthopaedics",
-    description: "Bone health, joint replacement, complex spinal surgeries, and sports traumatology.",
-    procedures: ["Ankle Foot Surgery", "Hand Wrist Surgery", "Hip Surgery", "Knee Surgery", "Musculoskeletal Tumour", "Shoulder Elbow Surgery", "Spine Surgery", "Sports Medicine"]
+    description: "Robotic joint replacement, bone health, complex spinal surgeries, and sports traumatology.",
+    procedures: ["Robotic Knee Replacement", "Hip Arthroplasty", "Spine Surgery", "Sports Medicine", "Arthroscopy", "Musculoskeletal Oncology", "Ankle & Foot Surgery", "Hand & Wrist Surgery"]
   },
   {
-    category: "Brain Nerves (Neurology)",
+    category: "Brain & Nerves (Neurology & Neurosurgery)",
     slug: "neurology",
-    description: "Neurosurgery, stereotactic radiosurgery, brain aneurysm clipping, and sleep disorder therapies.",
-    procedures: ["Brain Aneurysm", "Brain Tumor", "Neuro Surgery", "Stereotactic Radiosurgery", "Sleep Disorders"]
+    description: "Awake craniotomy, Deep Brain Stimulation (DBS), stereotactic radiosurgery, brain aneurysm coiling, and epilepsy surgery.",
+    procedures: ["Brain Aneurysm Coiling", "Brain Tumor Resection", "Deep Brain Stimulation (DBS)", "Stereotactic Radiosurgery", "Spine Decompression", "Sleep Disorders"]
   },
   {
-    category: "Ear, Nose, Throat (Otorhinolaryngology)",
-    slug: "ent",
-    description: "Advanced ENT surgery, sinuplasty, cochlear implants, and head-neck thyroid oncology.",
-    procedures: ["Balloon Sinuplasty", "Cochlear Implantation", "Head Neck Surgery", "Laryngeal Surgery", "Parotid Surgery", "Submandibular Gland Surgery", "Thyroid Surgery"]
+    category: "Heart & Vascular (Cardiovascular Sciences)",
+    slug: "cardiovascular",
+    description: "Minimally invasive cardiac surgery (MICS), TAVI valve replacement, complex CABG, pacemakers, and pediatric congenital repairs.",
+    procedures: ["TAVI / TAVR Valve Replacement", "CABG Bypass Surgery", "Heart Valve Repair", "Electrophysiology & Ablation", "Pacemaker Implantation", "Pediatric Heart Surgery", "PTCA & Stenting", "Vascular Surgery"]
+  },
+  {
+    category: "Cancer Care (Comprehensive Oncology)",
+    slug: "oncology",
+    description: "Targeted therapy, proton beam radiation, CyberKnife radiosurgery, immunotherapy, and bone marrow transplants.",
+    procedures: ["Proton Beam Therapy", "CyberKnife Radiosurgery", "CAR-T & Immunotherapy", "Bone Marrow Transplant (BMT)", "Medical Oncology", "Surgical Oncology", "Hematology"]
+  },
+  {
+    category: "Organ Transplant & Cellular Therapy",
+    slug: "transplant",
+    description: "Living donor liver & kidney transplants, pediatric organ transplants, split-liver surgery, and stem cell therapy.",
+    procedures: ["Living Donor Liver Transplant", "Kidney Transplantation", "Split-Liver Surgery", "Allogeneic Stem Cell Transplant", "Autologous BMT", "Cornea Transplantation"]
+  },
+  {
+    category: "Reproductive Medicine & IVF",
+    slug: "ivf-fertility",
+    description: "Advanced IVF, ICSI, Pre-implantation Genetic Testing (PGT-A/M), egg freezing, and reproductive endocrinology.",
+    procedures: ["IVF & ICSI Cycles", "PGT-A / PGT-M Genetic Screening", "Egg Freezing & Preservation", "Recurrent Miscarriage Clinic", "Reproductive Surgery"]
   },
   {
     category: "Eyes (Ophthalmology)",
     slug: "ophthalmology",
-    description: "Cornea transplantation, micro-incision cataract surgery, LASIK, and glaucoma management.",
-    procedures: ["Amblyopia (Lazy Eye)", "Cataracts", "Cornea Transplant", "Glaucoma", "Neuro-ophthalmology", "Refractive Surgery (LASIK)"]
+    description: "Corneal endothelial transplants (DMEK), micro-incision cataract surgery, SMILE / LASIK, and vitreo-retinal surgery.",
+    procedures: ["SMILE & Femto-LASIK", "Corneal Grafting (DMEK/DSAEK)", "Micro-Incision Cataract", "Vitreo-Retina Detachment Care", "Glaucoma Shunt Surgery", "Pediatric Ophthalmology"]
   },
   {
-    category: "Heart & Vascular (Cardiovascular)",
-    slug: "cardiovascular",
-    description: "Coronary bypass (CABG), TAVR valve replacement, pacemakers, and pediatric congenital repairs.",
-    procedures: ["Catheter Ablation for Atrial Fibrillation", "CABG", "Heart Valve Repair/Replacement", "LVAD", "Pacemaker Implantation", "Paediatric/Congenital Heart Repair", "PTCA", "Surgery for Heart Failure", "Thoracic Aortic Vascular Surgery & Endovascular Aneurysm Repair", "TAVR/TAVI"]
+    category: "Stomach & Digestive System (Gastroenterology)",
+    slug: "gastroenterology",
+    description: "Endoscopic Ultrasound (EUS), therapeutic ERCP, liver cirrhosis care, GI oncology, and bariatric metabolic surgery.",
+    procedures: ["Therapeutic ERCP & EUS", "Liver Cirrhosis Management", "Bariatric Metabolic Surgery", "Colorectal Surgery", "Laparoscopic GI Surgery", "GERD & IBD Clinic"]
   },
   {
-    category: "Cancer (Oncology)",
-    slug: "oncology",
-    description: "Targeted therapy, radiation oncology, surgical oncology, and haematological malignancies.",
-    procedures: ["Haematology", "Medical Oncology", "Radiation Oncology", "Surgical Oncology"]
-  },
-  {
-    category: "General Surgery",
-    slug: "general-surgery",
-    description: "Robotic surgery, laparoscopic hepatobiliary, breast, colorectal, and vascular procedures.",
-    procedures: ["Breast Surgery", "Colorectal Surgery", "Head and Neck Surgery", "Hepatobiliary and Pancreatic Surgery", "Minimally Invasive Surgery", "Robotic Surgery", "Upper GI Surgery", "Vascular Surgery"]
-  },
-  {
-    category: "Transplant & Cellular Therapy",
-    slug: "transplant",
-    description: "Living donor liver & kidney transplants, split-liver surgery, and stem cell therapy.",
-    procedures: ["Cadaveric Liver Transplant", "Complicated Kidney Transplant", "Complicated Liver Transplant", "Kidney Sparing Surgery", "Living Donor Kidney Transplant", "Living Donor Liver Transplant", "Split-Liver Transplant", "Stem Cell Transplant"]
-  },
-  {
-    category: "Hormone Disorder (Endocrinology)",
-    slug: "endocrinology",
-    description: "Management of diabetes, thyroid nodules, adrenal disorders, and metabolic health.",
-    procedures: ["Adrenal Disorder", "Diabetes", "High Cholesterol", "Obesity", "Osteoporosis", "Thyroid Disorder"]
+    category: "Ear, Nose, Throat (Otorhinolaryngology)",
+    slug: "ent",
+    description: "Advanced ENT surgery, balloon sinuplasty, cochlear implants, and head-neck thyroid oncology.",
+    procedures: ["Balloon Sinuplasty", "Cochlear Implantation", "Head & Neck Cancer Surgery", "Laryngeal Surgery", "Thyroid Surgery", "Parotid Surgery"]
   },
   {
     category: "Urinary & Reproductive System (Urology)",
     slug: "urology",
     description: "Greenlight laser prostatectomy, TURP, kidney stone laser lithotripsy, and reconstructive urology.",
-    procedures: ["Greenlight Laser Therapy", "Kidney Surgery and Transplant", "Prostate Surgery", "TURP", "Urinary Incontinence"]
-  },
-  {
-    category: "Women (Obstetrics & Gynaecology)",
-    slug: "gynaecology",
-    description: "High-risk pregnancy management, laparoscopic hysterectomy, cystectomy, and pelvic floor repair.",
-    procedures: ["Cystectomy", "Hysterectomy", "Myomectomy", "Neonatology (Pregnancy)", "Oophorectomy", "Pelvic Floor Reconstruction/Incontinence Surgery"]
+    procedures: ["Greenlight Laser Prostatectomy", "Laser Stone Lithotripsy (RIRS)", "Robotic Prostate Surgery", "Reconstructive Urology", "Urinary Incontinence"]
   },
   {
     category: "Kidneys (Renal Medicine)",
     slug: "renal-medicine",
-    description: "Nephrology care for end-stage renal disease, hemodialysis, and kidney cancer.",
-    procedures: ["End-Stage Kidney Disease", "Glomerulonephritis", "Kidney Cancer", "Kidney Failure", "Kidney Stones", "Polycystic Kidney Disease"]
+    description: "Nephrology care for end-stage renal disease, hemodialysis, glomerulonephritis, and kidney cancer.",
+    procedures: ["End-Stage Kidney Disease", "Glomerulonephritis Clinic", "Kidney Stones", "Peritoneal & Hemodialysis", "Polycystic Kidney Disease"]
   },
   {
-    category: "Lungs (Respiratory Medicine)",
+    category: "Lungs & Respiratory Medicine",
     slug: "respiratory-medicine",
-    description: "Pulmonary oncology, severe asthma, COPD management, and interventional pulmonology.",
-    procedures: ["Asthma", "COPD", "Lung Cancer", "Pneumonia", "Tuberculosis"]
+    description: "Pulmonary oncology, severe asthma, COPD management, interventional bronchoscopy, and lung rehabilitation.",
+    procedures: ["Interventional Pulmonology", "Severe Asthma & COPD", "Lung Cancer Evaluation", "Pneumonia Care", "Pleural Effusion Management"]
   },
   {
-    category: "Paediatrics",
+    category: "Paediatrics & Neonatal Care",
     slug: "paediatrics",
-    description: "Comprehensive pediatric surgery, pediatric cardiology, ENT, and developmental care.",
-    procedures: ["Child Development", "Paediatric Cardiology", "Paediatric ENT", "Paediatric General Surgery", "Paediatric Medicine", "Paediatric Oncology", "Paediatric Ophthalmology", "Paediatric Orthopaedics"]
+    description: "Comprehensive pediatric surgery, pediatric cardiology, pediatric oncology, and neonatal intensive care.",
+    procedures: ["Paediatric Surgery", "Paediatric Cardiology", "Paediatric Oncology", "Child Development & NICU", "Paediatric Orthopaedics"]
   },
   {
-    category: "Stomach & Digestive System (Gastroenterology)",
-    slug: "gastroenterology",
-    description: "Endoscopic procedures, liver cirrhosis, GI oncology, IBD, and GERD therapies.",
-    procedures: ["Colorectal Cancer", "Gallstones", "Gastritis", "GERD", "Hepatitis (A/B/C)", "IBD", "IBS", "Liver Cirrhosis", "Pancreatic Cancer", "Peptic Ulcers", "Stomach Cancer"]
-  },
-  {
-    category: "Addiction Treatment",
-    slug: "addiction-treatment",
-    description: "Structured inpatient rehabilitation and psychological therapy programs.",
-    procedures: ["Drug Addiction Treatment", "Nicotine Addiction Treatment", "Alcohol Addiction Treatment", "Perfectionism Treatment"]
-  },
-  {
-    category: "Allergy",
-    slug: "allergy",
-    description: "Immunotherapy and allergen identification testing.",
-    procedures: ["Immunotherapy", "Food Allergy Testing", "Skin Prick Testing", "Desensitization Therapy"]
+    category: "Executive Health Screening & Wellness",
+    slug: "health-screening",
+    description: "Same-day full-body executive health screening, coronary CT calcium scoring, low-dose lung cancer CT, and genetic risk profiling.",
+    procedures: ["Comprehensive Whole-Body Scan", "Cardiac Calcium Scoring", "Low-Dose Chest CT", "Cancer Tumor Markers", "Genetic Risk Profiling"]
   }
 ];
 
@@ -133,11 +117,11 @@ export default function ServiceSpecialitiesPage() {
         <section className="bg-imic-navy text-white py-16 px-4 text-center">
           <div className="max-w-7xl mx-auto space-y-4">
             <span className="text-xs font-bold text-imic-teal uppercase tracking-widest block">
-              Complete Medical Directory
+              Complete Medical Directory & Travel Assistance
             </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold">Services & Specialties</h1>
             <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
-              Explore 16 medical departments and their sub-procedures offered across our partner hospitals in Singapore, Malaysia, Thailand, and India.
+              Explore medical specialties, clinical procedures, medical visas, and end-to-end travel facilitation offered across our partner hospitals in Singapore, Malaysia, Thailand, Indonesia, China, and India.
             </p>
 
             {/* Search Filter */}
@@ -146,7 +130,7 @@ export default function ServiceSpecialitiesPage() {
                 <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
-                  placeholder="Search procedure (e.g. CABG, LASIK, TAVR, Knee)..."
+                  placeholder="Search specialty or procedure (e.g. CABG, TAVI, Proton Beam, Knee, LASIK)..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-12 pr-4 py-3.5 bg-white text-slate-900 text-sm rounded-2xl focus:outline-none focus:ring-2 focus:ring-imic-teal shadow-lg"
@@ -158,6 +142,15 @@ export default function ServiceSpecialitiesPage() {
 
         {/* Directory Grid */}
         <section className="py-16 max-w-7xl mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto space-y-2 mb-12">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-imic-navy">
+              Medical Specialties & Surgical Procedures
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500">
+              Select a clinical specialty to view available treatments and book consultations with leading surgeons abroad.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredTaxonomy.map((item, idx) => (
               <div
@@ -172,7 +165,7 @@ export default function ServiceSpecialitiesPage() {
                     <div>
                       <h3 className="text-lg font-bold text-imic-navy">{item.category}</h3>
                       <span className="text-[11px] font-semibold text-slate-400">
-                        {item.procedures.length} Procedures
+                        {item.procedures.length} Clinical Procedures
                       </span>
                     </div>
                   </div>
@@ -204,14 +197,14 @@ export default function ServiceSpecialitiesPage() {
                     className="flex items-center gap-1 text-xs font-bold text-imic-navy hover:text-imic-teal transition"
                   >
                     <Calendar className="w-3.5 h-3.5 text-imic-teal" />
-                    <span>Book For This Specialty</span>
+                    <span>Book Appointment</span>
                   </Link>
 
                   <Link
                     href={`/our-hospitals?specialty=${encodeURIComponent(item.category)}`}
                     className="text-xs font-semibold text-slate-400 hover:text-imic-navy flex items-center gap-0.5"
                   >
-                    <span>Hospitals</span>
+                    <span>View Hospitals</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -219,6 +212,12 @@ export default function ServiceSpecialitiesPage() {
             ))}
           </div>
         </section>
+
+        {/* Facilitation Services Grid (Medical Visa & Tourist Visa) */}
+        <ServicesGrid />
+
+        {/* Clinical Services Section */}
+        <ClinicalServicesSection />
       </main>
 
       <Footer />

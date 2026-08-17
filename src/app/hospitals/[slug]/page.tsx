@@ -7,38 +7,14 @@ import Link from 'next/link';
 import { db } from '@/lib/db';
 import { MapPin, ShieldCheck, Calendar, FileText, UserCheck, ChevronLeft, Building2 } from 'lucide-react';
 
-export const revalidate = 60;
+import fallbackHospitals from '@/data/hospitals.json';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 interface PageProps {
   params: { slug: string };
 }
-
-const fallbackDetailMap: Record<string, any> = {
-  'farrer-park-hospital': {
-    name: 'Farrer Park Hospital',
-    slug: 'farrer-park-hospital',
-    country: 'Singapore',
-    city: 'Singapore',
-    description: 'A premier tertiary hospital integrated with a 5-star hotel and medical centre, offering state-of-the-art diagnostic and surgical technology in Singapore.',
-    image: '/images/hospitals/farrer-park-1.jpg',
-    photos: '["/images/hospitals/farrer-park-1.jpg", "/images/hospitals/farrer-park-2.jpg"]',
-    accreditations: '["JCI Accredited", "Singapore Service Excellence"]',
-    doctors: [
-      { id: 'd1', name: 'Dr. K. S. Tan', title: 'Senior Consultant Cardiologist', availability: 'Mon, Wed, Fri' }
-    ]
-  },
-  'sunway-medical-centre': {
-    name: 'Sunway Medical Centre',
-    slug: 'sunway-medical-centre',
-    country: 'Malaysia',
-    city: 'Kuala Lumpur',
-    description: "One of Asia's largest private tertiary healthcare institutions, renowned for cancer therapy, robotics, and paediatric care.",
-    image: '/images/hospitals/sunway-medical-1.jpg',
-    photos: '["/images/hospitals/sunway-medical-1.jpg"]',
-    accreditations: '["ACHS Accredited", "JCI Accredited"]',
-    doctors: []
-  }
-};
 
 export default async function HospitalDetailPage({ params }: PageProps) {
   let hospital: any = null;
@@ -50,11 +26,10 @@ export default async function HospitalDetailPage({ params }: PageProps) {
     });
   } catch (error) {
     console.error('Hospital detail DB connection note:', error);
-    hospital = fallbackDetailMap[params.slug] || fallbackDetailMap['farrer-park-hospital'];
   }
 
   if (!hospital) {
-    hospital = fallbackDetailMap[params.slug] || fallbackDetailMap['farrer-park-hospital'];
+    hospital = fallbackHospitals.find((h) => h.slug === params.slug) || fallbackHospitals[0];
   }
 
   let photos: string[] = [];

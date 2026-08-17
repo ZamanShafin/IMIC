@@ -136,8 +136,8 @@ export default function BookAppointmentPage() {
 
                   <div>
                     <label className="text-xs font-bold text-slate-700 block mb-1">Target Country *</label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      {['Singapore', 'Malaysia', 'Thailand', 'India'].map((c) => (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                      {['Singapore', 'Malaysia', 'Thailand', 'Indonesia', 'China', 'India'].map((c) => (
                         <button
                           key={c}
                           type="button"

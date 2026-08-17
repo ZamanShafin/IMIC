@@ -6,6 +6,7 @@ import HeroCarousel from '@/components/HeroCarousel';
 import SearchWidget from '@/components/SearchWidget';
 import CountryGrid from '@/components/CountryGrid';
 import ServicesGrid from '@/components/ServicesGrid';
+import ClinicalServicesSection from '@/components/ClinicalServicesSection';
 import SpecialityHighlights from '@/components/SpecialityHighlights';
 import HowWeWork from '@/components/HowWeWork';
 import PartnerLogos from '@/components/PartnerLogos';
@@ -26,11 +27,14 @@ export default function HomePage() {
         {/* Search & Filter Finder Widget */}
         <SearchWidget />
 
-        {/* 4 Destination Country Grid */}
+        {/* 6 Destination Country Grid (Singapore, Malaysia, Thailand, Indonesia, China, India) */}
         <CountryGrid />
 
-        {/* 12 Facilitation Services Grid */}
+        {/* Facilitation Services Grid (Including Medical Visa & Tourist Visa) */}
         <ServicesGrid />
+
+        {/* Dedicated Clinical Services Section */}
+        <ClinicalServicesSection />
 
         {/* Speciality Highlight Capabilities */}
         <SpecialityHighlights />
@@ -66,16 +70,16 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 7-Step Process */}
+        {/* 7-Step Process with Full Step Names */}
         <HowWeWork />
 
         {/* Patient Testimonials */}
         <Testimonials />
 
-        {/* Partner Logos */}
+        {/* Partner Logos Infinite Marquee */}
         <PartnerLogos />
 
-        {/* Accreditation Logos Strip */}
+        {/* Accreditation Logos Infinite Marquee */}
         <AccreditationLogos />
       </main>
 

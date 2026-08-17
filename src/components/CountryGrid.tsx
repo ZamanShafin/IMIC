@@ -7,8 +7,8 @@ const countryTiles = [
   {
     name: 'Singapore',
     flag: '🇸🇬',
-    hospitalCount: '9 Premier Hospitals',
-    highlights: 'Mount Elizabeth, Farrer Park, SGH, NUH, ICON Cancer',
+    hospitalCount: '7 Premier Hospitals',
+    highlights: 'Gleneagles, NCCS, SNEC, Farrer Park, Mount Elizabeth, ICON Cancer',
     image: '/images/hospitals/farrer-park-1.jpg',
     href: '/our-hospitals?country=Singapore',
     badge: 'JCI Accredited Centres'
@@ -16,26 +16,44 @@ const countryTiles = [
   {
     name: 'Malaysia',
     flag: '🇲🇾',
-    hospitalCount: '2 World-Class Hospitals',
-    highlights: 'Sunway Medical Centre, Gleneagles Global',
+    hospitalCount: '5 Quaternary Medical Centres',
+    highlights: 'Sunway Medical, Prince Court, Beacon, SJMC, Gleneagles KL',
     image: '/images/hospitals/sunway-medical-1.jpg',
     href: '/our-hospitals?country=Malaysia',
-    badge: 'Affordable Advanced Care'
+    badge: 'ACHS & MHTC Elite Partner'
   },
   {
     name: 'Thailand',
     flag: '🇹🇭',
-    hospitalCount: 'Samitivej Healthcare Network',
-    highlights: 'Samitivej Hospitals Bangkok',
+    hospitalCount: '5 Top International Hospitals',
+    highlights: 'Samitivej Sukhumvit, BNH, Vejthani, Bangkok Hospital, MedPark',
     image: '/images/hospitals/samitivej-1.jpg',
     href: '/our-hospitals?country=Thailand',
-    badge: 'Leading Pediatric & Wellness'
+    badge: 'Award-Winning Care & Wellness'
+  },
+  {
+    name: 'Indonesia',
+    flag: '🇮🇩',
+    hospitalCount: '2 National Apex Hospitals',
+    highlights: 'Medistra Hospital Jakarta, RSUPN Dr. Cipto Mangunkusumo (RSCM)',
+    image: '/images/hospitals/medistra-jakarta.jpg',
+    href: '/our-hospitals?country=Indonesia',
+    badge: 'Apex Quaternary Centres'
+  },
+  {
+    name: 'China',
+    flag: '🇨🇳',
+    hospitalCount: '2 Top National Medical Hubs',
+    highlights: 'Peking Union Medical College (PUMCH), Fudan University Cancer Center',
+    image: '/images/hospitals/pumch-beijing.jpg',
+    href: '/our-hospitals?country=China',
+    badge: 'Advanced Proton & Research'
   },
   {
     name: 'India',
     flag: '🇮🇳',
-    hospitalCount: '4 Quaternary Hospitals',
-    highlights: 'Fortis Gurugram, HCG Bangalore, Reliance Mumbai, Rajagiri Kochi',
+    hospitalCount: '4 Quaternary Super Speciality Hubs',
+    highlights: 'Fortis FMRI Delhi, HCG Bangalore, Reliance Mumbai, Rajagiri Kochi',
     image: '/images/hospitals/fortis-1.jpg',
     href: '/our-hospitals?country=India',
     badge: 'Cost-Effective High Tech'
@@ -44,44 +62,44 @@ const countryTiles = [
 
 export default function CountryGrid() {
   return (
-    <section className="py-16 bg-slate-50">
+    <section className="py-20 bg-slate-50 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-          <div className="inline-flex items-center gap-2 bg-imic-navy/5 text-imic-navy px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-14">
+          <div className="inline-flex items-center gap-2 bg-imic-navy/5 text-imic-navy px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
             <Building2 className="w-4 h-4 text-imic-teal" />
             <span>International Hospital Network</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-imic-navy">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-imic-navy tracking-tight">
             Our Associated Hospitals In
           </h2>
           <p className="text-slate-600 text-sm sm:text-base">
-            Select a destination country to explore partner hospitals, medical specialties, and available doctors for your medical travel from Bangladesh.
+            Select a destination country to explore accredited partner hospitals, specialized clinical faculties, and available doctors for your medical travel from Bangladesh.
           </p>
         </div>
 
-        {/* 4 Country Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 6 Country Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {countryTiles.map((tile) => (
             <Link
               key={tile.name}
               href={tile.href}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 flex flex-col"
+              className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 hover:border-imic-teal/50 transition-all duration-300 flex flex-col justify-between"
             >
-              <div className="relative h-48 w-full overflow-hidden">
+              <div className="relative h-52 w-full overflow-hidden bg-slate-100">
                 <Image
                   src={tile.image}
                   alt={`Hospitals in ${tile.name}`}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-imic-navy/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-imic-navy/90 via-imic-navy/30 to-transparent" />
                 
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-bold text-imic-navy shadow-sm">
+                <div className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-imic-navy shadow-sm">
                   {tile.badge}
                 </div>
 
-                <div className="absolute bottom-3 left-3 right-3 text-white">
+                <div className="absolute bottom-3.5 left-3.5 right-3.5 text-white">
                   <div className="flex items-center gap-2">
                     <span className="text-2xl">{tile.flag}</span>
                     <h3 className="text-xl font-bold leading-tight">{tile.name}</h3>
@@ -89,17 +107,17 @@ export default function CountryGrid() {
                 </div>
               </div>
 
-              <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                <div className="space-y-1.5">
+              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div className="space-y-2">
                   <span className="text-xs font-bold text-imic-teal uppercase tracking-wider block">
                     {tile.hospitalCount}
                   </span>
-                  <p className="text-xs text-slate-600 line-clamp-2">
+                  <p className="text-xs text-slate-600 leading-relaxed">
                     {tile.highlights}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-imic-navy group-hover:text-imic-teal transition">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-imic-navy group-hover:text-imic-teal transition">
                   <span>View Hospitals & Doctors</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition" />
                 </div>

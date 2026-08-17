@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, MapPin, Stethoscope, ChevronRight } from 'lucide-react';
 
-const countries = ['Singapore', 'Malaysia', 'Thailand', 'India'];
+const countries = ['Singapore', 'Malaysia', 'Thailand', 'Indonesia', 'China', 'India'];
 
 const specialties = [
   'Bones (Orthopaedics)',

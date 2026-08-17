@@ -1,45 +1,63 @@
 import React from 'react';
 import Image from 'next/image';
+import { ShieldCheck } from 'lucide-react';
 
-const accreditations = [
-  { name: 'JCI Accredited', logo: '/images/accreditations/accred1.jpg' },
-  { name: 'ISO Certified', logo: '/images/accreditations/accred2.jpg' },
-  { name: 'MSQH', logo: '/images/accreditations/accred3.png' },
-  { name: 'ACHS', logo: '/images/accreditations/accred4.png' },
-  { name: 'NABH', logo: '/images/accreditations/accred5.png' },
-  { name: 'Healthcare Excellence', logo: '/images/accreditations/accred6.png' },
-  { name: 'Global Quality', logo: '/images/accreditations/accred7.png' },
+const accreditationList = [
+  { name: 'JCI Joint Commission International', logo: '/images/accreditations/accred1.jpg' },
+  { name: 'ISO 9001 Certified Quality', logo: '/images/accreditations/accred2.jpg' },
+  { name: 'MSQH Malaysian Society for Quality in Health', logo: '/images/accreditations/accred3.png' },
+  { name: 'ACHS Australian Council on Healthcare Standards', logo: '/images/accreditations/accred4.png' },
+  { name: 'NABH National Accreditation Board for Hospitals', logo: '/images/accreditations/accred5.png' },
+  { name: 'HA Hospital Accreditation Thailand', logo: '/images/accreditations/accred6.png' },
+  { name: 'TEMOS International Healthcare Accreditation', logo: '/images/accreditations/accred7.png' }
 ];
 
 export default function AccreditationLogos() {
+  const marqueeItems = [...accreditationList, ...accreditationList];
+
   return (
-    <section className="py-10 bg-slate-50 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="space-y-1 text-center sm:text-left">
-            <span className="text-xs font-bold text-imic-navy uppercase tracking-wider block">
-              International Accreditation Standards
-            </span>
-            <p className="text-xs text-slate-500">
-              All partner medical centres are certified by global healthcare quality boards.
-            </p>
+    <section className="py-10 bg-slate-900 text-white overflow-hidden border-t border-slate-800">
+      <div className="max-w-7xl mx-auto px-4 mb-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-5 h-5 text-emerald-400" />
+            <div>
+              <span className="text-xs font-black uppercase tracking-wider text-white block">
+                International Quality & Accreditation Standards
+              </span>
+              <p className="text-[11px] text-slate-400">
+                All affiliated medical institutions are certified by world-recognized healthcare regulatory bodies.
+              </p>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            {accreditations.map((acc, index) => (
-              <div
-                key={index}
-                className="relative w-16 h-10 bg-white p-1 rounded-md border border-slate-200 shadow-sm flex items-center justify-center"
-              >
-                <Image
-                  src={acc.logo}
-                  alt={acc.name}
-                  fill
-                  className="object-contain p-1"
-                />
-              </div>
-            ))}
+          <div className="text-[11px] font-bold text-emerald-400 bg-emerald-950/70 border border-emerald-800/60 px-3 py-1 rounded-full shrink-0">
+            100% Verified Quality
           </div>
+        </div>
+      </div>
+
+      {/* Infinite Marquee Track */}
+      <div className="relative w-full overflow-hidden">
+        {/* Subtle Edge Fades */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-slate-900 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-slate-900 to-transparent z-10 pointer-events-none" />
+
+        <div className="animate-marquee flex items-center gap-8 py-2">
+          {marqueeItems.map((item, index) => (
+            <div
+              key={index}
+              className="relative w-36 h-14 bg-slate-800/90 hover:bg-slate-700 p-2.5 rounded-2xl border border-slate-700/80 shadow-md flex items-center justify-center shrink-0 group transition-all duration-300 cursor-pointer"
+              title={item.name}
+            >
+              <Image
+                src={item.logo}
+                alt={item.name}
+                fill
+                className="object-contain p-1.5 brightness-95 contrast-105 group-hover:scale-105 transition-transform"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

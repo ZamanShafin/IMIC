@@ -1,32 +1,28 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin, Phone, Mail, ArrowRight, ShieldCheck, Lock } from 'lucide-react';
+import { MapPin, Phone, Mail, ArrowRight, ShieldCheck, Lock, Facebook, Youtube, Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-imic-navy text-slate-300 text-sm">
+    <footer className="bg-imic-navy text-slate-300 text-sm border-t border-slate-800">
       {/* Main Footer Container */}
       <div className="max-w-7xl mx-auto px-4 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Column 1: Get In Touch / CPAC Description */}
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <div className="relative w-10 h-10 rounded-md overflow-hidden bg-white p-1">
+            <div className="relative h-11 w-[120px] shrink-0">
               <Image
-                src="/images/logo/logo.jpeg"
+                src="/images/logo/logo.png"
                 alt="IMIC Logo"
                 fill
                 className="object-contain"
               />
             </div>
-            <div>
-              <span className="text-white font-bold text-lg block">IMIC</span>
-              <span className="text-xs text-slate-400">Patient Assistance Centre (CPAC)</span>
-            </div>
           </div>
 
           <p className="text-xs leading-relaxed text-slate-400">
-            Our Patient Assistance Centre (CPAC) provides a seamless and one-stop 24-hour service to our patients connecting them to a comprehensive choice of medical services and doctors across Singapore, Malaysia, Thailand & India.
+            Our Patient Assistance Centre (CPAC) in Banani, Dhaka provides a seamless and one-stop 24-hour service connecting Bangladeshi patients to accredited hospitals and leading doctors across Singapore, Malaysia, Thailand, Indonesia, China & India.
           </p>
 
           <div className="space-y-2 pt-2 text-xs">
@@ -65,6 +61,18 @@ export default function Footer() {
               <Link href="/our-hospitals?country=Thailand" className="hover:text-imic-teal transition flex items-center gap-1.5">
                 <ArrowRight className="w-3 h-3 text-imic-teal" />
                 <span>Hospitals in Thailand</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/our-hospitals?country=Indonesia" className="hover:text-imic-teal transition flex items-center gap-1.5">
+                <ArrowRight className="w-3 h-3 text-imic-teal" />
+                <span>Hospitals in Indonesia</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/our-hospitals?country=China" className="hover:text-imic-teal transition flex items-center gap-1.5">
+                <ArrowRight className="w-3 h-3 text-imic-teal" />
+                <span>Hospitals in China</span>
               </Link>
             </li>
             <li>
@@ -131,25 +139,42 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Column 4: Facebook Page & Accreditations */}
+        {/* Column 4: Social Channels & Admin */}
         <div className="space-y-4">
           <h3 className="text-white font-semibold text-base border-b border-slate-700 pb-2">Connect With Us</h3>
           <p className="text-xs text-slate-400">
-            Follow IMIC Bangladesh on social media for international hospital updates and medical news.
+            Follow IMIC Bangladesh on our official social channels for international medical news, hospital updates, and patient recovery stories.
           </p>
 
-          <div className="bg-slate-800 p-4 rounded-lg border border-slate-700 space-y-3">
-            <div className="flex items-center gap-2 text-xs font-semibold text-white">
-              <ShieldCheck className="w-4 h-4 text-imic-teal" />
-              <span>Official Facebook Page</span>
-            </div>
+          <div className="flex flex-col gap-2.5 pt-1">
             <a
-              href="https://facebook.com/imic.com.bd"
+              href="https://web.facebook.com/InternationalMedicalInformationCentre"
               target="_blank"
               rel="noreferrer"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-md transition"
+              className="flex items-center gap-2.5 bg-[#1877F2]/20 hover:bg-[#1877F2] text-white text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-[#1877F2]/40 transition group"
             >
-              Visit @IMICLimited on Facebook
+              <Facebook className="w-4 h-4 text-[#1877F2] group-hover:text-white" />
+              <span>Facebook Page</span>
+            </a>
+
+            <a
+              href="https://www.youtube.com/@IMICLimited"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2.5 bg-[#FF0000]/20 hover:bg-[#FF0000] text-white text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-[#FF0000]/40 transition group"
+            >
+              <Youtube className="w-4 h-4 text-[#FF0000] group-hover:text-white" />
+              <span>YouTube Channel</span>
+            </a>
+
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2.5 bg-[#E1306C]/20 hover:bg-[#E1306C] text-white text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-[#E1306C]/40 transition group"
+            >
+              <Instagram className="w-4 h-4 text-[#E1306C] group-hover:text-white" />
+              <span>Instagram Profile</span>
             </a>
           </div>
 

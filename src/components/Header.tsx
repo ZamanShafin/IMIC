@@ -34,13 +34,13 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <span className="text-slate-300">24/7 Patient Hotline</span>
             <div className="flex items-center gap-2">
-              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-imic-teal p-1">
+              <a href="https://web.facebook.com/InternationalMedicalInformationCentre" target="_blank" rel="noreferrer" className="hover:text-imic-teal p-1" title="IMIC Facebook">
                 <Facebook className="w-3.5 h-3.5" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-imic-teal p-1">
+              <a href="https://www.instagram.com" target="_blank" rel="noreferrer" className="hover:text-imic-teal p-1" title="IMIC Instagram">
                 <Instagram className="w-3.5 h-3.5" />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="hover:text-imic-teal p-1">
+              <a href="https://www.youtube.com/@IMICLimited" target="_blank" rel="noreferrer" className="hover:text-imic-teal p-1" title="IMIC YouTube">
                 <Youtube className="w-3.5 h-3.5" />
               </a>
             </div>

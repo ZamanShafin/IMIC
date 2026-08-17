@@ -119,6 +119,8 @@ export default function RequestQuotePage() {
                         <option value="Singapore">Singapore</option>
                         <option value="Malaysia">Malaysia</option>
                         <option value="Thailand">Thailand</option>
+                        <option value="Indonesia">Indonesia</option>
+                        <option value="China">China</option>
                         <option value="India">India</option>
                         <option value="Undecided">Not sure yet, recommend best option</option>
                       </select>

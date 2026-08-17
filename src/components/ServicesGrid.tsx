@@ -1,85 +1,98 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, FileCheck, Globe, Stethoscope, Plane, Building, HeartPulse, ShieldAlert, Sparkles } from 'lucide-react';
 
 const services = [
   {
-    title: "Direct Admission Arrangement",
-    icon: "/images/services/direct-admission.png",
-    description: "Fast-track emergency & routine admissions with tarmac ambulance pickup & hospital liaison."
-  },
-  {
-    title: "Doctor's Appointment",
-    icon: "/images/services/doctor-appointment.png",
-    description: "Priority appointments with renowned medical specialists in Singapore, Malaysia, Thailand & India."
-  },
-  {
-    title: "Visa Application / Extension",
+    title: "Medical Visa Assistance",
+    badge: "Fast-Track Approval",
     icon: "/images/services/visa-application.png",
-    description: "Official hospital invitation letters & medical emergency visa extensions for patients and attendants."
+    description: "Expedited medical e-Visas, hospital invitation letters, and visa extension support for patients and attendants for Singapore, Malaysia, Thailand, India, Indonesia & China."
   },
   {
-    title: "Ticketing (Flight Reservation)",
-    icon: "/images/services/ticketing.png",
-    description: "Flexible airline booking with medical baggage allowance & date re-issuance assistance."
+    title: "Tourist & Family Travel Visa",
+    badge: "Leisure & Attendants",
+    icon: "/images/services/visa-application.png",
+    description: "Complete tourist visa processing, hotel confirmation vouchers, customized holiday itineraries, and flight bookings for accompanying family members and vacation travelers."
   },
   {
-    title: "Air Ambulance & Stretcher",
+    title: "Direct Admission Arrangement",
+    badge: "24/7 Priority",
+    icon: "/images/services/direct-admission.png",
+    description: "Fast-track emergency and planned inpatient admissions with tarmac ambulance liaison and immediate bed allocation at leading overseas hospitals."
+  },
+  {
+    title: "Doctor's Appointment Booking",
+    badge: "Renowned Specialists",
+    icon: "/images/services/doctor-appointment.png",
+    description: "Direct priority consultations with leading Senior Consultants, Surgeons, and Professors across Singapore, Malaysia, Thailand, Indonesia, China & India."
+  },
+  {
+    title: "Air Ambulance & Stretcher Cases",
+    badge: "Save up to 60% Cost",
     icon: "/images/services/air-ambulance.png",
-    description: "Chartered air ambulance & commercial flight stretcher cases (save up to 60% transfer costs)."
+    description: "ICU air ambulance charters and cost-effective commercial airline stretcher arrangements with qualified flight medical doctors and oxygen systems."
   },
   {
-    title: "Treatment & Travel Plan",
+    title: "Medical Flight Ticketing Desk",
+    badge: "Flexible Dates & Baggage",
+    icon: "/images/services/ticketing.png",
+    description: "Dedicated medical airfare desks offering medical baggage allowances, flexible date changes, wheelchair assistance, and wheelchair/buggy bookings."
+  },
+  {
+    title: "Treatment & Travel Cost Estimates",
+    badge: "100% Transparent",
     icon: "/images/services/treatment-plan.png",
-    description: "Transparent cost estimations, treatment timeline, and pre-departure medical report reviews."
+    description: "Detailed hospital package estimates, doctor fee schedules, pre-departure diagnostic reviews, and transparent financial planning."
   },
   {
-    title: "Accommodation Arrangement",
+    title: "Hotel & Serviced Apartments",
+    badge: "Near Hospitals",
     icon: "/images/services/accommodation.png",
-    description: "Serviced apartments and budget-friendly hotel stays conveniently located near partner hospitals."
+    description: "Fully furnished service apartments with kitchenettes and budget-friendly hotel stays within walking distance of partner hospitals."
   },
   {
-    title: "Airport Meet & Greet / Transfer",
+    title: "Airport Meet & Greet / Buggy Transfer",
+    badge: "VIP Welcome",
     icon: "/images/services/airport-meet.png",
-    description: "Changi / KLIA / Suvarnabhumi / Delhi airport reception, wheelchair/buggy escort & private transfer."
+    description: "Airport tarmac reception, wheelchair/buggy escort through customs, luggage assistance, and private chauffeur or ambulance transfer to hospital."
   },
   {
-    title: "Multi-Language Interpreter",
+    title: "Multi-Language Medical Interpreter",
+    badge: "Bangla & English",
     icon: "/images/services/interpreter.png",
-    description: "Bangla & English medical translation during doctor consultations & inpatient stays."
+    description: "Dedicated Bangla and English medical interpreters during doctor consultations, daily surgical rounds, and diagnostic procedures."
   },
   {
-    title: "Full Hospitalization Support",
-    icon: "/images/services/hospitalization-support.png",
-    description: "Dedicated IMIC case managers assisting before, during, and after hospital discharge."
-  },
-  {
-    title: "Billing & Financial Enquiries",
+    title: "Billing, Currency & Insurance Liaison",
+    badge: "Claims Support",
     icon: "/images/services/billing-financial.png",
-    description: "Itemized billing clarification, overseas payment guidance, and insurance claim paperwork."
+    description: "Itemized billing clarification, overseas medical payment guidance, cashless insurance coordination, and medical claim documentation."
   },
   {
-    title: "General Enquiries",
+    title: "Post-Discharge Follow-up & Tele-Medicine",
+    badge: "Continuous Care",
     icon: "/images/services/general-enquiries.png",
-    description: "24/7 hotline support at CPAC Banani Dhaka for any medical tourism queries."
+    description: "Post-surgery follow-up tele-consultations with your overseas surgeon from our CPAC Banani office, along with prescription refills."
   }
 ];
 
 export default function ServicesGrid() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-14">
-          <span className="text-xs font-extrabold text-imic-teal uppercase tracking-widest block">
-            End-To-End Medical Facilitation
-          </span>
+          <div className="inline-flex items-center gap-2 bg-imic-teal/10 text-imic-teal px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+            <Sparkles className="w-4 h-4 text-imic-teal" />
+            <span>End-to-End Medical & Travel Facilitation</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-imic-navy">
-            Our Facilitation Services
+            Our Core Facilitation Services
           </h2>
           <p className="text-slate-600 text-sm sm:text-base">
-            From your initial medical record review in Dhaka to your successful treatment and return home, IMIC provides comprehensive assistance every step of the way.
+            From medical & tourist visa facilitation in Dhaka to your successful overseas treatment, hotel accommodations, and recovery, IMIC provides 360-degree support.
           </p>
         </div>
 
@@ -88,16 +101,22 @@ export default function ServicesGrid() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group bg-slate-50 hover:bg-white p-6 rounded-2xl border border-slate-200/80 hover:border-imic-teal/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group bg-slate-50 hover:bg-white p-7 rounded-3xl border border-slate-200/80 hover:border-imic-teal/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
               <div className="space-y-4">
-                <div className="w-14 h-14 relative rounded-xl bg-white p-2.5 shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
-                  <Image
-                    src={service.icon}
-                    alt={service.title}
-                    fill
-                    className="object-contain p-1"
-                  />
+                <div className="flex items-center justify-between">
+                  <div className="w-14 h-14 relative rounded-2xl bg-white p-2.5 shadow-sm border border-slate-100 group-hover:scale-105 transition-transform flex items-center justify-center">
+                    <Image
+                      src={service.icon}
+                      alt={service.title}
+                      fill
+                      className="object-contain p-1"
+                    />
+                  </div>
+
+                  <span className="text-[10px] font-extrabold bg-imic-navy/5 text-imic-navy px-2.5 py-1 rounded-full uppercase tracking-wider border border-slate-200">
+                    {service.badge}
+                  </span>
                 </div>
 
                 <div className="space-y-2">
@@ -115,11 +134,11 @@ export default function ServicesGrid() {
                   href="/book-appointment"
                   className="text-xs font-bold text-imic-navy group-hover:text-imic-teal flex items-center gap-1 transition"
                 >
-                  <span>Inquire Now</span>
+                  <span>Inquire Service</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
                 <span className="text-[10px] font-semibold text-slate-400">
-                  Service #{index + 1}
+                  #{index + 1}
                 </span>
               </div>
             </div>

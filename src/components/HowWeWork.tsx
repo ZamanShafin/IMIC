@@ -1,50 +1,76 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FileSearch, UserCheck, Calculator, PlaneTakeoff, Hospital, HeartHandshake, PhoneCall, ArrowRight, CheckCircle } from 'lucide-react';
+import { 
+  FileSearch, 
+  UserCheck, 
+  Calculator, 
+  PlaneTakeoff, 
+  Hospital, 
+  HeartHandshake, 
+  PhoneCall, 
+  ArrowRight, 
+  CheckCircle2,
+  Sparkles,
+  ShieldCheck
+} from 'lucide-react';
 
 const steps = [
   {
-    number: "01",
-    title: "Submit Inquiry & Reports",
+    stepNumber: "Step 01",
+    title: "Inquiry & Medical Records Submission",
+    shortTitle: "1. Inquiry Submission",
     icon: FileSearch,
-    description: "Submit your latest medical history, scans, and doctor prescriptions online or visit our CPAC office in Banani, Dhaka."
+    color: "from-blue-500 to-cyan-500",
+    description: "Submit your latest medical history, diagnostic reports, and doctor prescriptions online or visit our CPAC office in Banani, Dhaka."
   },
   {
-    number: "02",
-    title: "Doctor Review & Option",
+    stepNumber: "Step 02",
+    title: "Specialist Review & Doctor Selection",
+    shortTitle: "2. Doctor Evaluation",
     icon: UserCheck,
-    description: "We forward your medical file to top specialists in Singapore, Malaysia, Thailand, or India for opinion & availability."
+    color: "from-emerald-500 to-teal-500",
+    description: "We forward your medical records to top specialist doctors in Singapore, Malaysia, Thailand, Indonesia, China, or India for review."
   },
   {
-    number: "03",
-    title: "Treatment Plan & Quote",
+    stepNumber: "Step 03",
+    title: "Treatment Plan & Itemized Quotation",
+    shortTitle: "3. Cost & Treatment Plan",
     icon: Calculator,
-    description: "Receive itemized hospital cost estimates, doctor profiles, expected hospital stay duration, and treatment itineraries."
+    color: "from-amber-500 to-orange-500",
+    description: "Receive itemized hospital bill estimates, doctor credentials, expected length of stay, and complete treatment schedule."
   },
   {
-    number: "04",
-    title: "Visa & Travel Booking",
+    stepNumber: "Step 04",
+    title: "Visa, Flight & Accommodation Logistics",
+    shortTitle: "4. Visa & Travel Booking",
     icon: PlaneTakeoff,
-    description: "IMIC issues official hospital invitation letters for expedited medical visa processing, flights, and accommodation."
+    color: "from-indigo-500 to-purple-500",
+    description: "IMIC issues official hospital invitation letters for expedited medical visas, discounted flights, and comfortable hotel apartments."
   },
   {
-    number: "05",
-    title: "Airport Buggy & Admission",
+    stepNumber: "Step 05",
+    title: "Airport Buggy & Direct Hospital Admission",
+    shortTitle: "5. Airport & Admission",
     icon: Hospital,
-    description: "Upon arrival, enjoy tarmac airport greeting, buggy escort, private ambulance transfer, and direct hospital admission."
+    color: "from-rose-500 to-pink-500",
+    description: "Upon landing, enjoy tarmac airport greeting, wheelchair/buggy escort, private ambulance transfer, and priority hospital admission."
   },
   {
-    number: "06",
-    title: "In-Hospital Support",
+    stepNumber: "Step 06",
+    title: "In-Hospital Support & Translation Care",
+    shortTitle: "6. In-Hospital Support",
     icon: HeartHandshake,
-    description: "Dedicated Bangla/English medical interpreter support during consultations, surgeries, and daily inpatient rounds."
+    color: "from-teal-500 to-emerald-600",
+    description: "Dedicated Bangla/English medical interpreter support during doctor consultations, diagnostic tests, surgeries, and daily inpatient care."
   },
   {
-    number: "07",
-    title: "Post-Discharge Follow-Up",
+    stepNumber: "Step 07",
+    title: "Post-Discharge Care & Tele-Follow-up",
+    shortTitle: "7. Post-Treatment Care",
     icon: PhoneCall,
-    description: "Assistance with follow-up tele-consultations, prescription refills, and rehabilitation guidance back in Bangladesh."
+    color: "from-sky-500 to-blue-600",
+    description: "Post-discharge coordination, medication refills, medical report delivery, and seamless follow-up tele-consultations in Dhaka."
   }
 ];
 
@@ -52,65 +78,72 @@ export default function HowWeWork() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section className="py-20 bg-slate-50">
+    <section className="py-20 bg-slate-50 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
-          <span className="text-xs font-extrabold text-imic-teal uppercase tracking-widest block">
-            Seamless Patient Journey
-          </span>
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-14">
+          <div className="inline-flex items-center gap-2 bg-imic-teal/10 text-imic-teal px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+            <Sparkles className="w-4 h-4 text-imic-teal" />
+            <span>End-to-End Patient Journey</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-imic-navy">
             How We Work — Step-by-Step
           </h2>
           <p className="text-slate-600 text-sm sm:text-base">
-            Our structured 7-step process ensures complete transparency, peace of mind, and zero stress for patients and their families.
+            Our structured 7-step process ensures complete transparency, peace of mind, and compassionate support for patients and their families.
           </p>
         </div>
 
-        {/* Steps Navigation Bar */}
-        <div className="hidden lg:flex items-center justify-between relative mb-12">
-          {/* Connector Line */}
-          <div className="absolute top-1/2 left-0 right-0 h-1 bg-slate-200 -translate-y-1/2 z-0" />
-
+        {/* Step Selector Horizontal Bar with Full Step Names (No dots!) */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-10">
           {steps.map((step, idx) => {
             const Icon = step.icon;
             const isActive = idx === activeStep;
-            const isCompleted = idx < activeStep;
 
             return (
               <button
                 key={idx}
                 onClick={() => setActiveStep(idx)}
-                className={`relative z-10 flex flex-col items-center group focus:outline-none`}
+                className={`p-3.5 rounded-2xl text-left transition-all duration-300 flex flex-col justify-between border ${
+                  isActive
+                    ? 'bg-imic-navy text-white border-imic-teal shadow-lg scale-[1.03] ring-2 ring-imic-teal/40'
+                    : 'bg-white text-slate-700 border-slate-200 hover:border-imic-teal/50 hover:bg-slate-50'
+                }`}
               >
-                <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
-                    isActive
-                      ? 'bg-imic-teal text-white ring-4 ring-imic-teal/20 scale-110 shadow-lg'
-                      : isCompleted
-                      ? 'bg-imic-navy text-white'
-                      : 'bg-white text-slate-500 border border-slate-300 group-hover:border-imic-teal'
-                  }`}
-                >
-                  {isCompleted ? <CheckCircle className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
+                <div className="flex items-center justify-between w-full mb-3">
+                  <div
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs ${
+                      isActive ? 'bg-imic-teal text-white' : 'bg-slate-100 text-slate-600'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <span
+                    className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                      isActive ? 'bg-white/20 text-imic-teal' : 'bg-slate-100 text-slate-500'
+                    }`}
+                  >
+                    0{idx + 1}
+                  </span>
                 </div>
-                <span className="text-[11px] font-bold text-slate-600 mt-2 max-w-[100px] text-center line-clamp-1">
-                  {step.title}
+
+                {/* Full Step Name */}
+                <span className={`text-xs font-bold line-clamp-2 leading-tight ${isActive ? 'text-white' : 'text-slate-800'}`}>
+                  {step.shortTitle}
                 </span>
               </button>
             );
           })}
         </div>
 
-        {/* Selected Step Display Card */}
-        <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        {/* Featured Step Detailed Card */}
+        <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-slate-200 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
           <div className="space-y-4 md:col-span-2">
             <div className="flex items-center gap-3">
-              <span className="text-3xl font-extrabold text-imic-teal">
-                Step {steps[activeStep].number}
+              <span className="text-xs font-black uppercase tracking-widest bg-imic-teal/20 text-imic-navy px-3 py-1 rounded-lg">
+                {steps[activeStep].stepNumber}
               </span>
-              <span className="text-slate-300 font-light text-2xl">|</span>
-              <h3 className="text-2xl font-bold text-imic-navy">
+              <h3 className="text-xl sm:text-2xl font-bold text-imic-navy">
                 {steps[activeStep].title}
               </h3>
             </div>
@@ -123,14 +156,14 @@ export default function HowWeWork() {
               <button
                 disabled={activeStep === 0}
                 onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
-                className="text-xs font-semibold text-slate-500 disabled:opacity-40 hover:text-imic-navy"
+                className="text-xs font-bold text-slate-500 disabled:opacity-30 hover:text-imic-navy transition"
               >
                 ← Previous Step
               </button>
               <button
                 disabled={activeStep === steps.length - 1}
                 onClick={() => setActiveStep((prev) => Math.min(steps.length - 1, prev + 1))}
-                className="text-xs font-bold text-imic-teal flex items-center gap-1 hover:text-imic-teal-hover"
+                className="text-xs font-bold text-imic-teal flex items-center gap-1 hover:text-imic-teal-hover transition"
               >
                 <span>Next Step</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -138,13 +171,16 @@ export default function HowWeWork() {
             </div>
           </div>
 
-          <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col items-center justify-center text-center space-y-3">
-            {React.createElement(steps[activeStep].icon, { className: "w-12 h-12 text-imic-teal" })}
-            <span className="text-xs font-bold text-imic-navy uppercase tracking-wider">
-              IMIC Guarantee
-            </span>
-            <p className="text-xs text-slate-500">
-              24/7 dedicated case officer assigned to your file in Bangladesh and destination country.
+          <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col items-center justify-center text-center space-y-3">
+            <div className="w-16 h-16 rounded-2xl bg-imic-teal/10 text-imic-teal flex items-center justify-center shadow-inner">
+              {React.createElement(steps[activeStep].icon, { className: "w-8 h-8 text-imic-teal" })}
+            </div>
+            <div className="flex items-center gap-1 text-xs font-bold text-imic-navy uppercase tracking-wider">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>IMIC Care Guarantee</span>
+            </div>
+            <p className="text-[11px] text-slate-500 leading-relaxed">
+              Assigned dedicated medical case officer from Dhaka CPAC to overseas hospital bedside.
             </p>
           </div>
         </div>
