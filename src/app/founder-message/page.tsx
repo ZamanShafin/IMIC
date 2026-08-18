@@ -3,8 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Quote, Sparkles, Building2, Phone, Mail, Award, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Quote, Sparkles } from 'lucide-react';
 
 export default function FounderMessagePage() {
   return (
@@ -34,7 +33,7 @@ export default function FounderMessagePage() {
 
         {/* Founder Profile & Message Content */}
         <section className="py-16 max-w-6xl mx-auto px-4">
-          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Left Column: Founder Photo & Profile Card */}
             <div className="lg:col-span-5 space-y-6">
@@ -63,38 +62,6 @@ export default function FounderMessagePage() {
                       International Medical Information Centre (IMIC)
                     </p>
                   </div>
-                </div>
-              </div>
-
-              {/* Quick Contact & Credentials Box */}
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200/70 space-y-3.5">
-                <div className="flex items-center gap-2 text-xs font-bold text-imic-navy uppercase tracking-wider">
-                  <Award className="w-4 h-4 text-imic-teal" />
-                  <span>Executive Office</span>
-                </div>
-
-                <div className="space-y-2 text-xs text-slate-700">
-                  <div className="flex items-center gap-2.5">
-                    <Building2 className="w-4 h-4 text-imic-teal shrink-0" />
-                    <span>CPAC Headquarters, Banani, Dhaka</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <Phone className="w-4 h-4 text-imic-teal shrink-0" />
-                    <span className="font-semibold">+8801710802000, +8801777995995</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <Mail className="w-4 h-4 text-imic-teal shrink-0" />
-                    <span>info@imic.com.bd</span>
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
-                  <Link
-                    href="/book-appointment"
-                    className="w-full text-center bg-imic-navy hover:bg-imic-teal text-white text-xs font-bold py-2.5 rounded-xl transition duration-300 shadow-sm"
-                  >
-                    Consult Our Team
-                  </Link>
                 </div>
               </div>
             </div>
@@ -132,30 +99,6 @@ export default function FounderMessagePage() {
                   We are deeply grateful for the trust thousands of Bangladeshi patients continue to place in IMIC. We promise to uphold the highest ethical standards and clinical excellence as we expand our international partner network.
                 </p>
               </div>
-
-              {/* Signoff */}
-              <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <h4 className="text-lg font-black text-imic-navy">
-                    Farzana Wali Liza
-                  </h4>
-                  <p className="text-xs font-bold text-imic-teal">
-                    Chairman
-                  </p>
-                  <p className="text-xs text-slate-500">
-                    International Medical Information Centre (IMIC)
-                  </p>
-                </div>
-
-                <Link
-                  href="/contact-us"
-                  className="inline-flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-md transition shrink-0"
-                >
-                  <span>Contact CPAC Dhaka</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-
             </div>
 
           </div>
