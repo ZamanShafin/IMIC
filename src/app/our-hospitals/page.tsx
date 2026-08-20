@@ -11,7 +11,6 @@ import {
   ShieldCheck, 
   ArrowRight, 
   Stethoscope, 
-  Search, 
   Sparkles, 
   ArrowUpDown,
   X,
@@ -33,31 +32,92 @@ interface PageProps {
   };
 }
 
-const indianRegions = [
-  { label: 'All Cities', value: '' },
-  { label: 'Chennai', value: 'Chennai' },
-  { label: 'Kolkata', value: 'Kolkata' },
-  { label: 'Bangalore', value: 'Bangalore' },
-  { label: 'Mumbai', value: 'Mumbai' },
-  { label: 'Delhi NCR', value: 'Delhi' },
-  { label: 'Hyderabad', value: 'Hyderabad' },
-  { label: 'Kochi', value: 'Kochi' },
-];
+interface RegionFilterItem {
+  label: string;
+  value: string;
+  searchKeywords: string[];
+}
 
-function matchCityRegion(hospitalCity: string, targetRegion: string): boolean {
-  if (!targetRegion) return true;
-  const c = (hospitalCity || '').toLowerCase();
-  const r = targetRegion.toLowerCase();
+const countryRegionsMap: Record<string, { title: string; items: RegionFilterItem[] }> = {
+  'India': {
+    title: 'Indian Regions & Hubs:',
+    items: [
+      { label: 'All Cities', value: '', searchKeywords: [] },
+      { label: 'Chennai', value: 'Chennai', searchKeywords: ['chennai'] },
+      { label: 'Kolkata', value: 'Kolkata', searchKeywords: ['kolkata', 'calcutta'] },
+      { label: 'Bangalore', value: 'Bangalore', searchKeywords: ['bangalore', 'bengaluru'] },
+      { label: 'Mumbai', value: 'Mumbai', searchKeywords: ['mumbai', 'thane'] },
+      { label: 'Delhi NCR', value: 'Delhi', searchKeywords: ['delhi', 'gurugram', 'gurgaon', 'ncr'] },
+      { label: 'Hyderabad', value: 'Hyderabad', searchKeywords: ['hyderabad', 'secunderabad'] },
+      { label: 'Kochi', value: 'Kochi', searchKeywords: ['kochi', 'cochin', 'kerala'] },
+    ]
+  },
+  'China': {
+    title: 'Chinese Cities & Medical Hubs:',
+    items: [
+      { label: 'All Cities', value: '', searchKeywords: [] },
+      { label: 'Guangzhou', value: 'Guangzhou', searchKeywords: ['guangzhou'] },
+      { label: 'Shenzhen', value: 'Shenzhen', searchKeywords: ['shenzhen'] },
+      { label: 'Foshan', value: 'Foshan', searchKeywords: ['foshan'] },
+      { label: 'Zhuhai', value: 'Zhuhai', searchKeywords: ['zhuhai'] },
+      { label: 'Shanghai', value: 'Shanghai', searchKeywords: ['shanghai'] },
+      { label: 'Xuzhou', value: 'Xuzhou', searchKeywords: ['xuzhou'] },
+    ]
+  },
+  'Singapore': {
+    title: 'Singapore Medical Clusters:',
+    items: [
+      { label: 'All Districts', value: '', searchKeywords: [] },
+      { label: 'Novena', value: 'Novena', searchKeywords: ['novena', 'irrawaddy'] },
+      { label: 'Orchard & Napier', value: 'Orchard', searchKeywords: ['orchard', 'napier'] },
+      { label: 'Farrer Park', value: 'Farrer Park', searchKeywords: ['farrer park'] },
+      { label: 'Outram / SGH Campus', value: 'Outram', searchKeywords: ['outram', 'sgh', 'third hospital'] },
+      { label: 'Kent Ridge (NUH)', value: 'Kent Ridge', searchKeywords: ['kent ridge', 'nuh'] },
+      { label: 'Thomson / Central', value: 'Thomson', searchKeywords: ['thomson', 'alvernia'] },
+      { label: 'East Coast', value: 'East Coast', searchKeywords: ['east coast', 'joo chiat'] },
+    ]
+  },
+  'Malaysia': {
+    title: 'Malaysian Medical Hubs:',
+    items: [
+      { label: 'All Regions', value: '', searchKeywords: [] },
+      { label: 'Kuala Lumpur', value: 'Kuala Lumpur', searchKeywords: ['kuala lumpur', 'ampang', 'kia peng', 'klcc'] },
+      { label: 'Subang Jaya', value: 'Subang Jaya', searchKeywords: ['subang jaya'] },
+      { label: 'Sunway City', value: 'Sunway City', searchKeywords: ['sunway'] },
+      { label: 'Petaling Jaya', value: 'Petaling Jaya', searchKeywords: ['petaling jaya'] },
+    ]
+  },
+  'Thailand': {
+    title: 'Bangkok Medical Districts:',
+    items: [
+      { label: 'All Districts', value: '', searchKeywords: [] },
+      { label: 'Sukhumvit & Thonglor', value: 'Sukhumvit', searchKeywords: ['sukhumvit', 'thonglor', 'soonvijai'] },
+      { label: 'Silom & Bangrak', value: 'Silom', searchKeywords: ['silom', 'convent'] },
+      { label: 'Rama IV (MedPark)', value: 'Rama IV', searchKeywords: ['rama iv', 'khlong toei'] },
+      { label: 'Ladprao (Vejthani)', value: 'Ladprao', searchKeywords: ['ladprao', 'bangkapi'] },
+    ]
+  },
+  'Indonesia': {
+    title: 'Jakarta Healthcare Clusters:',
+    items: [
+      { label: 'All Regions', value: '', searchKeywords: [] },
+      { label: 'South Jakarta (Gatot Subroto)', value: 'South Jakarta', searchKeywords: ['south jakarta', 'selatan', 'gatot subroto'] },
+      { label: 'Central Jakarta (Senen)', value: 'Central Jakarta', searchKeywords: ['central jakarta', 'pusat', 'senen', 'cipto'] },
+    ]
+  }
+};
 
-  if (r === 'chennai') return c.includes('chennai');
-  if (r === 'kolkata') return c.includes('kolkata') || c.includes('calcutta');
-  if (r === 'bangalore') return c.includes('bangalore') || c.includes('bengaluru');
-  if (r === 'mumbai') return c.includes('mumbai') || c.includes('thane');
-  if (r === 'delhi') return c.includes('delhi') || c.includes('gurugram') || c.includes('gurgaon') || c.includes('ncr');
-  if (r === 'hyderabad') return c.includes('hyderabad') || c.includes('secunderabad');
-  if (r === 'kochi') return c.includes('kochi') || c.includes('cochin') || c.includes('kerala');
+function matchCityRegion(hospital: any, targetValue: string, keywords: string[] = []): boolean {
+  if (!targetValue) return true;
+  const c = (hospital.city || '').toLowerCase();
+  const a = (hospital.address || '').toLowerCase();
+  const t = targetValue.toLowerCase();
 
-  return c.includes(r);
+  if (c.includes(t) || a.includes(t)) return true;
+  if (keywords.length > 0 && keywords.some(kw => c.includes(kw.toLowerCase()) || a.includes(kw.toLowerCase()))) {
+    return true;
+  }
+  return false;
 }
 
 export default async function OurHospitalsPage({ searchParams }: PageProps) {
@@ -77,7 +137,8 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
       whereClause.OR = [
         { name: { contains: searchQuery, mode: 'insensitive' } },
         { description: { contains: searchQuery, mode: 'insensitive' } },
-        { city: { contains: searchQuery, mode: 'insensitive' } }
+        { city: { contains: searchQuery, mode: 'insensitive' } },
+        { address: { contains: searchQuery, mode: 'insensitive' } }
       ];
     }
 
@@ -98,17 +159,36 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
       if (selectedCountry && h.country.toLowerCase() !== selectedCountry.toLowerCase()) return false;
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
-        const match = h.name.toLowerCase().includes(q) || h.city.toLowerCase().includes(q) || (h.description && h.description.toLowerCase().includes(q));
+        const match = h.name.toLowerCase().includes(q) || 
+                      (h.city && h.city.toLowerCase().includes(q)) || 
+                      (h.address && h.address.toLowerCase().includes(q)) || 
+                      (h.description && h.description.toLowerCase().includes(q));
         if (!match) return false;
       }
       return true;
     });
   }
 
-  // Filter by selected Indian region/city if applicable
+  // Determine current active country's region configuration
+  let activeCountryKey = '';
+  if (selectedCountry) {
+    activeCountryKey = Object.keys(countryRegionsMap).find(
+      k => k.toLowerCase() === selectedCountry.toLowerCase()
+    ) || '';
+  }
+
+  const currentRegionConfig = activeCountryKey ? countryRegionsMap[activeCountryKey] : null;
+
+  // Filter by selected region/city if applicable
   let hospitals = rawHospitals.filter((h) => {
     if (selectedCity) {
-      return matchCityRegion(h.city, selectedCity);
+      // Find keywords if in configured map
+      let keywords: string[] = [];
+      if (currentRegionConfig) {
+        const item = currentRegionConfig.items.find(i => i.value.toLowerCase() === selectedCity.toLowerCase());
+        if (item) keywords = item.searchKeywords;
+      }
+      return matchCityRegion(h, selectedCity, keywords);
     }
     return true;
   });
@@ -125,27 +205,31 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
 
   const countriesList = ['Singapore', 'Malaysia', 'Thailand', 'Indonesia', 'China', 'India'];
 
-  // Count per Indian region for badges
-  const allIndiaHospitals = fallbackHospitals.filter(h => h.country === 'India');
-  const regionCounts: Record<string, number> = {
-    '': allIndiaHospitals.length,
-    'Chennai': allIndiaHospitals.filter(h => matchCityRegion(h.city, 'Chennai')).length,
-    'Kolkata': allIndiaHospitals.filter(h => matchCityRegion(h.city, 'Kolkata')).length,
-    'Bangalore': allIndiaHospitals.filter(h => matchCityRegion(h.city, 'Bangalore')).length,
-    'Mumbai': allIndiaHospitals.filter(h => matchCityRegion(h.city, 'Mumbai')).length,
-    'Delhi': allIndiaHospitals.filter(h => matchCityRegion(h.city, 'Delhi')).length,
-    'Hyderabad': allIndiaHospitals.filter(h => matchCityRegion(h.city, 'Hyderabad')).length,
-    'Kochi': allIndiaHospitals.filter(h => matchCityRegion(h.city, 'Kochi')).length,
-  };
+  // Calculate country counts
+  const countryCounts: Record<string, number> = {};
+  countriesList.forEach(c => {
+    countryCounts[c] = fallbackHospitals.filter(h => h.country.toLowerCase() === c.toLowerCase()).length;
+  });
 
-  const isIndiaActive = selectedCountry.toLowerCase() === 'india' || !!selectedCity;
+  // Calculate region counts for active country
+  const regionCounts: Record<string, number> = {};
+  if (currentRegionConfig && activeCountryKey) {
+    const countryHospitals = fallbackHospitals.filter(h => h.country.toLowerCase() === activeCountryKey.toLowerCase());
+    currentRegionConfig.items.forEach(item => {
+      if (!item.value) {
+        regionCounts[item.value] = countryHospitals.length;
+      } else {
+        regionCounts[item.value] = countryHospitals.filter(h => matchCityRegion(h, item.value, item.searchKeywords)).length;
+      }
+    });
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header />
 
       <main className="flex-1">
-        {/* Header */}
+        {/* Header Banner */}
         <section className="bg-gradient-to-br from-imic-navy via-slate-900 to-imic-teal/90 text-white py-16 px-4 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
           <div className="max-w-7xl mx-auto space-y-4 relative z-10">
@@ -162,11 +246,11 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
           </div>
         </section>
 
-        {/* Sticky Filter Bar */}
+        {/* Sticky Filter & Sorting Bar */}
         <section className="bg-white border-b border-slate-200 py-4 px-4 sticky top-16 z-40 shadow-sm">
           <div className="max-w-7xl mx-auto space-y-4">
             
-            {/* Top Row: Country Selector & Summary */}
+            {/* Top Row: Country Selector & Sort Controls */}
             <div className="flex flex-wrap items-center justify-between gap-4">
               {/* Country Tabs */}
               <div className="flex flex-wrap items-center gap-2">
@@ -181,10 +265,11 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
-                  All Countries
+                  All Countries ({fallbackHospitals.length})
                 </Link>
                 {countriesList.map((c) => {
                   const isActive = selectedCountry.toLowerCase() === c.toLowerCase() && !selectedCity;
+                  const count = countryCounts[c] || 0;
                   return (
                     <Link
                       key={c}
@@ -196,19 +281,17 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
                       }`}
                     >
                       <span>{c}</span>
-                      {c === 'India' && (
-                        <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-extrabold ${
-                          isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'
-                        }`}>
-                          {allIndiaHospitals.length}
-                        </span>
-                      )}
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-extrabold ${
+                        isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'
+                      }`}>
+                        {count}
+                      </span>
                     </Link>
                   );
                 })}
               </div>
 
-              {/* Counter and Sort Dropdown */}
+              {/* Counter and Sort Toggle */}
               <div className="flex items-center gap-3 ml-auto">
                 <div className="flex items-center gap-1.5 text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
                   <ArrowUpDown className="w-3.5 h-3.5 text-imic-teal" />
@@ -222,7 +305,7 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
                     }).toString()}`}
                     className={`hover:text-imic-teal transition ${sortBy === 'city' ? 'text-imic-teal font-extrabold' : ''}`}
                   >
-                    City / Region
+                    Region / City
                   </Link>
                   <span className="text-slate-300">|</span>
                   <Link
@@ -244,23 +327,23 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
               </div>
             </div>
 
-            {/* Sub-Filter: India Region / City Selector */}
-            {isIndiaActive && (
+            {/* Sub-Filter: Active Country's Regional / City Selector */}
+            {currentRegionConfig && (
               <div className="pt-3 border-t border-slate-200/80 flex flex-wrap items-center gap-2">
                 <div className="flex items-center gap-1.5 text-xs font-extrabold text-imic-navy mr-2 shrink-0">
-                  <Compass className="w-4 h-4 text-rose-500 animate-pulse" />
-                  <span>Indian Region / City:</span>
+                  <Compass className="w-4 h-4 text-rose-500" />
+                  <span>{currentRegionConfig.title}</span>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-1.5">
-                  {indianRegions.map((region) => {
+                  {currentRegionConfig.items.map((region) => {
                     const isSelected = selectedCity.toLowerCase() === region.value.toLowerCase();
                     const count = regionCounts[region.value] || 0;
 
                     return (
                       <Link
                         key={region.label}
-                        href={`/our-hospitals?country=India${region.value ? `&city=${encodeURIComponent(region.value)}` : ''}${searchQuery ? `&query=${encodeURIComponent(searchQuery)}` : ''}${sortBy !== 'featured' ? `&sort=${sortBy}` : ''}`}
+                        href={`/our-hospitals?country=${encodeURIComponent(activeCountryKey)}${region.value ? `&city=${encodeURIComponent(region.value)}` : ''}${searchQuery ? `&query=${encodeURIComponent(searchQuery)}` : ''}${sortBy !== 'featured' ? `&sort=${sortBy}` : ''}`}
                         className={`text-xs font-bold px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 ${
                           isSelected
                             ? 'bg-rose-600 text-white shadow-md scale-102 ring-2 ring-rose-300'
@@ -280,12 +363,12 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
 
                   {selectedCity && (
                     <Link
-                      href={`/our-hospitals?country=India${searchQuery ? `&query=${encodeURIComponent(searchQuery)}` : ''}`}
+                      href={`/our-hospitals?country=${encodeURIComponent(activeCountryKey)}${searchQuery ? `&query=${encodeURIComponent(searchQuery)}` : ''}`}
                       className="text-xs font-bold text-slate-500 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 border border-slate-200 px-2.5 py-1.5 rounded-xl transition flex items-center gap-1 ml-1"
-                      title="Clear city filter"
+                      title="Clear region filter"
                     >
                       <X className="w-3.5 h-3.5" />
-                      <span>Clear City Filter</span>
+                      <span>Clear Region Filter</span>
                     </Link>
                   )}
                 </div>
@@ -298,8 +381,8 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
         <section className="py-14 max-w-7xl mx-auto px-4">
           {/* Active Filter Indicator */}
           {(selectedCity || selectedCountry || searchQuery) && (
-            <div className="mb-8 flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
-              <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-700">
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
+              <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-semibold text-slate-700">
                 <span>Filtering by:</span>
                 {selectedCountry && (
                   <span className="bg-imic-teal/10 text-imic-teal font-bold px-2.5 py-1 rounded-lg border border-imic-teal/30">
@@ -309,7 +392,7 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
                 {selectedCity && (
                   <span className="bg-rose-50 text-rose-600 font-bold px-2.5 py-1 rounded-lg border border-rose-200 flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5" />
-                    City: {selectedCity}
+                    Region/City: {selectedCity}
                   </span>
                 )}
                 {searchQuery && (
@@ -321,7 +404,7 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
 
               <Link
                 href="/our-hospitals"
-                className="text-xs font-bold text-slate-500 hover:text-rose-600 flex items-center gap-1 transition"
+                className="text-xs font-bold text-slate-500 hover:text-rose-600 flex items-center gap-1 transition ml-auto"
               >
                 <X className="w-3.5 h-3.5" />
                 <span>Reset All Filters</span>
@@ -334,13 +417,13 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
               <Building2 className="w-14 h-14 text-slate-300 mx-auto" />
               <h3 className="text-lg font-bold text-imic-navy">No hospitals match your filter criteria</h3>
               <p className="text-slate-500 text-xs">
-                Try selecting "All Cities" or resetting your search to explore all available international partner hospitals.
+                Try resetting your city or keyword search to explore all available international partner hospitals.
               </p>
               <Link 
-                href="/our-hospitals?country=India" 
+                href="/our-hospitals" 
                 className="inline-block bg-imic-teal text-white font-bold text-xs px-6 py-3 rounded-xl shadow-md transition"
               >
-                View All India Hospitals
+                View All Partner Hospitals
               </Link>
             </div>
           ) : (
