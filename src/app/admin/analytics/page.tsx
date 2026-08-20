@@ -1,22 +1,23 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  PieChart,
-  Pie,
-  Cell
-} from 'recharts';
-import { Calendar, Download, TrendingUp, Users, Clock, CheckCircle2 } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { Calendar, Download, TrendingUp, Users, Clock, CheckCircle2, Loader2 } from 'lucide-react';
+
+// Dynamically load heavy recharts modules on client side to eliminate blocking bundle size
+const ResponsiveContainer = dynamic(() => import('recharts').then(mod => mod.ResponsiveContainer), { ssr: false });
+const BarChart = dynamic(() => import('recharts').then(mod => mod.BarChart), { ssr: false });
+const Bar = dynamic(() => import('recharts').then(mod => mod.Bar), { ssr: false });
+const XAxis = dynamic(() => import('recharts').then(mod => mod.XAxis), { ssr: false });
+const YAxis = dynamic(() => import('recharts').then(mod => mod.YAxis), { ssr: false });
+const CartesianGrid = dynamic(() => import('recharts').then(mod => mod.CartesianGrid), { ssr: false });
+const Tooltip = dynamic(() => import('recharts').then(mod => mod.Tooltip), { ssr: false });
+const Legend = dynamic(() => import('recharts').then(mod => mod.Legend), { ssr: false });
+const LineChart = dynamic(() => import('recharts').then(mod => mod.LineChart), { ssr: false });
+const Line = dynamic(() => import('recharts').then(mod => mod.Line), { ssr: false });
+const PieChart = dynamic(() => import('recharts').then(mod => mod.PieChart), { ssr: false });
+const Pie = dynamic(() => import('recharts').then(mod => mod.Pie), { ssr: false });
+const Cell = dynamic(() => import('recharts').then(mod => mod.Cell), { ssr: false });
 
 const volumeData = [
   { month: 'Jan', bookings: 45, quotes: 68 },
@@ -65,30 +66,27 @@ export default function AnalyticsDashboardPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-imic-navy">Analytics & Performance Reports</h1>
-          <p className="text-xs text-slate-500">Monitor booking funnel conversion, hospital trends, and staff response times</p>
+          <h1 className="text-2xl font-extrabold text-imic-navy">Performance Analytics</h1>
+          <p className="text-xs text-slate-500">In-depth insights into patient inquiries, conversions, and country trends</p>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-xl p-1 text-xs">
-            <Calendar className="w-3.5 h-3.5 text-imic-teal ml-2" />
-            <select
-              value={dateRange}
-              onChange={(e) => setDateRange(e.target.value)}
-              className="bg-transparent text-xs font-bold text-slate-700 p-1.5 focus:outline-none"
-            >
-              <option value="7d">Last 7 Days</option>
-              <option value="30d">Last 30 Days</option>
-              <option value="90d">Last 3 Months</option>
-              <option value="1y">This Year</option>
-            </select>
-          </div>
+          <select
+            value={dateRange}
+            onChange={(e) => setDateRange(e.target.value)}
+            className="bg-white border border-slate-300 text-xs font-semibold rounded-xl px-3 py-2 text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-imic-teal"
+          >
+            <option value="7d">Last 7 Days</option>
+            <option value="30d">Last 30 Days</option>
+            <option value="90d">Last 90 Days</option>
+            <option value="1y">Past Year</option>
+          </select>
 
           <button
             onClick={handleExportCSV}
             className="bg-imic-teal hover:bg-imic-teal-hover text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition flex items-center gap-1.5"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-4 h-4" />
             <span>Export CSV Report</span>
           </button>
         </div>
@@ -97,60 +95,105 @@ export default function AnalyticsDashboardPage() {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Conversion Rate</span>
-          <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-black text-imic-navy">18.4%</span>
-            <span className="text-xs font-bold text-emerald-600">↑ +2.1%</span>
+          <div className="flex items-center justify-between text-slate-400 text-xs font-bold uppercase">
+            <span>Overall Conversion Rate</span>
+            <TrendingUp className="w-4 h-4 text-emerald-500" />
           </div>
-          <p className="text-[11px] text-slate-500">Inquiry to confirmed booking ratio</p>
+          <div className="text-3xl font-black text-imic-navy">24.6%</div>
+          <p className="text-[11px] text-emerald-600 font-semibold">+3.2% from previous period</p>
         </div>
 
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Avg Response Time</span>
-          <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-black text-imic-teal">38 mins</span>
-            <span className="text-xs font-bold text-emerald-600">Fast CPAC</span>
+          <div className="flex items-center justify-between text-slate-400 text-xs font-bold uppercase">
+            <span>Average Review Time</span>
+            <Clock className="w-4 h-4 text-imic-teal" />
           </div>
-          <p className="text-[11px] text-slate-500">Inquiry submit to staff phone outreach</p>
+          <div className="text-3xl font-black text-imic-navy">1.8 hrs</div>
+          <p className="text-[11px] text-slate-500 font-semibold">Fastest: Singapore Desk (45 mins)</p>
         </div>
 
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Top Destination</span>
-          <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-black text-imic-navy">Singapore</span>
-            <span className="text-xs font-bold text-slate-500">45% share</span>
+          <div className="flex items-center justify-between text-slate-400 text-xs font-bold uppercase">
+            <span>Total Patients Served</span>
+            <Users className="w-4 h-4 text-imic-navy" />
           </div>
-          <p className="text-[11px] text-slate-500">Mount Elizabeth & Farrer Park lead</p>
+          <div className="text-3xl font-black text-imic-navy">1,480+</div>
+          <p className="text-[11px] text-emerald-600 font-semibold">+18% MoM growth</p>
         </div>
 
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Emergency Visas</span>
-          <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-black text-imic-navy">42 Cases</span>
-            <span className="text-xs font-bold text-emerald-600">100% Issued</span>
+          <div className="flex items-center justify-between text-slate-400 text-xs font-bold uppercase">
+            <span>Patient Satisfaction</span>
+            <CheckCircle2 className="w-4 h-4 text-imic-teal" />
           </div>
-          <p className="text-[11px] text-slate-500">Issued within 24 hours</p>
+          <div className="text-3xl font-black text-imic-navy">99.2%</div>
+          <p className="text-[11px] text-slate-500 font-semibold">Based on post-discharge reviews</p>
         </div>
       </div>
 
-      {/* Funnel & Volume Charts Row */}
+      {/* Chart Rows */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Booking Funnel */}
+        {/* Monthly Volume */}
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-          <h3 className="text-base font-bold text-imic-navy">Patient Conversion Funnel</h3>
-          <p className="text-xs text-slate-500">Step-by-step drop-off from hospital search to completed treatment</p>
+          <h3 className="text-base font-bold text-imic-navy">Monthly Patient Inquiries & Quotes</h3>
+          <div className="h-72 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={volumeData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} />
+                <YAxis stroke="#94a3b8" fontSize={11} />
+                <Tooltip />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Bar dataKey="bookings" name="Bookings" fill="#00A896" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="quotes" name="Quote Requests" fill="#0F2C59" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
 
+        {/* Destination Breakdown */}
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <h3 className="text-base font-bold text-imic-navy">Destination Market Share (%)</h3>
+          <div className="h-72 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={countryBreakdown}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={95}
+                  paddingAngle={4}
+                  dataKey="value"
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                >
+                  {countryBreakdown.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+
+      {/* Specialties & Funnel */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Top Specialties */}
+        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+          <h3 className="text-base font-bold text-imic-navy">Top Clinical Disciplines (Cases)</h3>
           <div className="space-y-3 pt-2">
-            {funnelSteps.map((f, i) => (
-              <div key={i} className="space-y-1">
-                <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
-                  <span>{f.step}</span>
-                  <span className="font-bold text-imic-teal">{f.value} patients ({f.pct})</span>
+            {specialtyBreakdown.map((item, idx) => (
+              <div key={idx} className="space-y-1">
+                <div className="flex justify-between text-xs font-semibold">
+                  <span className="text-slate-700">{item.specialty}</span>
+                  <span className="text-imic-navy font-bold">{item.count} cases</span>
                 </div>
-                <div className="h-3 rounded-full bg-slate-100 overflow-hidden">
+                <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-imic-navy to-imic-teal rounded-full"
-                    style={{ width: f.pct }}
+                    className="h-full bg-imic-teal rounded-full"
+                    style={{ width: `${(item.count / 40) * 100}%` }}
                   />
                 </div>
               </div>
@@ -158,60 +201,21 @@ export default function AnalyticsDashboardPage() {
           </div>
         </div>
 
-        {/* Volume Over Time Chart */}
+        {/* Patient Inquiry Funnel */}
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-          <h3 className="text-base font-bold text-imic-navy">Bookings & Quote Volume</h3>
-          <p className="text-xs text-slate-500">Monthly breakdown of patient requests</p>
-
-          <div className="h-64 w-full pt-2">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={volumeData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis dataKey="month" tick={{ fontSize: 11 }} />
-                <YAxis tick={{ fontSize: 11 }} />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="bookings" stroke="#00A896" strokeWidth={3} name="Bookings" />
-                <Line type="monotone" dataKey="quotes" stroke="#0F2C59" strokeWidth={3} name="Quote Requests" />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
-
-      {/* Country Distribution & Specialty Breakdown */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Country Pie Chart */}
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-          <h3 className="text-base font-bold text-imic-navy">Destination Country Share</h3>
-          <div className="h-64 w-full flex items-center justify-center">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie data={countryBreakdown} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
-                  {countryBreakdown.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        {/* Specialty Bar Chart */}
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-          <h3 className="text-base font-bold text-imic-navy">Top Requested Medical Specialties</h3>
-          <div className="h-64 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={specialtyBreakdown}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis dataKey="specialty" tick={{ fontSize: 10 }} />
-                <YAxis tick={{ fontSize: 11 }} />
-                <Tooltip />
-                <Bar dataKey="count" fill="#0F2C59" radius={[8, 8, 0, 0]} name="Patient Requests" />
-              </BarChart>
-            </ResponsiveContainer>
+          <h3 className="text-base font-bold text-imic-navy">Patient Conversion Funnel</h3>
+          <div className="space-y-3 pt-2">
+            {funnelSteps.map((step, idx) => (
+              <div key={idx} className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                <span className="text-xs font-bold text-slate-700">{step.step}</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-bold text-imic-navy">{step.value}</span>
+                  <span className="text-xs font-extrabold text-imic-teal bg-imic-teal/10 px-2 py-0.5 rounded-md">
+                    {step.pct}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
