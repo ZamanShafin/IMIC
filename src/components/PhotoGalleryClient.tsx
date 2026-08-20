@@ -22,6 +22,8 @@ export default function PhotoGalleryClient() {
               src={photo.url}
               alt="IMIC Photo Gallery Asset"
               fill
+              loading={index < 8 ? 'eager' : 'lazy'}
+              priority={index < 4}
               className="object-cover group-hover:scale-105 transition-transform duration-500"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />

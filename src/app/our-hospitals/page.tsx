@@ -4,7 +4,6 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import Image from 'next/image';
 import Link from 'next/link';
-import { db } from '@/lib/db';
 import { 
   MapPin, 
   Building2, 
@@ -18,8 +17,8 @@ import {
 } from 'lucide-react';
 import fallbackHospitals from '@/data/hospitals.json';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// Instant edge-cached rendering with 1-hour background revalidation
+export const revalidate = 3600;
 
 interface PageProps {
   searchParams: { 
@@ -126,48 +125,19 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
   const searchQuery = searchParams.query || '';
   const sortBy = searchParams.sort || 'featured';
 
-  let rawHospitals: any[] = [];
-
-  try {
-    const whereClause: any = {};
-    if (selectedCountry) {
-      whereClause.country = selectedCountry;
-    }
+  // Instant in-memory data fetch with zero blocking network lag
+  let rawHospitals = fallbackHospitals.filter((h) => {
+    if (selectedCountry && h.country.toLowerCase() !== selectedCountry.toLowerCase()) return false;
     if (searchQuery) {
-      whereClause.OR = [
-        { name: { contains: searchQuery, mode: 'insensitive' } },
-        { description: { contains: searchQuery, mode: 'insensitive' } },
-        { city: { contains: searchQuery, mode: 'insensitive' } },
-        { address: { contains: searchQuery, mode: 'insensitive' } }
-      ];
+      const q = searchQuery.toLowerCase();
+      const match = h.name.toLowerCase().includes(q) || 
+                    (h.city && h.city.toLowerCase().includes(q)) || 
+                    (h.address && h.address.toLowerCase().includes(q)) || 
+                    (h.description && h.description.toLowerCase().includes(q));
+      if (!match) return false;
     }
-
-    rawHospitals = await db.hospital.findMany({
-      where: whereClause,
-      orderBy: [
-        { featured: 'desc' },
-        { name: 'asc' }
-      ]
-    });
-  } catch (error) {
-    console.error('Hospitals DB connection note:', error);
-  }
-
-  // Fallback to rich dataset if DB is empty or connecting
-  if (!rawHospitals || rawHospitals.length === 0) {
-    rawHospitals = fallbackHospitals.filter((h) => {
-      if (selectedCountry && h.country.toLowerCase() !== selectedCountry.toLowerCase()) return false;
-      if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        const match = h.name.toLowerCase().includes(q) || 
-                      (h.city && h.city.toLowerCase().includes(q)) || 
-                      (h.address && h.address.toLowerCase().includes(q)) || 
-                      (h.description && h.description.toLowerCase().includes(q));
-        if (!match) return false;
-      }
-      return true;
-    });
-  }
+    return true;
+  });
 
   // Determine current active country's region configuration
   let activeCountryKey = '';
@@ -182,7 +152,6 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
   // Filter by selected region/city if applicable
   let hospitals = rawHospitals.filter((h) => {
     if (selectedCity) {
-      // Find keywords if in configured map
       let keywords: string[] = [];
       if (currentRegionConfig) {
         const item = currentRegionConfig.items.find(i => i.value.toLowerCase() === selectedCity.toLowerCase());
@@ -428,7 +397,7 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {hospitals.map((h) => {
+              {hospitals.map((h, index) => {
                 let accs: string[] = [];
                 try {
                   accs = typeof h.accreditations === 'string' ? JSON.parse(h.accreditations || '[]') : (h.accreditations || []);
@@ -448,7 +417,9 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
                           src={h.image || '/images/hospitals/farrer-park-1.jpg'}
                           alt={h.name}
                           fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          loading={index < 6 ? 'eager' : 'lazy'}
+                          priority={index < 3}
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         
