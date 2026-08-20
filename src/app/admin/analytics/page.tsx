@@ -2,22 +2,17 @@
 
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { Calendar, Download, TrendingUp, Users, Clock, CheckCircle2, Loader2 } from 'lucide-react';
+import { Calendar, Download, TrendingUp, Users, Clock, CheckCircle2 } from 'lucide-react';
 
-// Dynamically load heavy recharts modules on client side to eliminate blocking bundle size
-const ResponsiveContainer = dynamic(() => import('recharts').then(mod => mod.ResponsiveContainer), { ssr: false });
-const BarChart = dynamic(() => import('recharts').then(mod => mod.BarChart), { ssr: false });
-const Bar = dynamic(() => import('recharts').then(mod => mod.Bar), { ssr: false });
-const XAxis = dynamic(() => import('recharts').then(mod => mod.XAxis), { ssr: false });
-const YAxis = dynamic(() => import('recharts').then(mod => mod.YAxis), { ssr: false });
-const CartesianGrid = dynamic(() => import('recharts').then(mod => mod.CartesianGrid), { ssr: false });
-const Tooltip = dynamic(() => import('recharts').then(mod => mod.Tooltip), { ssr: false });
-const Legend = dynamic(() => import('recharts').then(mod => mod.Legend), { ssr: false });
-const LineChart = dynamic(() => import('recharts').then(mod => mod.LineChart), { ssr: false });
-const Line = dynamic(() => import('recharts').then(mod => mod.Line), { ssr: false });
-const PieChart = dynamic(() => import('recharts').then(mod => mod.PieChart), { ssr: false });
-const Pie = dynamic(() => import('recharts').then(mod => mod.Pie), { ssr: false });
-const Cell = dynamic(() => import('recharts').then(mod => mod.Cell), { ssr: false });
+const VolumeChart = dynamic(() => import('@/components/admin/VolumeChart'), {
+  ssr: false,
+  loading: () => <div className="h-72 w-full bg-slate-50 animate-pulse rounded-2xl flex items-center justify-center text-xs text-slate-400">Loading chart analytics...</div>
+});
+
+const MarketShareChart = dynamic(() => import('@/components/admin/MarketShareChart'), {
+  ssr: false,
+  loading: () => <div className="h-72 w-full bg-slate-50 animate-pulse rounded-2xl flex items-center justify-center text-xs text-slate-400">Loading market share...</div>
+});
 
 const volumeData = [
   { month: 'Jan', bookings: 45, quotes: 68 },
@@ -136,45 +131,13 @@ export default function AnalyticsDashboardPage() {
         {/* Monthly Volume */}
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
           <h3 className="text-base font-bold text-imic-navy">Monthly Patient Inquiries & Quotes</h3>
-          <div className="h-72 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={volumeData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} />
-                <YAxis stroke="#94a3b8" fontSize={11} />
-                <Tooltip />
-                <Legend wrapperStyle={{ fontSize: 11 }} />
-                <Bar dataKey="bookings" name="Bookings" fill="#00A896" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="quotes" name="Quote Requests" fill="#0F2C59" radius={[6, 6, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          <VolumeChart data={volumeData} />
         </div>
 
         {/* Destination Breakdown */}
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
           <h3 className="text-base font-bold text-imic-navy">Destination Market Share (%)</h3>
-          <div className="h-72 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={countryBreakdown}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={95}
-                  paddingAngle={4}
-                  dataKey="value"
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                >
-                  {countryBreakdown.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
+          <MarketShareChart data={countryBreakdown} />
         </div>
       </div>
 
