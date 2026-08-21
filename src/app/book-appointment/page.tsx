@@ -404,7 +404,7 @@ export default function BookAppointmentPage() {
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
                     <a
-                      href={`https://wa.me/+8801777995995?text=Hello%20IMIC%2C%20I%20just%20submitted%20booking%20request%20${bookingRef}`}
+                      href={`https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20just%20submitted%20booking%20request%20${bookingRef}`}
                       target="_blank"
                       rel="noreferrer"
                       className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg transition"

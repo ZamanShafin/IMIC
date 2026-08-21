@@ -5,7 +5,7 @@ import React from 'react';
 export default function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/+8801777995995?text=Hello%20IMIC%2C%20I%20would%20like%20to%20inquire%20about%20medical%20treatment%20abroad."
+      href="https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20would%20like%20to%20inquire%20about%20medical%20treatment%20abroad."
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20ba5a] text-white p-3.5 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 group"

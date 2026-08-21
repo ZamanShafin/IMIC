@@ -103,8 +103,8 @@ export async function sendEmailNotification({ to, subject, html }: { to: string;
   return { success: true, simulated: true };
 }
 
-export function generateWhatsAppUrl(phone = '+8801777995995', text?: string) {
-  const cleanPhone = phone.replace(/[^0-9+]/g, '');
+export function generateWhatsAppUrl(phone = '8801710802000', text?: string) {
+  const cleanPhone = phone.replace(/[^0-9]/g, '');
   const encodedText = text ? encodeURIComponent(text) : encodeURIComponent('Hello IMIC, I would like to inquire about medical treatment abroad.');
   return `https://wa.me/${cleanPhone}?text=${encodedText}`;
 }
