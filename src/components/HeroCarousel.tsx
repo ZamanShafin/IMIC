@@ -3,32 +3,32 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Calendar, FileText, ChevronLeft, ChevronRight, CheckCircle2, Sparkles } from 'lucide-react';
+import { Calendar, FileText, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 
 const slides = [
   {
     image: '/images/slider/slide1.jpg',
     badge: 'International Healthcare Facilitator',
     title: 'World-Class Healthcare Services Abroad',
-    subtext: 'Connecting Bangladeshi patients to top accredited hospitals and renowned clinical specialists across Singapore, Malaysia, Thailand, Indonesia, China & India.',
+    subtext: 'Connecting Bangladeshi patients to premier JCI accredited hospitals and renowned specialist doctors across Singapore, Malaysia, Thailand, Indonesia, China & India.',
   },
   {
     image: '/images/slider/slide2.jpg',
-    badge: 'Fast-Track Medical Travel',
-    title: 'Direct Admission & Emergency Visa Assistance',
-    subtext: 'Expedited emergency visas within 24-48 hours, tarmac airport buggy & ambulance pickup, and full in-hospital translation support.',
+    badge: 'Cutting-Edge Surgical Care',
+    title: 'Advanced Robotic Surgery & Critical Interventions',
+    subtext: 'Expedited doctor appointments, minimally invasive robotic procedures, itemized hospital bill estimates, and emergency visa assistance within 24-48 hours.',
   },
   {
     image: '/images/slider/slide3.jpg',
-    badge: 'Affordable Patient Transfers',
-    title: '60% Savings with Commercial Flight Stretcher',
-    subtext: 'Cost-effective commercial flight medical transfers with qualified medical teams, oxygen, and critical care monitoring.',
+    badge: 'Compassionate Patient Support',
+    title: 'Dedicated Bedside Assistance & Translation',
+    subtext: 'Experienced international patient coordinators and language interpreters supporting you from Dhaka CPAC to overseas hospital bedside.',
   },
   {
     image: '/images/slider/slide4.jpg',
     badge: '24/7 CPAC Dhaka Assistance',
     title: 'One-Stop Patient Assistance Centre',
-    subtext: 'From specialist doctor appointments and transparent hospital cost estimates to flights, hotel apartments, and post-discharge recovery.',
+    subtext: 'Complete peace of mind from specialist evaluations and transparent hospital cost quotations to flights, hotel apartments, and post-discharge recovery.',
   },
 ];
 
@@ -60,19 +60,19 @@ export default function HeroCarousel() {
             index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
           }`}
         >
-          {/* Ultra-Sharp, Bright, High-Contrast Background Image */}
+          {/* Authentic, Crisp, Bright Slider Background Image */}
           <div className="absolute inset-0 w-full h-full">
             <Image
               src={slide.image}
               alt={slide.title}
               fill
-              className="object-cover object-center brightness-95 contrast-105 saturate-110"
+              className="object-cover object-center brightness-95 contrast-105"
               priority={index === 0}
             />
           </div>
 
-          {/* Clean Gradient Overlay - Left-focused for text, keeping 70% of image luminous & clear */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/45 to-transparent/10" />
+          {/* Clean Left-Side Text Readability Gradient - Keeps 70% of Hospital Visuals Crystal Clear */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent/10" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-black/10" />
 
           {/* Slide Content */}
@@ -91,10 +91,11 @@ export default function HeroCarousel() {
                 {slide.subtext}
               </p>
 
-              {/* Dual CTAs */}
+              {/* Dual Action CTAs */}
               <div className="flex flex-wrap items-center gap-4 pt-3">
                 <Link
                   href="/book-appointment"
+                  prefetch={true}
                   className="flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white font-bold text-sm sm:text-base px-6 py-3.5 rounded-2xl shadow-xl transition transform hover:-translate-y-0.5"
                 >
                   <Calendar className="w-5 h-5" />
@@ -103,6 +104,7 @@ export default function HeroCarousel() {
 
                 <Link
                   href="/request-qu"
+                  prefetch={true}
                   className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-bold text-sm sm:text-base px-6 py-3.5 rounded-2xl border border-white/50 shadow-lg backdrop-blur-md transition transform hover:-translate-y-0.5"
                 >
                   <FileText className="w-5 h-5 text-emerald-300" />
