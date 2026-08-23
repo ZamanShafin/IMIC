@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import Link from 'next/link';
-import { Building2, ShieldCheck, HeartHandshake, PhoneCall, Award } from 'lucide-react';
+import { ShieldCheck, Award } from 'lucide-react';
 
 export default function AboutUsPage() {
   return (
@@ -17,7 +17,7 @@ export default function AboutUsPage() {
           <div className="max-w-7xl mx-auto space-y-3 relative z-10">
             <h1 className="text-3xl sm:text-5xl font-extrabold text-white">About IMIC</h1>
             <p className="text-slate-200 max-w-2xl mx-auto text-sm sm:text-base">
-              Your trusted medical tourism facilitator connecting Bangladeshi patients to top-tier healthcare destinations across Asia.
+              Your trusted partner for accessing world-class healthcare beyond borders across Singapore, Malaysia, China, Thailand, Indonesia, and India.
             </p>
           </div>
         </section>
@@ -27,28 +27,36 @@ export default function AboutUsPage() {
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 bg-imic-teal/10 text-imic-teal px-3 py-1 rounded-full text-xs font-bold uppercase">
               <ShieldCheck className="w-4 h-4" />
-              <span>Who We Are</span>
+              <span>About IMIC</span>
             </div>
 
             <h2 className="text-2xl sm:text-4xl font-bold text-imic-navy leading-tight">
-              One-Stop Patient Assistance Centre (CPAC)
+              Bringing World-Class Healthcare Closer to You
             </h2>
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              International Medical Information Center (IMIC) is a Bangladesh-based medical tourism facilitator dedicated to helping patients access premier treatment at partner hospitals in Singapore, Malaysia, Thailand, and India.
+              <strong>International Medical Information Centre (IMIC)</strong> is your trusted partner for accessing world-class healthcare beyond borders. We connect patients with leading hospitals, experienced specialists, and advanced treatment options across <em>Singapore, Malaysia, China, Thailand, Indonesia, and India</em>.
             </p>
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              Our Patient Assistance Centre (CPAC) provides a seamless and one-stop 24-hour service connecting patients to a comprehensive choice of medical services, surgical specialists, and tertiary healthcare institutions.
+              From choosing the right doctor and hospital to coordinating appointments and supporting your medical journey, IMIC is committed to making healthcare access <em>simpler, smoother, and more reassuring</em>.
+            </p>
+
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              With our promise of <strong className="text-imic-teal bg-imic-teal/10 px-2 py-0.5 rounded font-bold">“Premium Healthcare – Personal Touch,”</strong> we combine trusted guidance, professional expertise, and personalized care—because when it comes to your health, every decision matters.
+            </p>
+
+            <p className="text-imic-navy font-bold text-sm sm:text-base italic">
+              IMIC — Bringing World-Class Healthcare Closer to You.
             </p>
 
             <div className="grid grid-cols-2 gap-4 pt-2">
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                <span className="text-2xl font-black text-imic-teal block">15+</span>
+                <span className="text-2xl font-black text-imic-teal block">65+</span>
                 <span className="text-xs text-slate-600 font-medium">Partner Hospitals</span>
               </div>
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                <span className="text-2xl font-black text-imic-navy block">4</span>
+                <span className="text-2xl font-black text-imic-navy block">6</span>
                 <span className="text-xs text-slate-600 font-medium">Asian Destination Countries</span>
               </div>
             </div>
