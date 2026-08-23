@@ -129,7 +129,7 @@ export default function CountryGrid() {
                 </div>
 
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-imic-navy group-hover:text-imic-teal transition">
-                  <span>View Hospitals & Doctors</span>
+                  <span>View Hospitals</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition" />
                 </div>
               </div>
