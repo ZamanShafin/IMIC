@@ -1,9 +1,42 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import Link from 'next/link';
 import { ShieldCheck, Award } from 'lucide-react';
+
+function AnimatedCounter({ target, suffix = '', duration = 1400 }: { target: number; suffix?: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTimestamp: number | null = null;
+    let animationFrameId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(easeOut * target));
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
+      } else {
+        setCount(target);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [target, duration]);
+
+  return (
+    <span>
+      {count}{suffix}
+    </span>
+  );
+}
 
 export default function AboutUsPage() {
   return (
@@ -52,11 +85,15 @@ export default function AboutUsPage() {
 
             <div className="grid grid-cols-2 gap-4 pt-2">
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                <span className="text-2xl font-black text-imic-teal block">65+</span>
+                <span className="text-2xl sm:text-3xl font-black text-imic-teal block">
+                  <AnimatedCounter target={44} suffix="+" duration={1500} />
+                </span>
                 <span className="text-xs text-slate-600 font-medium">Partner Hospitals</span>
               </div>
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                <span className="text-2xl font-black text-imic-navy block">6</span>
+                <span className="text-2xl sm:text-3xl font-black text-imic-navy block">
+                  <AnimatedCounter target={6} duration={1200} />
+                </span>
                 <span className="text-xs text-slate-600 font-medium">Asian Destination Countries</span>
               </div>
             </div>
