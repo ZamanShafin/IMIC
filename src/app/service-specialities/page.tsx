@@ -274,11 +274,6 @@ export default function ServiceSpecialitiesPage() {
           <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
           
           <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-imic-teal uppercase tracking-wider border border-white/10">
-              <Sparkles className="w-4 h-4 text-imic-teal" />
-              <span>Full Medical Directory & Services</span>
-            </div>
-            
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white drop-shadow-sm">
               Our Services & Clinical Specialities
             </h1>

@@ -45,10 +45,14 @@ export default function FAQPage() {
       <Header />
 
       <main className="flex-1">
-        <section className="bg-imic-navy text-white py-16 px-4 text-center">
-          <div className="max-w-7xl mx-auto space-y-3">
-            <span className="text-xs font-bold text-imic-teal uppercase tracking-widest block">Clear Answers</span>
+        {/* Hero Section */}
+        <section className="bg-gradient-to-br from-imic-navy via-slate-900 to-imic-teal/90 text-white py-16 px-4 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+          <div className="max-w-7xl mx-auto space-y-3 relative z-10">
             <h1 className="text-3xl sm:text-5xl font-extrabold">Frequently Asked Questions</h1>
+            <p className="text-slate-200 text-sm sm:text-base max-w-2xl mx-auto">
+              Find detailed answers regarding overseas doctor appointments, hospital admissions, visas, and medical travel logistics.
+            </p>
           </div>
         </section>
 

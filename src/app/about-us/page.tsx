@@ -12,13 +12,11 @@ export default function AboutUsPage() {
 
       <main className="flex-1">
         {/* Banner Header */}
-        <section className="bg-imic-navy text-white py-16 px-4">
-          <div className="max-w-7xl mx-auto space-y-4 text-center">
-            <span className="text-xs font-bold text-imic-teal uppercase tracking-widest block">
-              International Medical Information Center
-            </span>
+        <section className="bg-gradient-to-br from-imic-navy via-slate-900 to-imic-teal/90 text-white py-16 px-4 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+          <div className="max-w-7xl mx-auto space-y-3 relative z-10">
             <h1 className="text-3xl sm:text-5xl font-extrabold text-white">About IMIC</h1>
-            <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
+            <p className="text-slate-200 max-w-2xl mx-auto text-sm sm:text-base">
               Your trusted medical tourism facilitator connecting Bangladeshi patients to top-tier healthcare destinations across Asia.
             </p>
           </div>

@@ -203,10 +203,6 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
         <section className="bg-gradient-to-br from-imic-navy via-slate-900 to-imic-teal/90 text-white py-16 px-4 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
           <div className="max-w-7xl mx-auto space-y-4 relative z-10">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-imic-teal uppercase tracking-wider border border-white/10">
-              <Sparkles className="w-4 h-4 text-imic-teal" />
-              <span>International Partner Network</span>
-            </div>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
               Our Associated Hospitals
             </h1>
