@@ -6,7 +6,6 @@ import HeroCarousel from '@/components/HeroCarousel';
 import SearchWidget from '@/components/SearchWidget';
 import CountryGrid from '@/components/CountryGrid';
 import ServicesGrid from '@/components/ServicesGrid';
-import ClinicalServicesSection from '@/components/ClinicalServicesSection';
 import SpecialityHighlights from '@/components/SpecialityHighlights';
 import HowWeWork from '@/components/HowWeWork';
 import PartnerLogos from '@/components/PartnerLogos';
@@ -32,9 +31,6 @@ export default function HomePage() {
 
         {/* Facilitation Services Grid (Including Medical Visa & Tourist Visa) */}
         <ServicesGrid />
-
-        {/* Dedicated Clinical Services Section */}
-        <ClinicalServicesSection />
 
         {/* Speciality Highlight Capabilities */}
         <SpecialityHighlights />
