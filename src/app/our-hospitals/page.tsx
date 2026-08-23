@@ -13,7 +13,8 @@ import {
   Sparkles, 
   ArrowUpDown,
   X,
-  Compass
+  Compass,
+  Calendar
 } from 'lucide-react';
 import fallbackHospitals from '@/data/hospitals.json';
 
@@ -473,8 +474,8 @@ export default async function OurHospitalsPage({ searchParams }: PageProps) {
                         href={`/book-appointment?hospital=${encodeURIComponent(h.name)}`}
                         className="text-xs font-bold text-imic-teal hover:text-imic-teal-hover flex items-center gap-1.5 transition"
                       >
-                        <Stethoscope className="w-4 h-4" />
-                        <span>Book Doctor</span>
+                        <Calendar className="w-4 h-4" />
+                        <span>Book Appointment</span>
                       </Link>
 
                       <Link

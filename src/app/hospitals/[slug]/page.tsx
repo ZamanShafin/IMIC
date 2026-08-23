@@ -71,20 +71,13 @@ export default async function HospitalDetailPage({ params }: PageProps) {
                 )}
               </div>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-3">
                 <Link
                   href={`/book-appointment?hospital=${encodeURIComponent(hospital.name)}`}
-                  className="flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white text-sm font-bold px-6 py-3 rounded-xl shadow-lg transition transform hover:-translate-y-0.5"
+                  className="flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white text-sm font-bold px-7 py-3 rounded-xl shadow-lg transition transform hover:-translate-y-0.5"
                 >
                   <Calendar className="w-4 h-4" />
-                  <span>Book Appointment Here</span>
-                </Link>
-                <Link
-                  href={`/request-qu?hospital=${encodeURIComponent(hospital.name)}`}
-                  className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white text-sm font-bold px-5 py-3 rounded-xl transition"
-                >
-                  <FileText className="w-4 h-4 text-imic-teal" />
-                  <span>Request Quote</span>
+                  <span>Book Appointment</span>
                 </Link>
               </div>
             </div>
@@ -167,21 +160,13 @@ export default async function HospitalDetailPage({ params }: PageProps) {
                 </p>
               </div>
 
-              <div className="space-y-2.5 pt-2 border-t border-slate-100">
+              <div className="pt-2 border-t border-slate-100">
                 <Link
                   href={`/book-appointment?hospital=${encodeURIComponent(hospital.name)}`}
                   className="w-full flex items-center justify-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white font-bold text-xs py-3.5 rounded-xl shadow-md transition"
                 >
                   <Calendar className="w-4 h-4" />
-                  <span>Book Doctor Appointment</span>
-                </Link>
-
-                <Link
-                  href={`/request-qu?hospital=${encodeURIComponent(hospital.name)}`}
-                  className="w-full flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-imic-navy font-bold text-xs py-3.5 rounded-xl transition"
-                >
-                  <FileText className="w-4 h-4 text-imic-teal" />
-                  <span>Request Hospital Bill Estimate</span>
+                  <span>Book Appointment</span>
                 </Link>
               </div>
 

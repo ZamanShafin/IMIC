@@ -13,7 +13,7 @@ import PartnerLogos from '@/components/PartnerLogos';
 import Testimonials from '@/components/Testimonials';
 import AccreditationLogos from '@/components/AccreditationLogos';
 import Link from 'next/link';
-import { FileText, PhoneCall, ArrowRight } from 'lucide-react';
+import { FileText, PhoneCall, ArrowRight, Calendar } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -53,11 +53,11 @@ export default function HomePage() {
 
             <div className="flex flex-wrap items-center gap-4 shrink-0">
               <Link
-                href="/request-qu"
+                href="/book-appointment"
                 className="flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-lg transition"
               >
-                <FileText className="w-4 h-4" />
-                <span>Request a Free Quote</span>
+                <Calendar className="w-4 h-4" />
+                <span>Book Appointment</span>
               </Link>
               <a
                 href="tel:+8801710802000"

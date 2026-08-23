@@ -417,15 +417,8 @@ export default function ServiceSpecialitiesPage() {
                         href={`/book-appointment?specialty=${encodeURIComponent(spec.category)}`}
                         className="text-xs font-bold text-imic-teal hover:text-imic-teal-hover flex items-center gap-1 transition"
                       >
-                        <span>Book Doctor</span>
+                        <span>Book Appointment</span>
                         <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-
-                      <Link
-                        href="/request-qu"
-                        className="text-xs font-semibold text-slate-500 hover:text-imic-navy transition"
-                      >
-                        <span>Get Cost Estimate</span>
                       </Link>
                     </div>
                   </div>
@@ -465,15 +458,9 @@ export default function ServiceSpecialitiesPage() {
               <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full md:w-auto">
                 <Link
                   href="/book-appointment"
-                  className="bg-imic-teal hover:bg-imic-teal-hover text-white px-7 py-3.5 rounded-xl font-bold text-sm shadow-md transition text-center"
+                  className="bg-imic-teal hover:bg-imic-teal-hover text-white px-8 py-3.5 rounded-xl font-bold text-sm shadow-md transition text-center"
                 >
                   Book Appointment
-                </Link>
-                <Link
-                  href="/request-qu"
-                  className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-7 py-3.5 rounded-xl font-bold text-sm backdrop-blur-md transition text-center"
-                >
-                  Request Quote
                 </Link>
               </div>
             </div>

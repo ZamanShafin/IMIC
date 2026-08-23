@@ -115,13 +115,7 @@ export default function Footer() {
             <li>
               <Link href="/book-appointment" className="hover:text-imic-teal transition flex items-center gap-1.5">
                 <ArrowRight className="w-3 h-3 text-imic-teal" />
-                <span>Book Doctor Appointment</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="/request-qu" className="hover:text-imic-teal transition flex items-center gap-1.5">
-                <ArrowRight className="w-3 h-3 text-imic-teal" />
-                <span>Request Treatment Quote</span>
+                <span>Book Appointment</span>
               </Link>
             </li>
             <li>

@@ -125,15 +125,8 @@ export default function ClinicalServicesSection() {
                     href={`/book-appointment?specialty=${encodeURIComponent(item.title)}`}
                     className="text-xs font-bold text-imic-teal hover:text-imic-teal-hover flex items-center gap-1 transition"
                   >
-                    <span>Consult Doctor</span>
+                    <span>Book Appointment</span>
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-
-                  <Link
-                    href="/request-qu"
-                    className="text-xs font-semibold text-slate-500 hover:text-imic-navy transition"
-                  >
-                    <span>Get Cost Estimate</span>
                   </Link>
                 </div>
               </div>

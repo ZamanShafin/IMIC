@@ -91,24 +91,15 @@ export default function HeroCarousel() {
                 {slide.subtext}
               </p>
 
-              {/* Dual Action CTAs */}
+              {/* Primary CTA */}
               <div className="flex flex-wrap items-center gap-4 pt-3">
                 <Link
                   href="/book-appointment"
                   prefetch={true}
-                  className="flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white font-bold text-sm sm:text-base px-6 py-3.5 rounded-2xl shadow-xl transition transform hover:-translate-y-0.5"
+                  className="flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white font-bold text-sm sm:text-base px-7 py-3.5 rounded-2xl shadow-xl transition transform hover:-translate-y-0.5"
                 >
                   <Calendar className="w-5 h-5" />
-                  <span>Book Doctor Appointment</span>
-                </Link>
-
-                <Link
-                  href="/request-qu"
-                  prefetch={true}
-                  className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-bold text-sm sm:text-base px-6 py-3.5 rounded-2xl border border-white/50 shadow-lg backdrop-blur-md transition transform hover:-translate-y-0.5"
-                >
-                  <FileText className="w-5 h-5 text-emerald-300" />
-                  <span>Request Treatment Quote</span>
+                  <span>Book Appointment</span>
                 </Link>
               </div>
             </div>
