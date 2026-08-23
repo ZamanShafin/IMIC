@@ -49,10 +49,10 @@ export default function Header() {
       </div>
 
       {/* Main Navigation */}
-      <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         {/* Logo & Branded Title */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-          <div className="relative h-11 sm:h-12 w-[120px] sm:w-[135px] shrink-0">
+        <Link href="/" className="flex items-center gap-3 shrink-0 group">
+          <div className="relative h-12 sm:h-14 w-[130px] sm:w-[150px] shrink-0">
             <Image
               src="/images/logo/logo.png"
               alt="IMIC — International Medical Information Center"
@@ -61,18 +61,18 @@ export default function Header() {
               priority
             />
           </div>
-          <div className="border-l-2 border-imic-teal/40 pl-2.5 hidden xl:flex flex-col justify-center py-0.5 shrink-0">
-            <span className="text-[11px] font-extrabold text-imic-navy uppercase tracking-wider block leading-tight group-hover:text-imic-teal transition">
+          <div className="border-l-2 border-imic-teal/40 pl-3 hidden xl:flex flex-col justify-center py-0.5 shrink-0">
+            <span className="text-xs xl:text-[13px] font-extrabold text-imic-navy uppercase tracking-wider block leading-tight group-hover:text-imic-teal transition">
               International Medical
             </span>
-            <span className="text-[11px] font-bold text-imic-teal uppercase tracking-wider block leading-tight">
+            <span className="text-xs xl:text-[13px] font-bold text-imic-teal uppercase tracking-wider block leading-tight">
               Information Center
             </span>
           </div>
         </Link>
 
-        {/* Desktop Nav Links (Strict Single Line & Perfect Centering) */}
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs xl:text-sm font-semibold text-slate-700 whitespace-nowrap">
+        {/* Desktop Nav Links */}
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm xl:text-[15px] font-semibold text-slate-800 whitespace-nowrap">
           <Link href="/" className="hover:text-imic-teal transition py-2 flex items-center">
             Home
           </Link>
@@ -85,21 +85,21 @@ export default function Header() {
           >
             <button className="flex items-center gap-1 hover:text-imic-teal transition py-2 whitespace-nowrap">
               <span>About Us</span>
-              <ChevronDown className="w-3.5 h-3.5" />
+              <ChevronDown className="w-4 h-4" />
             </button>
 
             {aboutDropdownOpen && (
-              <div className="absolute top-full left-0 w-48 bg-white border border-slate-100 shadow-xl rounded-xl py-2 z-50">
-                <Link href="/about-us" className="block px-4 py-2 hover:bg-slate-50 hover:text-imic-teal text-xs">
+              <div className="absolute top-full left-0 w-52 bg-white border border-slate-100 shadow-xl rounded-xl py-2 z-50">
+                <Link href="/about-us" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
                   About IMIC
                 </Link>
-                <Link href="/founder-message" className="block px-4 py-2 hover:bg-slate-50 hover:text-imic-teal text-xs">
+                <Link href="/founder-message" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
                   Founder Message
                 </Link>
-                <Link href="/team-member" className="block px-4 py-2 hover:bg-slate-50 hover:text-imic-teal text-xs">
+                <Link href="/team-member" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
                   Team Members
                 </Link>
-                <Link href="/faq" className="block px-4 py-2 hover:bg-slate-50 hover:text-imic-teal text-xs">
+                <Link href="/faq" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
                   FAQs
                 </Link>
               </div>
@@ -122,15 +122,15 @@ export default function Header() {
           >
             <button className="flex items-center gap-1 hover:text-imic-teal transition py-2 whitespace-nowrap">
               <span>Gallery</span>
-              <ChevronDown className="w-3.5 h-3.5" />
+              <ChevronDown className="w-4 h-4" />
             </button>
 
             {galleryDropdownOpen && (
-              <div className="absolute top-full left-0 w-44 bg-white border border-slate-100 shadow-xl rounded-xl py-2 z-50">
-                <Link href="/photo-gallery" className="block px-4 py-2 hover:bg-slate-50 hover:text-imic-teal text-xs">
+              <div className="absolute top-full left-0 w-48 bg-white border border-slate-100 shadow-xl rounded-xl py-2 z-50">
+                <Link href="/photo-gallery" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
                   Photo Gallery
                 </Link>
-                <Link href="/videos" className="block px-4 py-2 hover:bg-slate-50 hover:text-imic-teal text-xs">
+                <Link href="/videos" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
                   Video Gallery
                 </Link>
               </div>
@@ -146,17 +146,17 @@ export default function Header() {
           </Link>
         </nav>
 
-        {/* Action Buttons (Strict Single Line & Perfect Centering) */}
-        <div className="hidden sm:flex items-center gap-2.5 shrink-0 whitespace-nowrap">
+        {/* Action Buttons */}
+        <div className="hidden sm:flex items-center gap-3 shrink-0 whitespace-nowrap">
           <Link
             href="/booking/track"
-            className="text-xs font-semibold text-slate-700 hover:text-imic-navy border border-slate-200 hover:border-slate-400 px-3.5 py-2 rounded-xl transition whitespace-nowrap"
+            className="text-xs xl:text-sm font-semibold text-slate-700 hover:text-imic-navy border border-slate-200 hover:border-slate-400 px-4 py-2.5 rounded-xl transition whitespace-nowrap"
           >
             Track Booking
           </Link>
           <Link
             href="/book-appointment"
-            className="flex items-center gap-1.5 bg-imic-teal hover:bg-imic-teal-hover text-white text-xs xl:text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition whitespace-nowrap"
+            className="flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white text-xs xl:text-sm font-bold px-5 py-2.5 rounded-xl shadow-md transition whitespace-nowrap"
           >
             <Calendar className="w-4 h-4 shrink-0" />
             <span>Book Appointment</span>
