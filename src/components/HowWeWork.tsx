@@ -112,11 +112,11 @@ export default function HowWeWork() {
               >
                 <div className="flex items-center justify-between w-full">
                   <div
-                    className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 ${
-                      isActive ? 'bg-imic-teal text-white' : 'bg-slate-100 text-slate-600'
+                    className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 ${
+                      isActive ? 'bg-imic-teal text-white shadow-md' : 'bg-slate-100 text-slate-600'
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                   <span
                     className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider ${
@@ -176,8 +176,8 @@ export default function HowWeWork() {
           </div>
 
           <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 text-center space-y-3">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-imic-teal/10 text-imic-teal flex items-center justify-center">
-              {React.createElement(steps[activeStep].icon, { className: "w-7 h-7" })}
+            <div className="w-20 h-20 mx-auto rounded-2xl bg-imic-teal/10 text-imic-teal flex items-center justify-center border border-imic-teal/20 shadow-sm">
+              {React.createElement(steps[activeStep].icon, { className: "w-10 h-10" })}
             </div>
             <div className="space-y-1">
               <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-imic-navy">
