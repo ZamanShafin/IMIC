@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowUpRight, FileCheck, Globe, Stethoscope, Plane, Building, HeartPulse, ShieldAlert, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 const services = [
   {
@@ -127,19 +126,6 @@ export default function ServicesGrid() {
                     {service.description}
                   </p>
                 </div>
-              </div>
-
-              <div className="pt-4 mt-4 border-t border-slate-200/60 flex items-center justify-between">
-                <Link
-                  href="/book-appointment"
-                  className="text-xs font-bold text-imic-navy group-hover:text-imic-teal flex items-center gap-1 transition"
-                >
-                  <span>Inquire Service</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-                <span className="text-[10px] font-semibold text-slate-400">
-                  #{index + 1}
-                </span>
               </div>
             </div>
           ))}
