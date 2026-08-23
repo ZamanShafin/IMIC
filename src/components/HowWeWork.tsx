@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { 
   FileSearch, 
   UserCheck, 
@@ -10,7 +11,6 @@ import {
   HeartHandshake, 
   PhoneCall, 
   ArrowRight, 
-  CheckCircle2,
   Sparkles,
   ShieldCheck
 } from 'lucide-react';
@@ -138,45 +138,59 @@ export default function HowWeWork() {
           })}
         </div>
 
-        {/* Featured Step Detailed Card */}
-        <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-slate-200 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-          <div className="space-y-4 md:col-span-2">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-black uppercase tracking-widest bg-imic-teal/20 text-imic-navy px-3 py-1 rounded-lg">
-                {steps[activeStep].stepNumber}
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-imic-navy">
-                {steps[activeStep].title}
-              </h3>
+        {/* Featured Step Detailed Card - Consistent fixed height matching Step 04 across all steps */}
+        <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-slate-200 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch min-h-[300px]">
+          <div className="flex flex-col justify-between md:col-span-2 space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-black uppercase tracking-widest bg-imic-teal/20 text-imic-navy px-3 py-1 rounded-lg shrink-0">
+                  {steps[activeStep].stepNumber}
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold text-imic-navy leading-tight">
+                  {steps[activeStep].title}
+                </h3>
+              </div>
+
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                {steps[activeStep].description}
+              </p>
             </div>
 
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              {steps[activeStep].description}
-            </p>
-
-            <div className="pt-4 flex items-center gap-4 text-xs font-bold">
-              {activeStep > 0 && (
+            {/* Step Navigation Bar - Pinned at bottom with consistent height & spacing */}
+            <div className="pt-4 flex items-center justify-between text-xs font-bold border-t border-slate-100 mt-4">
+              {activeStep > 0 ? (
                 <button
                   onClick={() => setActiveStep(activeStep - 1)}
-                  className="text-slate-500 hover:text-imic-navy transition"
+                  className="text-slate-500 hover:text-imic-navy transition flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-slate-100"
                 >
-                  ← Previous Step
+                  <span>← Previous Step</span>
                 </button>
+              ) : (
+                <span className="text-slate-300 pointer-events-none py-1 px-2">← Previous Step</span>
               )}
-              {activeStep < steps.length - 1 && (
+
+              {activeStep < steps.length - 1 ? (
                 <button
                   onClick={() => setActiveStep(activeStep + 1)}
-                  className="text-imic-teal hover:text-imic-teal-hover transition flex items-center gap-1"
+                  className="text-imic-teal hover:text-imic-teal-hover transition flex items-center gap-1.5 py-1 px-3 rounded-lg hover:bg-imic-teal/10 font-bold"
                 >
                   <span>Next Step</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
+              ) : (
+                <Link
+                  href="/book-appointment"
+                  className="bg-imic-teal hover:bg-imic-teal-hover text-white transition flex items-center gap-1.5 py-1.5 px-3.5 rounded-lg shadow-sm font-bold"
+                >
+                  <span>Book Appointment</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               )}
             </div>
           </div>
 
-          <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 text-center space-y-3">
-            <div className="w-20 h-20 mx-auto rounded-2xl bg-imic-teal/10 text-imic-teal flex items-center justify-center border border-imic-teal/20 shadow-sm">
+          <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 text-center flex flex-col items-center justify-center space-y-3">
+            <div className="w-20 h-20 mx-auto rounded-2xl bg-imic-teal/10 text-imic-teal flex items-center justify-center border border-imic-teal/20 shadow-sm shrink-0">
               {React.createElement(steps[activeStep].icon, { className: "w-10 h-10" })}
             </div>
             <div className="space-y-1">
