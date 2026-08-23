@@ -126,9 +126,12 @@ export default function Header() {
             </button>
 
             {galleryDropdownOpen && (
-              <div className="absolute top-full left-0 w-48 bg-white border border-slate-100 shadow-xl rounded-xl py-2 z-50">
+              <div className="absolute top-full left-0 w-52 bg-white border border-slate-100 shadow-xl rounded-xl py-2 z-50">
                 <Link href="/photo-gallery" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
                   Photo Gallery
+                </Link>
+                <Link href="/event-gallery" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
+                  Event Gallery
                 </Link>
                 <Link href="/videos" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
                   Video Gallery
@@ -203,6 +206,9 @@ export default function Header() {
             <span className="text-xs font-bold text-slate-400 block uppercase">Gallery</span>
             <Link href="/photo-gallery" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs hover:text-imic-teal">
               Photo Gallery
+            </Link>
+            <Link href="/event-gallery" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs hover:text-imic-teal">
+              Event Gallery
             </Link>
             <Link href="/videos" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs hover:text-imic-teal">
               Video Gallery

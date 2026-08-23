@@ -1,0 +1,56 @@
+[
+  {
+    "id": "event-1",
+    "title": "Health & Cancer Awareness Seminar (BSCF & Farrer Park Singapore)",
+    "category": "CME & Medical Seminar",
+    "date": "June 10, 2023",
+    "location": "Club 89 Ltd, Dhaka, Bangladesh",
+    "image": "/images/blog/14638077501.jpg",
+    "description": "Jointly organized by IMIC Ltd, Farrer Park Hospital Singapore, Club 89 Ltd, and Blue Sky Charitable Foundation on 'Prostate, Breast and Gynecological Cancers' featuring Dr. Lee Fang Jann (Senior Consultant Urologist, Farrer Park Hospital)."
+  },
+  {
+    "id": "event-2",
+    "title": "Bilateral MoU Inked with FMRI Fortis Memorial Research Institute Delhi",
+    "category": "MoU Signing & Partnership",
+    "date": "April 27, 2023",
+    "location": "FICCI Healthcare Conclave, New Delhi, India",
+    "image": "/images/blog/70875987707-05-2023.jpg",
+    "description": "Historic collaboration agreement inked between IMIC Ltd and FMRI Fortis Memorial Research Institute Delhi during the International Conference on Advanced Healthcare organized by FICCI in New Delhi."
+  },
+  {
+    "id": "event-3",
+    "title": "Focused Group Medical Discussion on Prostate Cancer & Uro-Oncology",
+    "category": "Clinical Case Conference",
+    "date": "June 10, 2023",
+    "location": "UTFB Conference Center, Dhaka, Bangladesh",
+    "image": "/images/blog/738788009GMB01.jpg",
+    "description": "High-level interactive clinical session between UTFB specialists and Dr. Lee Fang Jann (Farrer Park Hospital Singapore) presided by Prof. Dr. M. A. Salam (Former Chairman & Professor of Uro-oncology, BSMMU)."
+  },
+  {
+    "id": "event-4",
+    "title": "International Patient Assistance & Hospital Coordination Forum",
+    "category": "Healthcare Facilitation",
+    "date": "May 18, 2023",
+    "location": "IMIC CPAC Headquarters, Banani, Dhaka",
+    "image": "/images/gallery/1086927477WhatsApp-Image-2022-06-06-at-1.49.34-PM-1-min.jpeg",
+    "description": "Interactive healthcare facilitation workshop with partner hospital representatives from Bangkok, Kuala Lumpur, and Singapore providing direct patient consultation guidance."
+  },
+  {
+    "id": "event-5",
+    "title": "Multidisciplinary Oncology & Proton Beam Therapy Symposium",
+    "category": "Advanced Technology",
+    "date": "August 24, 2023",
+    "location": "Dhaka, Bangladesh",
+    "image": "/images/gallery/1373729208WhatsApp-Image-2022-06-06-at-1.49.34-PM-4-min.jpeg",
+    "description": "Discussions on cutting-edge radiation oncology, proton beam therapy, and CAR-T cellular immunotherapy modalities with international cancer center faculties."
+  },
+  {
+    "id": "event-6",
+    "title": "Executive Medical Tourism & Healthcare Facilitation Conclave",
+    "category": "Global Summit",
+    "date": "November 14, 2023",
+    "location": "Singapore & Malaysia Delegation Visit",
+    "image": "/images/gallery/164600218WhatsApp-Image-2022-07-24-at-5.51.38-PM.jpeg",
+    "description": "Strategic bilateral dialogue with hospital CEOs and International Patient Centre (IPC) directors on priority bed allocations, visa invitation fast-tracking, and ambulance tarmac protocols."
+  }
+]

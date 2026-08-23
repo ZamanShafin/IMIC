@@ -125,6 +125,18 @@ export default function Footer() {
               </Link>
             </li>
             <li>
+              <Link href="/event-gallery" className="hover:text-imic-teal transition flex items-center gap-1.5">
+                <ArrowRight className="w-3 h-3 text-imic-teal" />
+                <span>Event Gallery & Seminars</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/photo-gallery" className="hover:text-imic-teal transition flex items-center gap-1.5">
+                <ArrowRight className="w-3 h-3 text-imic-teal" />
+                <span>Photo & Video Archives</span>
+              </Link>
+            </li>
+            <li>
               <Link href="/faq" className="hover:text-imic-teal transition flex items-center gap-1.5">
                 <ArrowRight className="w-3 h-3 text-imic-teal" />
                 <span>Frequently Asked Questions</span>
