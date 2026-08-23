@@ -6,17 +6,23 @@ import PhotoGalleryClient from '@/components/PhotoGalleryClient';
 
 export const revalidate = 60;
 
+export const metadata = {
+  title: 'Photo Gallery | IMIC - International Medical Information Center',
+  description: 'Explore authentic photos from partner hospital visits, CME seminars, media talk shows, and patient assistance operations.',
+};
+
 export default function PhotoGalleryPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       <main className="flex-1">
-        <section className="bg-imic-navy text-white py-16 px-4 text-center">
-          <div className="max-w-7xl mx-auto space-y-3">
-            <span className="text-xs font-bold text-imic-teal uppercase tracking-widest block">Visual Archive</span>
+        {/* Hero Section */}
+        <section className="bg-gradient-to-br from-imic-navy via-slate-900 to-imic-teal/90 text-white py-16 px-4 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+          <div className="max-w-7xl mx-auto space-y-3 relative z-10">
             <h1 className="text-3xl sm:text-5xl font-extrabold">IMIC Photo Gallery</h1>
-            <p className="text-slate-300 text-sm max-w-2xl mx-auto">
+            <p className="text-slate-200 text-sm sm:text-base max-w-2xl mx-auto">
               Explore authentic photos from partner hospital visits, CME seminars, media talk shows, and patient assistance operations.
             </p>
           </div>
