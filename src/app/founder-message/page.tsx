@@ -85,14 +85,24 @@ export default function FounderMessagePage() {
                   Our employees and healthcare partners are the future of our company. We dedicate ourselves to providing an environment that welcomes creativity, innovation, and unwavering commitment to compassionate patient care.
                 </p>
                 <p>
-                  At <strong>International Medical Information Centre (IMIC)</strong>, we understand that seeking medical treatment overseas can be overwhelming for patients and their families. Our mission has always been to eliminate those barriers by providing trusted, transparent, and prompt healthcare facilitation.
+                  At <strong>International Medical Information Centre (IMIC)</strong>, we believe that when it comes to healthcare, every patient deserves the right guidance, trusted support, and access to quality medical care.
                 </p>
                 <p>
-                  Whether you require specialist doctor evaluations, itemized treatment cost estimates, fast-track medical visa processing, or bedside coordination in Singapore, Malaysia, Thailand, Indonesia, China, or India, our team is dedicated to standing beside you every step of the journey.
+                  With our commitment to <strong className="text-imic-teal bg-imic-teal/10 px-2 py-0.5 rounded font-bold">“Premium Healthcare – Personal Touch,”</strong> we strive to make every healthcare journey simpler, smoother, and more reassuring. From connecting patients with renowned hospitals and experienced specialists to supporting them throughout their medical journey, IMIC stands beside patients and their families when they need us most.
                 </p>
                 <p>
-                  We are deeply grateful for the trust thousands of Bangladeshi patients continue to place in IMIC. We promise to uphold the highest ethical standards and clinical excellence as we expand our international partner network.
+                  Our mission is built on <em>trust, compassion, and professionalism</em>. We are committed to providing personalized healthcare assistance and helping patients make informed decisions with confidence.
                 </p>
+                <p>
+                  Together with our valued healthcare partners and dedicated team, we look forward to continuing our journey of bringing trusted international healthcare closer to the people of Bangladesh.
+                </p>
+                <p className="font-semibold italic text-imic-navy pt-2">
+                  "Your health deserves the best care and IMIC is here to help you find it."
+                </p>
+                <div className="pt-4 border-t border-slate-200 text-slate-800 space-y-0.5">
+                  <p className="font-bold text-imic-navy text-sm sm:text-base">Chairman</p>
+                  <p className="text-xs text-slate-500 font-medium">International Medical Information Centre (IMIC)</p>
+                </div>
               </div>
             </div>
 
