@@ -9,12 +9,23 @@ export const metadata: Metadata = {
   title: 'IMIC — International Medical Information Center | Medical Tourism Bangladesh',
   description: 'IMIC connects Bangladeshi patients to top accredited partner hospitals in Singapore, Malaysia, Thailand, and India. 24/7 CPAC hotline in Banani, Dhaka.',
   keywords: ['IMIC', 'Medical Tourism Bangladesh', 'Singapore Hospitals', 'Malaysia Medical Travel', 'Thailand Treatment', 'India Hospitals', 'Emergency Medical Visa', 'Air Ambulance Bangladesh'],
+  icons: {
+    icon: [
+      { url: '/images/logo/logo.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    shortcut: ['/images/logo/logo.png'],
+    apple: [
+      { url: '/images/logo/logo.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   openGraph: {
     title: 'IMIC — International Medical Information Center',
     description: 'One-stop Patient Assistance Centre (CPAC) in Dhaka for medical treatment abroad.',
     url: 'https://imic.com.bd',
     siteName: 'IMIC Bangladesh',
-    images: [{ url: '/images/logo/logo.jpeg' }],
+    images: [{ url: '/images/logo/logo.png' }],
     type: 'website',
   },
 };
