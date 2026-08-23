@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { 
   Globe2, 
   Building2, 
@@ -9,7 +8,6 @@ import {
   Ticket, 
   Home, 
   ShieldCheck, 
-  ArrowRight, 
   HeartHandshake,
   Stethoscope,
   Sparkles
@@ -117,16 +115,6 @@ export default function SpecialityHighlights() {
                       {item.desc}
                     </p>
                   </div>
-                </div>
-
-                <div className="pt-3 border-t border-slate-700/60">
-                  <Link
-                    href="/book-appointment"
-                    className="text-xs font-bold text-slate-300 group-hover:text-imic-teal flex items-center gap-1 transition"
-                  >
-                    <span>Request Details</span>
-                    <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition" />
-                  </Link>
                 </div>
               </div>
             );
