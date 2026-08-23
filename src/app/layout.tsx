@@ -11,13 +11,12 @@ export const metadata: Metadata = {
   keywords: ['IMIC', 'Medical Tourism Bangladesh', 'Singapore Hospitals', 'Malaysia Medical Travel', 'Thailand Treatment', 'India Hospitals', 'Emergency Medical Visa', 'Air Ambulance Bangladesh'],
   icons: {
     icon: [
-      { url: '/images/logo/logo.png', type: 'image/png' },
-      { url: '/favicon.ico' },
-      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/icon', type: 'image/png' },
     ],
-    shortcut: ['/images/logo/logo.png'],
+    shortcut: ['/favicon.svg'],
     apple: [
-      { url: '/images/logo/logo.png', sizes: '180x180', type: 'image/png' },
+      { url: '/icon', sizes: '180x180', type: 'image/png' },
     ],
   },
   openGraph: {

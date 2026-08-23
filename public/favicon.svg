@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="imicNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d2238" />
+      <stop offset="100%" stop-color="#071524" />
+    </linearGradient>
+    <linearGradient id="imicTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d9bc" />
+      <stop offset="100%" stop-color="#00a896" />
+    </linearGradient>
+  </defs>
+
+  <!-- High-contrast rounded badge visible on both dark & light browser tabs -->
+  <rect width="64" height="64" rx="16" fill="url(#imicNavy)" stroke="#00d9bc" stroke-width="2.5" />
+
+  <!-- Orbiting Health Arc -->
+  <circle cx="32" cy="32" r="23" fill="none" stroke="url(#imicTeal)" stroke-width="2.5" stroke-dasharray="105 35" stroke-linecap="round" />
+
+  <!-- Bold Central Medical Cross -->
+  <path d="M28 16h8v12h12v8H36v12h-8V36H16v-8h12V16z" fill="#ef4444" rx="2" />
+
+  <!-- Bright White Center Core -->
+  <rect x="29.5" y="29.5" width="5" height="5" rx="1.5" fill="#ffffff" />
+</svg>
