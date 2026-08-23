@@ -99,7 +99,7 @@ export default function AboutUsPage() {
                 href="/contact-us"
                 className="text-xs text-slate-400 hover:text-white transition"
               >
-                Contact CPAC Dhaka →
+                Contact Us →
               </Link>
             </div>
           </div>
