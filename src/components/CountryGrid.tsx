@@ -11,7 +11,6 @@ const countryTiles = [
     highlights: 'Gleneagles, NCCS, SNEC, Farrer Park, Mount Elizabeth Novena, Mount Elizabeth Orchard, ICON Cancer',
     image: '/images/hospitals/farrer-park-1.jpg',
     href: '/our-hospitals?country=Singapore',
-    badge: 'JCI Accredited Centres'
   },
   {
     name: 'Malaysia',
@@ -20,7 +19,6 @@ const countryTiles = [
     highlights: 'Sunway Medical, Prince Court, Beacon, SJMC, Gleneagles KL',
     image: '/images/hospitals/sunway-medical-1.jpg',
     href: '/our-hospitals?country=Malaysia',
-    badge: 'ACHS & MHTC Elite Partner'
   },
   {
     name: 'Thailand',
@@ -29,7 +27,6 @@ const countryTiles = [
     highlights: 'Samitivej Sukhumvit, BNH, Vejthani, Bangkok Hospital, MedPark',
     image: '/images/hospitals/samitivej-1.jpg',
     href: '/our-hospitals?country=Thailand',
-    badge: 'Award-Winning Care & Wellness'
   },
   {
     name: 'Indonesia',
@@ -38,16 +35,14 @@ const countryTiles = [
     highlights: 'Medistra Hospital Jakarta, RSUPN Dr. Cipto Mangunkusumo (RSCM)',
     image: '/images/hospitals/medistra-jakarta.jpg',
     href: '/our-hospitals?country=Indonesia',
-    badge: 'Apex Quaternary Centres'
   },
   {
     name: 'China',
     flagImg: '/images/flags/china.png',
     hospitalCount: '7 Premier Tertiary Hospitals',
     highlights: 'Modern Cancer Hospital Guangzhou, Foshan Chancheng, Guangzhou Xinshi, Shenzhen Hengsheng, StarKids Shanghai, Zhuhai Chancheng, Xuzhou Star',
-    image: '/images/hospitals/modern-cancer-guangzhou.jpg',
+    image: '/images/hospitals/foshan-fosun-chancheng-hospital.jpg',
     href: '/our-hospitals?country=China',
-    badge: 'Minimally Invasive Oncology & Surgery'
   },
   {
     name: 'India',
@@ -56,7 +51,6 @@ const countryTiles = [
     highlights: 'Kokilaben, Jaslok, Apollo, Fortis, Max, Medanta, Manipal, Global, Sankara Nethralaya, AIG & KIMS across Mumbai, Delhi, Kolkata, Chennai, Bangalore & Hyderabad',
     image: '/images/hospitals/fortis-1.jpg',
     href: '/our-hospitals?country=India',
-    badge: 'Pan-India Super Specialty Network'
   },
 ];
 
@@ -94,10 +88,6 @@ export default function CountryGrid() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-imic-navy/95 via-imic-navy/40 to-transparent" />
-                
-                <div className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-bold text-imic-navy shadow-sm">
-                  {tile.badge}
-                </div>
 
                 {/* Country Logo Flag Image Badge + Name */}
                 <div className="absolute bottom-3.5 left-3.5 right-3.5 text-white">
