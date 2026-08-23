@@ -28,7 +28,7 @@ export default function FounderMessagePage() {
 
         {/* Founder Profile & Message Content */}
         <section className="py-16 max-w-6xl mx-auto px-4">
-          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             
             {/* Left Column: Founder Photo & Profile Card */}
             <div className="lg:col-span-5 space-y-6">
