@@ -31,12 +31,12 @@ export default function FounderMessagePage() {
           <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             
             {/* Left Column: Founder Photo & Profile Card */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="relative group mx-auto max-w-sm lg:max-w-none">
+            <div className="lg:col-span-5 flex flex-col justify-start">
+              <div className="relative group mx-auto max-w-sm lg:max-w-none w-full">
                 {/* Glow & Border Accent */}
-                <div className="absolute -inset-1.5 bg-gradient-to-br from-imic-teal to-imic-navy rounded-3xl opacity-30 group-hover:opacity-60 transition duration-500 blur-sm" />
+                <div className="absolute -inset-1 bg-gradient-to-br from-imic-teal/30 to-imic-navy/30 rounded-3xl opacity-50 group-hover:opacity-80 transition duration-500 blur-sm" />
                 
-                <div className="relative rounded-3xl overflow-hidden bg-slate-100 border-2 border-white shadow-lg aspect-[4/5] w-full">
+                <div className="relative rounded-3xl overflow-hidden bg-slate-100 border-2 border-white shadow-xl aspect-[3/4] w-full">
                   <Image
                     src="/images/team/farzana-wali-liza.jpg"
                     alt="Farzana Wali Liza - Chairman IMIC"
@@ -44,9 +44,9 @@ export default function FounderMessagePage() {
                     priority
                     className="object-cover object-top group-hover:scale-102 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-imic-navy/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-imic-navy/90 via-imic-navy/20 to-transparent" />
                   
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <div className="absolute bottom-5 left-5 right-5 text-white">
                     <span className="bg-imic-teal text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm inline-block mb-1.5">
                       Chairman & Founder
                     </span>
