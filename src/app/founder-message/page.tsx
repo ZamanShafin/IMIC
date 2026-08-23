@@ -31,12 +31,9 @@ export default function FounderMessagePage() {
           <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/80 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             
             {/* Left Column: Founder Photo & Profile Card */}
-            <div className="lg:col-span-5 flex flex-col justify-start">
-              <div className="relative group mx-auto max-w-sm lg:max-w-none w-full">
-                {/* Glow & Border Accent */}
-                <div className="absolute -inset-1 bg-gradient-to-br from-imic-teal/30 to-imic-navy/30 rounded-3xl opacity-50 group-hover:opacity-80 transition duration-500 blur-sm" />
-                
-                <div className="relative rounded-3xl overflow-hidden bg-slate-100 border-2 border-white shadow-xl aspect-[3/4] w-full">
+            <div className="lg:col-span-5">
+              <div className="relative group w-full">
+                <div className="relative rounded-3xl overflow-hidden bg-slate-100 border-2 border-slate-100 shadow-xl aspect-[3/4] w-full">
                   <Image
                     src="/images/team/farzana-wali-liza.jpg"
                     alt="Farzana Wali Liza - Chairman IMIC"
@@ -62,11 +59,9 @@ export default function FounderMessagePage() {
             </div>
 
             {/* Right Column: Detailed Founder Message */}
-            <div className="lg:col-span-7 space-y-6 relative">
-              <Quote className="w-16 h-16 text-imic-teal/15 absolute -top-4 right-0 pointer-events-none" />
-
-              <div className="space-y-2">
-                <span className="text-xs font-black uppercase tracking-widest text-imic-teal block">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="space-y-3">
+                <span className="inline-block bg-imic-teal/15 text-imic-teal text-xs font-black uppercase tracking-widest px-3 py-1 rounded-md">
                   Official Statement
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-imic-navy tracking-tight leading-snug">
