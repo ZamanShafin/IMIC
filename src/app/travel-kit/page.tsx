@@ -356,25 +356,6 @@ export default function TravelKitPage() {
             <p className="text-slate-200 max-w-3xl mx-auto text-xs sm:text-base leading-relaxed">
               Official visa requirements, document criteria by profession, hospital invitation letter protocols, and essential pre-departure guidelines for Singapore, India, Malaysia, Thailand, China & Indonesia.
             </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-              <Link
-                href="/book-appointment"
-                className="inline-flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white text-xs font-bold px-6 py-3 rounded-xl shadow-lg transition"
-              >
-                <Calendar className="w-4 h-4" />
-                <span>Book Appointment</span>
-              </Link>
-              <a
-                href="https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20need%20visa%20and%20travel%20support"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold px-6 py-3 rounded-xl shadow-lg transition"
-              >
-                <MessageCircle className="w-4 h-4 fill-white" />
-                <span>WhatsApp Helpdesk</span>
-              </a>
-            </div>
           </div>
         </section>
 
