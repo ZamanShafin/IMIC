@@ -10,15 +10,15 @@ const teamMembers = [
     name: "Director",
     person: "Muntasir Mamun",
     designation: "Director",
-    email: "info@imic.com.bd",
-    phone: "+8801710802000",
+    email: "muntasir@imic.com.bd",
+    phone: "+8801711100306",
     image: null
   },
   {
     name: "Managing Director",
     person: "Maruf Hassan",
     designation: "Managing Director",
-    email: "info@imic.com.bd",
+    email: "maruf@imic.com.bd",
     phone: "+8801777995995",
     image: null
   }
