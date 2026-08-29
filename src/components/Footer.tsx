@@ -119,9 +119,9 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/booking/track" className="hover:text-imic-teal transition flex items-center gap-1.5">
+              <Link href="/travel-kit" className="hover:text-imic-teal transition flex items-center gap-1.5">
                 <ArrowRight className="w-3 h-3 text-imic-teal" />
-                <span>Track Booking Status</span>
+                <span>Travel Kit & Visa Checklist</span>
               </Link>
             </li>
             <li>

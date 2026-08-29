@@ -109,10 +109,10 @@ function BookAppointmentForm() {
             </a>
 
             <Link
-              href={`/booking/track?ref=${bookingRef}`}
+              href="/travel-kit"
               className="w-full sm:w-auto flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition"
             >
-              <span>Track Booking Status</span>
+              <span>View Travel Kit & Visa Guide</span>
             </Link>
           </div>
         </div>

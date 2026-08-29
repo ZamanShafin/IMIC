@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Phone, Mail, ChevronDown, Menu, X, Calendar, Search, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Phone, Mail, ChevronDown, Menu, X, Calendar, Search, Facebook, Instagram, Youtube, Briefcase } from 'lucide-react';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -152,10 +152,11 @@ export default function Header() {
         {/* Action Buttons */}
         <div className="hidden sm:flex items-center gap-3 shrink-0 whitespace-nowrap">
           <Link
-            href="/booking/track"
-            className="text-xs xl:text-sm font-semibold text-slate-700 hover:text-imic-navy border border-slate-200 hover:border-slate-400 px-4 py-2.5 rounded-xl transition whitespace-nowrap"
+            href="/travel-kit"
+            className="flex items-center gap-1.5 text-xs xl:text-sm font-semibold text-slate-700 hover:text-imic-teal border border-slate-200 hover:border-imic-teal/50 px-4 py-2.5 rounded-xl transition whitespace-nowrap bg-slate-50 hover:bg-white shadow-sm"
           >
-            Track Booking
+            <Briefcase className="w-3.5 h-3.5 text-imic-teal" />
+            <span>Travel Kit</span>
           </Link>
           <Link
             href="/book-appointment"
@@ -222,11 +223,12 @@ export default function Header() {
           </Link>
           <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
             <Link
-              href="/booking/track"
+              href="/travel-kit"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-center text-xs font-semibold text-slate-700 border border-slate-200 py-2.5 rounded-xl"
+              className="flex items-center justify-center gap-2 text-center text-xs font-bold text-imic-navy bg-slate-50 border border-slate-200 py-2.5 rounded-xl hover:bg-white hover:border-imic-teal/50 transition"
             >
-              Track Booking Status
+              <Briefcase className="w-4 h-4 text-imic-teal" />
+              <span>Travel Kit & Visa Checklist</span>
             </Link>
             <Link
               href="/book-appointment"
