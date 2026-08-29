@@ -9,7 +9,6 @@ const teamMembers = [
   {
     role: "Director",
     name: "Muntasir Mamun",
-    designation: "Director, IMIC Limited",
     email: "muntasir@imic.com.bd",
     phone: "+8801711100306",
     image: "/images/team/muntasir-mamun.jpg",
@@ -18,7 +17,6 @@ const teamMembers = [
   {
     role: "Managing Director",
     name: "Maruf Hassan",
-    designation: "Managing Director, IMIC Limited",
     email: "maruf@imic.com.bd",
     phone: "+8801777995995",
     image: "/images/team/maruf-hassan.png",
@@ -59,26 +57,27 @@ export default function TeamMemberPage() {
                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 border-2 border-slate-100 shadow-md">
                   <Image
                     src={member.image}
-                    alt={`${member.name} - ${member.role}`}
+                    alt={member.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 450px"
                     priority
                     className={`object-cover ${member.objectPosition} group-hover:scale-105 transition-transform duration-500`}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent pointer-events-none" />
-                  <span className="absolute top-3 left-3 bg-imic-navy/90 text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow border border-white/20 backdrop-blur-sm">
-                    {member.role}
-                  </span>
                 </div>
 
                 {/* Profile Information */}
-                <div className="space-y-1.5 w-full">
+                <div className="space-y-1 w-full">
                   <h3 className="text-2xl font-black text-imic-navy tracking-tight">
                     {member.name}
                   </h3>
-                  <span className="text-xs font-bold text-imic-teal uppercase tracking-widest block">
-                    {member.designation}
-                  </span>
+                  <div className="space-y-0.5">
+                    <span className="text-sm font-bold text-imic-teal uppercase tracking-wider block">
+                      {member.role}
+                    </span>
+                    <p className="text-xs font-semibold text-slate-500">
+                      International Medical Information Centre
+                    </p>
+                  </div>
                 </div>
 
                 {/* Contact Actions */}
