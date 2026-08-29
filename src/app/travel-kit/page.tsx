@@ -9,26 +9,22 @@ import Image from 'next/image';
 import {
   FileText,
   CheckCircle2,
-  Plane,
   ShieldCheck,
   AlertCircle,
   Clock,
-  Printer,
   Calendar,
   MessageCircle,
   Briefcase,
   User,
   GraduationCap,
   Building2,
-  CheckSquare,
-  Square,
-  MapPin,
   Phone,
   Mail,
-  HelpCircle,
-  Stethoscope,
-  Scale,
-  Award
+  Plane,
+  CreditCard,
+  Pill,
+  Sparkles,
+  Info
 } from 'lucide-react';
 
 interface VisaTypeOption {
@@ -41,7 +37,6 @@ interface VisaTypeOption {
   basicDocuments: string[];
   professionRequirements: {
     profession: string;
-    icon: string;
     items: string[];
   }[];
   onlineApplicationFields?: string[];
@@ -65,11 +60,11 @@ const officialVisaData: CountryVisaData[] = [
     visaOptions: [
       {
         typeId: 'sg-medical-new',
-        typeName: 'Medical Visa Checklist (New Patients & Attendant/s)',
-        badge: 'Recommended for Medical Travel',
-        validity: 'Initial 30 Days (Extendable with Hospital Letter)',
+        typeName: 'Singapore Medical Visa Information (New Patients & Attendant/s)',
+        badge: 'Medical Travel',
+        validity: 'Initial 30 Days (Extendable with Hospital Recommendation)',
         processingTime: '1 – 3 Working Days (Emergency fast-track available)',
-        overview: 'Official Farrer Park Hospital & IMIC documentation requirements for Bangladeshi patients and accompanying medical attendants traveling to Singapore for treatment.',
+        overview: 'Official Farrer Park Hospital & IMIC visa requirements for Bangladeshi patients and accompanying medical attendants traveling to Singapore for treatment.',
         basicDocuments: [
           'Passport with at least 07 Months validity along with all Old Passport/s.',
           'Two (2) Copies Recent 35mm x 45mm Size Photograph with white background on Matt Paper.',
@@ -82,7 +77,6 @@ const officialVisaData: CountryVisaData[] = [
         professionRequirements: [
           {
             profession: 'For Business Person',
-            icon: 'briefcase',
             items: [
               'Updated Trade License (English translated & notarized if applicable).',
               'Company Letterhead Pad.',
@@ -91,7 +85,6 @@ const officialVisaData: CountryVisaData[] = [
           },
           {
             profession: 'For Service Holder / Job',
-            icon: 'user',
             items: [
               'No Objection Certificate (NOC) / Leave Letter from Employer.',
               'Office ID Card copy.',
@@ -100,7 +93,6 @@ const officialVisaData: CountryVisaData[] = [
           },
           {
             profession: 'For Student',
-            icon: 'graduation-cap',
             items: [
               'Valid Student ID Card copy.',
               'Leave Letter or NOC from Educational Institute.'
@@ -114,11 +106,11 @@ const officialVisaData: CountryVisaData[] = [
       },
       {
         typeId: 'sg-medical-old',
-        typeName: 'Medical Visa Checklist (Follow-up / Old Patients)',
-        badge: 'For Review Visits',
+        typeName: 'Singapore Medical Visa Information (Follow-up / Old Patients)',
+        badge: 'Follow-Up Visits',
         validity: '30 Days',
         processingTime: '1 – 3 Working Days',
-        overview: 'Simplified documentation for patients who have previously consulted or been treated at Singapore partner hospitals returning for follow-up review or surgical checkups.',
+        overview: 'Documentation for patients who have previously consulted or been treated at Singapore partner hospitals returning for follow-up review or surgical checkups.',
         basicDocuments: [
           'Passport with at least 07 Months validity along with all Old Passport/s.',
           'Two (2) Copies Recent 35mm x 45mm Size Photograph with white background on Matt Paper.',
@@ -129,24 +121,21 @@ const officialVisaData: CountryVisaData[] = [
         professionRequirements: [
           {
             profession: 'For Business Person',
-            icon: 'briefcase',
             items: ['Trade License', 'Business Letterhead Pad', 'Business Visiting Card']
           },
           {
             profession: 'For Service Holder',
-            icon: 'user',
             items: ['No Objection Certificate (NOC)', 'Office ID Card', 'Business Visiting Card']
           },
           {
             profession: 'For Student',
-            icon: 'graduation-cap',
             items: ['Student ID Card', 'Leave Letter from Institute']
           }
         ]
       },
       {
         typeId: 'sg-tourist',
-        typeName: 'Singapore Tourist Visa Checklist',
+        typeName: 'Singapore Tourist Visa Information',
         validity: '30 Days (Single/Multiple Entry)',
         processingTime: '3 – 5 Working Days',
         overview: 'General visit and tourist visa requirements for family members or visitors traveling to Singapore.',
@@ -160,17 +149,14 @@ const officialVisaData: CountryVisaData[] = [
         professionRequirements: [
           {
             profession: 'For Business Person',
-            icon: 'briefcase',
             items: ['Trade License', 'Business Letterhead Pad', 'Business Visiting Card']
           },
           {
             profession: 'For Service Holder',
-            icon: 'user',
             items: ['No Objection Certificate (NOC)', 'Office ID Card', 'Business Visiting Card']
           },
           {
             profession: 'For Student',
-            icon: 'graduation-cap',
             items: ['Student ID Card (Only For Student)']
           }
         ]
@@ -185,11 +171,11 @@ const officialVisaData: CountryVisaData[] = [
     visaOptions: [
       {
         typeId: 'in-medical',
-        typeName: 'Indian Medical Visa Checklist (MED & MEDX for Attendants)',
-        badge: 'Most Popular',
+        typeName: 'Indian Medical Visa Information (MED & MEDX for Attendants)',
+        badge: 'High Frequency',
         validity: '6 Months to 1 Year (Triple / Multiple Entry)',
         processingTime: '2 – 5 Working Days (Emergency fast-track available)',
-        overview: 'Complete official IMIC documentation checklist required for Indian Medical Visa (MED) for patients and Medical Attendant Visa (MEDX) for companions submitted via IVAC Bangladesh.',
+        overview: 'Official IMIC visa documentation requirements for Indian Medical Visa (MED) for patients and Medical Attendant Visa (MEDX) for companions submitted via IVAC Bangladesh.',
         basicDocuments: [
           'Current Medical reports (Biopsy, MRI/CT, Discharge summary, Doctor prescription).',
           'Bank statements 6 months with adequate balance (minimum BDT 20,000+ or International Credit Card endorsement).',
@@ -203,17 +189,14 @@ const officialVisaData: CountryVisaData[] = [
         professionRequirements: [
           {
             profession: 'Job Holder / Service',
-            icon: 'user',
             items: ['No Objection Certificate (NOC)', 'Visiting Card', 'Office ID Card copy']
           },
           {
             profession: 'Business Person',
-            icon: 'briefcase',
             items: ['Trade License copy (Renewed)', 'Visiting Card']
           },
           {
             profession: 'Student',
-            icon: 'graduation-cap',
             items: ['Student ID card copy', 'Birth Certificate copy']
           }
         ],
@@ -236,7 +219,7 @@ const officialVisaData: CountryVisaData[] = [
       },
       {
         typeId: 'in-tourist',
-        typeName: 'Indian Tourist Visa Checklist',
+        typeName: 'Indian Tourist Visa Information',
         validity: 'Up to 1 Year (Multiple Entry)',
         processingTime: '3 – 7 Working Days',
         overview: 'Requirements for tourist / general visitor visas to India through IVAC Dhaka/Chittagong/Sylhet/Rajshahi.',
@@ -251,17 +234,14 @@ const officialVisaData: CountryVisaData[] = [
         professionRequirements: [
           {
             profession: 'Job Holder',
-            icon: 'user',
             items: ['NOC & visiting card']
           },
           {
             profession: 'Business Person',
-            icon: 'briefcase',
             items: ['Trade License']
           },
           {
             profession: 'Student',
-            icon: 'graduation-cap',
             items: ['ID card, Birth certificate']
           }
         ],
@@ -288,10 +268,10 @@ const officialVisaData: CountryVisaData[] = [
       {
         typeId: 'my-medical',
         typeName: 'Malaysia Medical Visa Requirement (MHTC / eVisa Medical)',
-        badge: 'Official Sunway Medical Centre Partner',
+        badge: 'Sunway Medical Centre Partner',
         validity: '30 – 90 Days (Single/Multiple Entry)',
         processingTime: '2 – 4 Working Days',
-        overview: 'Official checklist verified with Sunway Medical Centre & Malaysia Healthcare Travel Council (MHTC) for Bangladeshi medical travelers.',
+        overview: 'Official requirements verified with Sunway Medical Centre & Malaysia Healthcare Travel Council (MHTC) for Bangladeshi medical travelers.',
         basicDocuments: [
           '1. A valid passport with minimum six months validity.',
           '2. One color-sized photo (3.5 x 5.0cm) taken against a white background.',
@@ -304,7 +284,6 @@ const officialVisaData: CountryVisaData[] = [
         professionRequirements: [
           {
             profession: 'For Business Person',
-            icon: 'briefcase',
             items: [
               'Trade License in English with Notarized translation.',
               'Memorandum of Article & Form XII (If limited company).',
@@ -313,7 +292,6 @@ const officialVisaData: CountryVisaData[] = [
           },
           {
             profession: 'For Service / Job Holder',
-            icon: 'user',
             items: [
               'No Objection Certificate (NOC) from employer.',
               'Office ID Card copy.',
@@ -322,7 +300,6 @@ const officialVisaData: CountryVisaData[] = [
           },
           {
             profession: 'For Student',
-            icon: 'graduation-cap',
             items: [
               'Student ID Card copy (Only For Student).',
               'Leave letter from school/college/university.'
@@ -344,11 +321,11 @@ const officialVisaData: CountryVisaData[] = [
     visaOptions: [
       {
         typeId: 'th-medical',
-        typeName: 'Thailand Medical Visa Checklist (Patients & Attendant/s)',
-        badge: 'Official Samitivej Hospital Partner',
+        typeName: 'Thailand Medical Visa Information (Patients & Attendant/s)',
+        badge: 'Samitivej Hospital Partner',
         validity: '60 – 90 Days (Extendable in Bangkok)',
         processingTime: '3 – 5 Working Days',
-        overview: 'Official checklist issued in partnership with Samitivej Hospital Bangkok for patients and family attendants applying through Royal Thai Embassy Dhaka / VFS Global.',
+        overview: 'Official requirements issued in partnership with Samitivej Hospital Bangkok for patients and family attendants applying through Royal Thai Embassy Dhaka / VFS Global.',
         basicDocuments: [
           '1. A valid passport with minimum six months validity.',
           '2. Thai visa page & renewal page (if any previous visits).',
@@ -362,7 +339,6 @@ const officialVisaData: CountryVisaData[] = [
         professionRequirements: [
           {
             profession: 'For Business Person',
-            icon: 'briefcase',
             items: [
               'Trade License in English with Notarized copy.',
               'Business Letterhead Pad & Business Card.',
@@ -371,7 +347,6 @@ const officialVisaData: CountryVisaData[] = [
           },
           {
             profession: 'For Service Holder',
-            icon: 'user',
             items: [
               'No Objection Certificate (NOC) from office.',
               'Office ID Card copy.',
@@ -380,7 +355,6 @@ const officialVisaData: CountryVisaData[] = [
           },
           {
             profession: 'For Student',
-            icon: 'graduation-cap',
             items: [
               'Student ID Card (Only For Student).',
               'Leave approval from educational institution.'
@@ -402,8 +376,8 @@ const officialVisaData: CountryVisaData[] = [
     visaOptions: [
       {
         typeId: 'cn-tourist-medical',
-        typeName: 'China Tourist & Medical Travel Visa Requirement',
-        badge: 'Explore Holidays / IMIC Official',
+        typeName: 'China Tourist & Medical Travel Visa Information',
+        badge: 'Explore Holidays & IMIC',
         validity: '30 – 90 Days / Two-Year Multiple-Entry Visa Available',
         processingTime: '4 – 7 Working Days (Express priority available: Extra 5,500/- BDT)',
         overview: 'Mandatory documentation guidelines for Bangladeshi patients and travelers applying for Chinese Visas at Chinese Visa Application Service Centre Dhaka.',
@@ -420,7 +394,6 @@ const officialVisaData: CountryVisaData[] = [
         professionRequirements: [
           {
             profession: 'For Business Person',
-            icon: 'briefcase',
             items: [
               'Company Updated Trade License.',
               'Memorandum of Article for limited company & Form XII.',
@@ -430,7 +403,6 @@ const officialVisaData: CountryVisaData[] = [
           },
           {
             profession: 'For Job Holder',
-            icon: 'user',
             items: [
               'Office ID Card copy.',
               'Leave letter or No Objection Certificate (NOC).',
@@ -442,7 +414,6 @@ const officialVisaData: CountryVisaData[] = [
           },
           {
             profession: 'For Student',
-            icon: 'graduation-cap',
             items: [
               'Student valid ID Card copy.',
               'Leave letter or NOC from Educational Institute.'
@@ -463,7 +434,7 @@ const officialVisaData: CountryVisaData[] = [
       },
       {
         typeId: 'cn-business',
-        typeName: 'China Business Visa Requirement',
+        typeName: 'China Business Visa Information',
         validity: '30 – 180 Days / Multiple Entry',
         processingTime: '4 – 7 Working Days',
         overview: 'Official requirements for commercial and medical business travel to China.',
@@ -479,7 +450,6 @@ const officialVisaData: CountryVisaData[] = [
         professionRequirements: [
           {
             profession: 'For Business Delegate',
-            icon: 'briefcase',
             items: ['Trade License', 'TIN Certificate', 'Official Invitation & TE letter', 'Visiting Card']
           }
         ]
@@ -494,11 +464,11 @@ const officialVisaData: CountryVisaData[] = [
     visaOptions: [
       {
         typeId: 'id-medical',
-        typeName: 'Indonesia Medical Treatment e-Visa (B211A / C13)',
+        typeName: 'Indonesia Medical Treatment e-Visa Information (B211A / C13)',
         badge: 'Quaternary Care Jakarta',
         validity: '60 Days (Extendable online)',
         processingTime: '3 – 5 Working Days',
-        overview: 'Document checklist for patients and attendants traveling for quaternary procedures in Jakarta.',
+        overview: 'Document guidelines for patients and attendants traveling for quaternary medical procedures in Jakarta.',
         basicDocuments: [
           'Valid Bangladeshi Passport with at least 6 months validity.',
           'Two color passport-size photos (4cm x 6cm, white background).',
@@ -510,17 +480,14 @@ const officialVisaData: CountryVisaData[] = [
         professionRequirements: [
           {
             profession: 'Business Person',
-            icon: 'briefcase',
             items: ['Trade License copy', 'Visiting Card', 'Bank Solvency']
           },
           {
             profession: 'Service Holder',
-            icon: 'user',
             items: ['NOC from employer', 'Office ID Card', 'Visiting Card']
           },
           {
             profession: 'Student',
-            icon: 'graduation-cap',
             items: ['Student ID Card', 'Birth Certificate']
           }
         ]
@@ -532,7 +499,6 @@ const officialVisaData: CountryVisaData[] = [
 export default function TravelKitPage() {
   const [selectedCountry, setSelectedCountry] = useState<string>('singapore');
   const [selectedVisaType, setSelectedVisaType] = useState<string>('sg-medical-new');
-  const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>({});
 
   const activeCountry = officialVisaData.find((c) => c.id === selectedCountry) || officialVisaData[0];
   const activeVisa =
@@ -543,19 +509,6 @@ export default function TravelKitPage() {
     const country = officialVisaData.find((c) => c.id === countryId);
     if (country && country.visaOptions.length > 0) {
       setSelectedVisaType(country.visaOptions[0].typeId);
-    }
-  };
-
-  const toggleCheck = (itemKey: string) => {
-    setCheckedItems((prev) => ({
-      ...prev,
-      [itemKey]: !prev[itemKey]
-    }));
-  };
-
-  const handlePrint = () => {
-    if (typeof window !== 'undefined') {
-      window.print();
     }
   };
 
@@ -570,30 +523,32 @@ export default function TravelKitPage() {
           <div className="max-w-5xl mx-auto space-y-4 relative z-10">
             <div className="inline-flex items-center gap-2 bg-imic-teal/20 text-imic-teal border border-imic-teal/30 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
               <Briefcase className="w-4 h-4" />
-              <span>Official Patient Travel Kit & Visa Guide</span>
+              <span>Patient Travel Kit & Visa Guidelines</span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Medical & Travel Visa Checklists
+              Medical & Travel Visa Information
             </h1>
             <p className="text-slate-200 max-w-3xl mx-auto text-xs sm:text-base leading-relaxed">
-              Official visa requirement checklists, required documents by profession, hospital invitation guidelines, and online application questionnaires for Singapore, India, Malaysia, Thailand, China & Indonesia.
+              Official visa requirements, document criteria by profession, hospital invitation letter protocols, and essential pre-departure guidelines for Singapore, India, Malaysia, Thailand, China & Indonesia.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-              <button
-                onClick={handlePrint}
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl border border-white/20 backdrop-blur-sm transition"
-              >
-                <Printer className="w-4 h-4 text-imic-teal" />
-                <span>Print Official Checklist</span>
-              </button>
               <Link
                 href="/book-appointment"
-                className="inline-flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-lg transition"
+                className="inline-flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white text-xs font-bold px-6 py-3 rounded-xl shadow-lg transition"
               >
                 <Calendar className="w-4 h-4" />
                 <span>Request Hospital Invitation Letter</span>
               </Link>
+              <a
+                href="https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20need%20visa%20information%20support"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold px-6 py-3 rounded-xl shadow-lg transition"
+              >
+                <MessageCircle className="w-4 h-4 fill-white" />
+                <span>WhatsApp Visa Helpdesk</span>
+              </a>
             </div>
           </div>
         </section>
@@ -605,7 +560,7 @@ export default function TravelKitPage() {
               Select Destination Country
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm">
-              Choose your destination to view the official checklist prepared by International Medical Information Centre (IMIC).
+              Click a destination below to view official visa categories, required documents, and processing guidelines.
             </p>
           </div>
 
@@ -663,7 +618,7 @@ export default function TravelKitPage() {
             </div>
           )}
 
-          {/* Official Checklist Container Card */}
+          {/* Official Information Container Card */}
           <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
             {/* Header / Brand Banner */}
             <div className="bg-slate-900 text-white p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-800">
@@ -707,7 +662,7 @@ export default function TravelKitPage() {
               {/* Action Buttons */}
               <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2.5">
                 <a
-                  href={`https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20need%20visa%20checklist%20guidance%20for%20${encodeURIComponent(activeCountry.name)}`}
+                  href={`https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20need%20visa%20information%20for%20${encodeURIComponent(activeCountry.name)}`}
                   target="_blank"
                   rel="noreferrer"
                   className="bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold py-3 px-5 rounded-xl transition flex items-center justify-center gap-2 shadow-md"
@@ -729,48 +684,27 @@ export default function TravelKitPage() {
             <div className="p-6 sm:p-8 space-y-8">
               {/* Section 1: Mandatory Basic Documents */}
               <div className="bg-slate-50 p-6 sm:p-8 rounded-2xl border border-slate-200 space-y-4">
-                <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div className="border-b border-slate-200 pb-3">
                   <h4 className="text-sm sm:text-base font-black text-imic-navy uppercase tracking-wider flex items-center gap-2">
                     <FileText className="w-4 h-4 text-imic-teal" />
                     <span>Mandatory Basic Documents</span>
                   </h4>
-                  <span className="text-[11px] text-slate-500 font-medium">Click item to check off</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                  {activeVisa.basicDocuments.map((doc, dIdx) => {
-                    const itemKey = `${activeVisa.typeId}-basic-${dIdx}`;
-                    const isChecked = !!checkedItems[itemKey];
-
-                    return (
-                      <div
-                        key={dIdx}
-                        onClick={() => toggleCheck(itemKey)}
-                        className={`flex items-start gap-3 p-3.5 rounded-xl border transition cursor-pointer select-none ${
-                          isChecked
-                            ? 'bg-emerald-50/70 border-emerald-200'
-                            : 'bg-white hover:bg-slate-50 border-slate-200/80 shadow-sm'
-                        }`}
-                      >
-                        <div className="mt-0.5 shrink-0">
-                          {isChecked ? (
-                            <CheckSquare className="w-4 h-4 text-emerald-600" />
-                          ) : (
-                            <Square className="w-4 h-4 text-slate-400" />
-                          )}
-                        </div>
-                        <span
-                          className={`text-xs sm:text-sm leading-relaxed ${
-                            isChecked
-                              ? 'line-through text-slate-400 font-medium'
-                              : 'text-slate-800 font-medium'
-                          }`}
-                        >
-                          {doc}
-                        </span>
+                  {activeVisa.basicDocuments.map((doc, dIdx) => (
+                    <div
+                      key={dIdx}
+                      className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm"
+                    >
+                      <div className="w-5 h-5 rounded-full bg-imic-teal/10 text-imic-teal flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+                        {dIdx + 1}
                       </div>
-                    );
-                  })}
+                      <span className="text-xs sm:text-sm leading-relaxed text-slate-800 font-medium">
+                        {doc}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -804,27 +738,15 @@ export default function TravelKitPage() {
                         </div>
 
                         <ul className="space-y-2">
-                          {prof.items.map((it, itIdx) => {
-                            const itemKey = `${activeVisa.typeId}-prof-${pIdx}-${itIdx}`;
-                            const isChecked = !!checkedItems[itemKey];
-
-                            return (
-                              <li
-                                key={itIdx}
-                                onClick={() => toggleCheck(itemKey)}
-                                className="flex items-start gap-2 text-xs text-slate-700 cursor-pointer select-none"
-                              >
-                                {isChecked ? (
-                                  <CheckSquare className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                                ) : (
-                                  <Square className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
-                                )}
-                                <span className={isChecked ? 'line-through text-slate-400' : 'font-medium'}>
-                                  {it}
-                                </span>
-                              </li>
-                            );
-                          })}
+                          {prof.items.map((it, itIdx) => (
+                            <li
+                              key={itIdx}
+                              className="flex items-start gap-2 text-xs text-slate-700"
+                            >
+                              <div className="w-1.5 h-1.5 rounded-full bg-imic-teal shrink-0 mt-1.5" />
+                              <span className="font-medium">{it}</span>
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     ))}
@@ -837,7 +759,7 @@ export default function TravelKitPage() {
                 <div className="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-4">
                   <div className="border-b border-slate-800 pb-3">
                     <span className="text-[11px] font-black text-imic-teal uppercase tracking-widest block mb-1">
-                      Online Form Preparation
+                      Online Form Preparation Guide
                     </span>
                     <h4 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
                       <FileText className="w-4 h-4 text-imic-teal" />
@@ -924,19 +846,19 @@ export default function TravelKitPage() {
           </div>
         </section>
 
-        {/* Universal Pre-Departure Kit Checklist Section */}
+        {/* Universal Pre-Departure Guidelines Section */}
         <section className="py-14 bg-slate-50 border-t border-slate-200">
           <div className="max-w-7xl mx-auto px-4 space-y-10">
             <div className="text-center max-w-3xl mx-auto space-y-3">
               <div className="inline-flex items-center gap-2 bg-imic-teal/10 text-imic-teal px-3 py-1 rounded-full text-xs font-bold uppercase">
                 <ShieldCheck className="w-4 h-4" />
-                <span>Universal Pre-Departure Kit</span>
+                <span>Pre-Departure Guidelines</span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-extrabold text-imic-navy">
-                Essential Patient Travel Checklist
+                Essential Patient Travel Guidelines
               </h2>
               <p className="text-slate-600 text-xs sm:text-sm">
-                Before boarding your flight from Shahjalal International Airport (DAC) or any Bangladeshi port, ensure you have completed these four essential preparation steps.
+                Before boarding your flight from Shahjalal International Airport (DAC) or any Bangladeshi port, ensure you have reviewed these four essential travel pillars.
               </p>
             </div>
 
