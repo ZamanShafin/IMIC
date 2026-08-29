@@ -51,7 +51,7 @@ const officialVisaData: CountryVisaData[] = [
     hospitalPartner: 'Farrer Park Hospital, Gleneagles, Mount Elizabeth Novena & Orchard, NCCS, SNEC, ICON Cancer',
     overview: 'Official Farrer Park Hospital & IMIC visa requirements for Bangladeshi patients and accompanying medical attendants traveling to Singapore for treatment.',
     basicDocuments: [
-      'Passport with at least 07 Months validity along with all Old Passport/s.',
+      'Passport with at least 07 Months validity.',
       'Two (2) Copies Recent 35mm x 45mm Size Photograph with white background on Matt Paper.',
       'Original Bank Statement For Last Six Months & Bank Solvency Certificate with bank seal.',
       'NID Card (Adult), Birth Certificate (Child).',
