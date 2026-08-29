@@ -45,7 +45,7 @@ const officialVisaData: CountryVisaData[] = [
     id: 'singapore',
     name: 'Singapore',
     flagImg: '/images/flags/singapore.png',
-    title: 'Singapore Medical Visa Information',
+    title: 'Singapore Medical Visa Checklist',
     validity: 'Initial 30 Days (Extendable based on doctor’s recommendation)',
     processingTime: '1 – 3 Working Days (Fast-track emergency assistance available)',
     hospitalPartner: 'Farrer Park Hospital, Gleneagles, Mount Elizabeth Novena & Orchard, NCCS, SNEC, ICON Cancer',
@@ -93,7 +93,7 @@ const officialVisaData: CountryVisaData[] = [
     id: 'india',
     name: 'India',
     flagImg: '/images/flags/india.png',
-    title: 'Indian Medical Visa Information',
+    title: 'Indian Medical Visa Checklist',
     validity: '6 Months to 1 Year (Triple / Multiple Entry)',
     processingTime: '2 – 5 Working Days (Emergency fast-track available)',
     hospitalPartner: 'Fortis Healthcare, Apollo Hospitals, Max Healthcare, Medanta, Tata Memorial, Sankara Nethralaya, Kokilaben, AIG Hospitals, KIMS',
@@ -143,7 +143,7 @@ const officialVisaData: CountryVisaData[] = [
     id: 'malaysia',
     name: 'Malaysia',
     flagImg: '/images/flags/malaysia.png',
-    title: 'Malaysia Medical Visa Information',
+    title: 'Malaysia Medical Visa Checklist',
     validity: '30 – 90 Days (Single/Multiple Entry)',
     processingTime: '2 – 4 Working Days',
     hospitalPartner: 'Sunway Medical Centre, Prince Court Medical Centre, Beacon Hospital, SJMC, Gleneagles KL',
@@ -190,7 +190,7 @@ const officialVisaData: CountryVisaData[] = [
     id: 'thailand',
     name: 'Thailand',
     flagImg: '/images/flags/thailand.png',
-    title: 'Thailand Medical Visa Information',
+    title: 'Thailand Medical Visa Checklist',
     validity: '60 – 90 Days (Extendable in Bangkok)',
     processingTime: '3 – 5 Working Days',
     hospitalPartner: 'Samitivej Sukhumvit Hospital, Vejthani Hospital, BNH Hospital, Bangkok Hospital (BDMS), MedPark',
@@ -239,7 +239,7 @@ const officialVisaData: CountryVisaData[] = [
     id: 'china',
     name: 'China',
     flagImg: '/images/flags/china.png',
-    title: 'China Tourist & Medical Visa Information',
+    title: 'China Tourist & Medical Visa Checklist',
     validity: '30 – 90 Days / Two-Year Multiple-Entry Visa Available',
     processingTime: '4 – 7 Working Days (Express priority available: Extra 5,500/- BDT)',
     hospitalPartner: 'Modern Cancer Hospital Guangzhou, Foshan Fosun Chancheng Hospital, Guangzhou Xinshi, Shenzhen Hengsheng',
@@ -300,7 +300,7 @@ const officialVisaData: CountryVisaData[] = [
     id: 'indonesia',
     name: 'Indonesia',
     flagImg: '/images/flags/indonesia.png',
-    title: 'Indonesia Medical Treatment Visa Information',
+    title: 'Indonesia Medical Treatment Visa Checklist',
     validity: '60 Days (Extendable online)',
     processingTime: '3 – 5 Working Days',
     hospitalPartner: 'Medistra Hospital Jakarta, RSUPN Dr. Cipto Mangunkusumo (RSCM)',
@@ -346,13 +346,13 @@ export default function TravelKitPage() {
           <div className="max-w-5xl mx-auto space-y-4 relative z-10">
             <div className="inline-flex items-center gap-2 bg-imic-teal/20 text-imic-teal border border-imic-teal/30 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
               <Briefcase className="w-4 h-4" />
-              <span>Patient Travel Kit & Visa Guidelines</span>
+              <span>Patient Travel Kit & Visa Checklist</span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Medical & Travel Visa Information
+              Medical & Travel Visa Checklist
             </h1>
             <p className="text-slate-200 max-w-3xl mx-auto text-xs sm:text-base leading-relaxed">
-              Official visa requirements, document criteria by profession, hospital invitation letter protocols, and essential pre-departure guidelines for Singapore, India, Malaysia, Thailand, China & Indonesia.
+              Official visa checklists, document criteria by profession, hospital invitation letter protocols, and essential pre-departure guidelines for Singapore, India, Malaysia, Thailand, China & Indonesia.
             </p>
           </div>
         </section>
@@ -364,7 +364,7 @@ export default function TravelKitPage() {
               Select Destination Country
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm">
-              Click a destination below to view official visa categories, required documents, and processing guidelines.
+              Click a destination below to view official visa checklists, required documents, and processing guidelines.
             </p>
           </div>
 
