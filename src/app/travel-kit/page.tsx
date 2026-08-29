@@ -56,8 +56,7 @@ const officialVisaData: CountryVisaData[] = [
       'Original Bank Statement For Last Six Months & Bank Solvency Certificate with bank seal.',
       'NID Card (Adult), Birth Certificate (Child).',
       'Medical Reports, recent diagnostic scans (CD/DVD), biopsy/pathology summaries, and doctor prescriptions.',
-      'Hotel & Air Ticket Booking Confirmation.',
-      'Singapore Electronic Arrival Card (SGAC) with Health Declaration (within 3 days prior to arrival).'
+      'Hotel & Air Ticket Booking Confirmation.'
     ],
     professionRequirements: [
       {
@@ -150,13 +149,12 @@ const officialVisaData: CountryVisaData[] = [
     hospitalPartner: 'Sunway Medical Centre, Prince Court Medical Centre, Beacon Hospital, SJMC, Gleneagles KL',
     overview: 'Official requirements verified with Sunway Medical Centre & Malaysia Healthcare Travel Council (MHTC) for Bangladeshi medical travelers.',
     basicDocuments: [
-      '1. A valid passport with minimum six months validity.',
-      '2. One color-sized photo (3.5 x 5.0cm) taken against a white background.',
-      '3. Original Bank Statement Last Six Months & Solvency Certificate.',
-      '4. Medical Report & clinical investigation summaries.',
-      '5. NID (Adult), Birth Certificate (Child).',
-      '6. Forwarding Letter & Visiting Card.',
-      '7. Malaysia Digital Arrival Card (MDAC) submitted online 3 days prior to flight.'
+      'A valid passport with minimum six months validity.',
+      'One color-sized photo (3.5 x 5.0cm) taken against a white background.',
+      'Original Bank Statement Last Six Months & Solvency Certificate.',
+      'Medical Report & clinical investigation summaries.',
+      'NID (Adult), Birth Certificate (Child).',
+      'Forwarding Letter & Visiting Card.'
     ],
     professionRequirements: [
       {
@@ -198,14 +196,14 @@ const officialVisaData: CountryVisaData[] = [
     hospitalPartner: 'Samitivej Sukhumvit Hospital, Vejthani Hospital, BNH Hospital, Bangkok Hospital (BDMS), MedPark',
     overview: 'Official requirements issued in partnership with Samitivej Hospital Bangkok for patients and family attendants applying through Royal Thai Embassy Dhaka / VFS Global.',
     basicDocuments: [
-      '1. A valid passport with minimum six months validity.',
-      '2. Thai visa page & renewal page (if any previous visits).',
-      '3. Two (2) color passport-sized photos (3.5 x 4.5cm) taken against a white background on matt paper.',
-      '4. Original Bank Statement Last Six Months & Solvency Certificate (minimum BDT 150,000+ balance).',
-      '5. Medical Reports, scan reports, and prescription from Bangladesh.',
-      '6. Forwarding Letter & Visiting Card.',
-      '7. Utility Bill (recent electricity/water/gas copy).',
-      '8. Official Hospital Invitation & Appointment Letter from Samitivej / Thai partner hospital.'
+      'A valid passport with minimum six months validity.',
+      'Thai visa page & renewal page (if any previous visits).',
+      'Two (2) color passport-sized photos (3.5 x 4.5cm) taken against a white background on matt paper.',
+      'Original Bank Statement Last Six Months & Solvency Certificate (minimum BDT 150,000+ balance).',
+      'Medical Reports, scan reports, and prescription from Bangladesh.',
+      'Forwarding Letter & Visiting Card.',
+      'Utility Bill (recent electricity/water/gas copy).',
+      'Official Hospital Invitation & Appointment Letter from Samitivej / Thai partner hospital.'
     ],
     professionRequirements: [
       {
