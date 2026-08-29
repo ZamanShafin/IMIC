@@ -563,9 +563,8 @@ export default function TravelKitPage() {
                 </div>
               )}
 
-              {/* Section 4: Associated Partner Hospitals & Important Notes */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
-                {/* Associated Network */}
+              {/* Section 4: Associated Partner Hospitals */}
+              <div className="pt-2">
                 <div className="bg-teal-50/60 p-5 rounded-2xl border border-teal-100 space-y-2">
                   <div className="flex items-center gap-2 text-imic-teal font-bold text-xs uppercase tracking-wider">
                     <Building2 className="w-4 h-4" />
@@ -575,21 +574,6 @@ export default function TravelKitPage() {
                     {activeCountry.hospitalPartner}
                   </p>
                 </div>
-
-                {/* Important Notes */}
-                {activeCountry.additionalNotes && activeCountry.additionalNotes.length > 0 && (
-                  <div className="bg-amber-50/60 p-5 rounded-2xl border border-amber-200/80 space-y-2">
-                    <div className="flex items-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider">
-                      <AlertCircle className="w-4 h-4 text-amber-600" />
-                      <span>Important Travel Notes</span>
-                    </div>
-                    <ul className="text-xs text-amber-900 space-y-1.5 list-disc list-inside">
-                      {activeCountry.additionalNotes.map((note, nIdx) => (
-                        <li key={nIdx}>{note}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
               </div>
             </div>
 
