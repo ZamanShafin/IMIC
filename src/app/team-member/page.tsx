@@ -8,11 +8,11 @@ import { UserCheck, Mail, Phone } from 'lucide-react';
 const teamMembers = [
   {
     name: "Director",
-    person: "Farzana Wali Liza",
-    designation: "Director & Chairman",
+    person: "Muntasir Mamun",
+    designation: "Director",
     email: "info@imic.com.bd",
     phone: "+8801710802000",
-    image: "/images/team/farzana-wali-liza.jpg"
+    image: null
   },
   {
     name: "Managing Director",
