@@ -13,380 +13,538 @@ import {
   ShieldCheck,
   AlertCircle,
   Clock,
-  Download,
   Printer,
   Calendar,
   MessageCircle,
-  HelpCircle,
-  ChevronRight,
   Briefcase,
-  Stethoscope,
-  CreditCard,
+  User,
+  GraduationCap,
   Building2,
   CheckSquare,
-  Square
+  Square,
+  MapPin,
+  Phone,
+  Mail,
+  HelpCircle,
+  Stethoscope,
+  Scale,
+  Award
 } from 'lucide-react';
+
+interface VisaTypeOption {
+  typeId: string;
+  typeName: string;
+  badge?: string;
+  validity: string;
+  processingTime: string;
+  overview: string;
+  basicDocuments: string[];
+  professionRequirements: {
+    profession: string;
+    icon: string;
+    items: string[];
+  }[];
+  onlineApplicationFields?: string[];
+  additionalNotes?: string[];
+}
 
 interface CountryVisaData {
   id: string;
   name: string;
   flagImg: string;
-  visaType: string;
-  processingTime: string;
-  validity: string;
-  partnerHospitals: string;
-  overview: string;
-  keyRequirements: {
-    category: string;
-    items: string[];
-  }[];
-  importantNotes: string[];
+  hospitalPartner: string;
+  visaOptions: VisaTypeOption[];
 }
 
-const countryVisaList: CountryVisaData[] = [
+const officialVisaData: CountryVisaData[] = [
   {
     id: 'singapore',
     name: 'Singapore',
     flagImg: '/images/flags/singapore.png',
-    visaType: 'Medical e-Visa / Short-Term Visit Pass (STVP) with Medical Extension',
-    processingTime: '1 – 3 Working Days (Fast-track emergency assistance available)',
-    validity: 'Initial 30 Days (Extendable based on doctor’s recommendation)',
-    partnerHospitals: 'Farrer Park Hospital, Gleneagles, Mount Elizabeth Novena, Mount Elizabeth Orchard, NCCS, SNEC, ICON Cancer Centre',
-    overview: 'Singapore requires an authentic hospital appointment letter and local sponsor/hospital coordination. IMIC provides direct liaison with partner hospitals for fast-track medical e-visa invitations and seamless ICA electronic submission.',
-    keyRequirements: [
+    hospitalPartner: 'Farrer Park Hospital, Gleneagles, Mount Elizabeth Novena & Orchard, NCCS, SNEC, ICON Cancer',
+    visaOptions: [
       {
-        category: '1. Primary Patient Documents',
-        items: [
-          'Original Passport with at least 6 months validity from the planned date of arrival in Singapore.',
-          'Two recent passport-sized studio photographs (35mm x 45mm, matte finish, pure white background, 80% face coverage).',
-          'Completed and signed Singapore Visa Application Form (Form 14A).',
-          'Copy of national NID card and previous Singapore visas (if applicable).'
+        typeId: 'sg-medical-new',
+        typeName: 'Medical Visa Checklist (New Patients & Attendant/s)',
+        badge: 'Recommended for Medical Travel',
+        validity: 'Initial 30 Days (Extendable with Hospital Letter)',
+        processingTime: '1 – 3 Working Days (Emergency fast-track available)',
+        overview: 'Official Farrer Park Hospital & IMIC documentation requirements for Bangladeshi patients and accompanying medical attendants traveling to Singapore for treatment.',
+        basicDocuments: [
+          'Passport with at least 07 Months validity along with all Old Passport/s.',
+          'Two (2) Copies Recent 35mm x 45mm Size Photograph with white background on Matt Paper.',
+          'Original Bank Statement For Last Six Months & Bank Solvency Certificate with bank seal.',
+          'NID Card (Adult), Birth Certificate (Child).',
+          'Medical Reports, recent diagnostic scans (CD/DVD), biopsy/pathology summaries, and doctor prescriptions.',
+          'Hotel & Air Ticket Booking Confirmation.',
+          'Singapore Electronic Arrival Card (SGAC) with Health Declaration (within 3 days prior to arrival).'
+        ],
+        professionRequirements: [
+          {
+            profession: 'For Business Person',
+            icon: 'briefcase',
+            items: [
+              'Updated Trade License (English translated & notarized if applicable).',
+              'Company Letterhead Pad.',
+              'Business Visiting Card.'
+            ]
+          },
+          {
+            profession: 'For Service Holder / Job',
+            icon: 'user',
+            items: [
+              'No Objection Certificate (NOC) / Leave Letter from Employer.',
+              'Office ID Card copy.',
+              'Official Business Visiting Card.'
+            ]
+          },
+          {
+            profession: 'For Student',
+            icon: 'graduation-cap',
+            items: [
+              'Valid Student ID Card copy.',
+              'Leave Letter or NOC from Educational Institute.'
+            ]
+          }
+        ],
+        additionalNotes: [
+          'Patients and family attendants submit identical basic financial and identity proofs.',
+          'Official MOH-accredited hospital invitation is arranged directly through IMIC Banani Dhaka office.'
         ]
       },
       {
-        category: '2. Official Hospital & Medical Documentation',
-        items: [
-          'Official Medical Appointment Confirmation & Invitation Letter issued by MOH-accredited Singapore hospital.',
-          'Attending specialist physician’s medical recommendation outlining estimated duration of treatment & hospitalization.',
-          'Complete Bangladeshi medical files: recent diagnostic reports, biopsy, pathology summaries, CT/MRI films on CD, and current prescriptions translated into English.',
-          'Bangladesh consulting doctor’s clinical summary letter explaining the medical necessity for treatment in Singapore.'
+        typeId: 'sg-medical-old',
+        typeName: 'Medical Visa Checklist (Follow-up / Old Patients)',
+        badge: 'For Review Visits',
+        validity: '30 Days',
+        processingTime: '1 – 3 Working Days',
+        overview: 'Simplified documentation for patients who have previously consulted or been treated at Singapore partner hospitals returning for follow-up review or surgical checkups.',
+        basicDocuments: [
+          'Passport with at least 07 Months validity along with all Old Passport/s.',
+          'Two (2) Copies Recent 35mm x 45mm Size Photograph with white background on Matt Paper.',
+          'NID Card (Adult), Birth Certificate (Child).',
+          'Previous Singapore Medical Reports & Follow-up Appointment Letter from Singapore Specialist.',
+          'Hotel & Air Ticket Booking Confirmation.'
+        ],
+        professionRequirements: [
+          {
+            profession: 'For Business Person',
+            icon: 'briefcase',
+            items: ['Trade License', 'Business Letterhead Pad', 'Business Visiting Card']
+          },
+          {
+            profession: 'For Service Holder',
+            icon: 'user',
+            items: ['No Objection Certificate (NOC)', 'Office ID Card', 'Business Visiting Card']
+          },
+          {
+            profession: 'For Student',
+            icon: 'graduation-cap',
+            items: ['Student ID Card', 'Leave Letter from Institute']
+          }
         ]
       },
       {
-        category: '3. Financial & Logistics Proof',
-        items: [
-          'Original Bank Statement of the last 6 months along with Bank Solvency Certificate with official bank seal.',
-          'Singapore Electronic Arrival Card (SGAC) with Health Declaration (submitted online 3 days prior to arrival).',
-          'Confirmed return flight itinerary or travel booking.',
-          'Hotel / Service Apartment or hospital room reservation confirmation.'
-        ]
-      },
-      {
-        category: '4. Medical Attendant / Companion Documents',
-        items: [
-          'Passport of medical attendant(s) with minimum 6 months validity.',
-          'Proof of relationship with the patient (Marriage certificate, Birth certificate, or Family Relationship letter).',
-          'Attendant employment / business proof and 6-month bank statement (if traveling independently).'
+        typeId: 'sg-tourist',
+        typeName: 'Singapore Tourist Visa Checklist',
+        validity: '30 Days (Single/Multiple Entry)',
+        processingTime: '3 – 5 Working Days',
+        overview: 'General visit and tourist visa requirements for family members or visitors traveling to Singapore.',
+        basicDocuments: [
+          'Passport 07 Months validity With Old Passport/s.',
+          'Two Copies Recent 35 x 45 MM Size Photo with white background on Matt Paper.',
+          'Original Bank Statement For Last Six Months & Solvency Certificate.',
+          'NID (Adult), Birth Certificate (Child).',
+          'Hotel & Air Ticket Booking Confirmation.'
+        ],
+        professionRequirements: [
+          {
+            profession: 'For Business Person',
+            icon: 'briefcase',
+            items: ['Trade License', 'Business Letterhead Pad', 'Business Visiting Card']
+          },
+          {
+            profession: 'For Service Holder',
+            icon: 'user',
+            items: ['No Objection Certificate (NOC)', 'Office ID Card', 'Business Visiting Card']
+          },
+          {
+            profession: 'For Student',
+            icon: 'graduation-cap',
+            items: ['Student ID Card (Only For Student)']
+          }
         ]
       }
-    ],
-    importantNotes: [
-      'Singapore hospital international patient desks can apply for formal Medical Extension at ICA if treatment exceeds 30 days.',
-      'Emergency medical evacuation or commercial stretcher transfers must be pre-coordinated with Changi Airport border control through IMIC.'
-    ]
-  },
-  {
-    id: 'malaysia',
-    name: 'Malaysia',
-    flagImg: '/images/flags/malaysia.png',
-    visaType: 'Malaysia Healthcare Travel Council (MHTC) Medical e-Visa (eVisa Medical)',
-    processingTime: '2 – 4 Working Days',
-    validity: 'Single / Multiple Entry (30 Days, Extendable up to 90 days)',
-    partnerHospitals: 'Sunway Medical Centre, Prince Court Medical Centre, Beacon Hospital, Subang Jaya Medical Centre (SJMC), Gleneagles KL',
-    overview: 'Through our partnership with MHTC-accredited quaternary hospitals in Malaysia, patients receive an official Visa Approval Letter (VAL) and priority clearance upon arrival at KLIA Terminal 1 & 2 with dedicated international patient lounge support.',
-    keyRequirements: [
-      {
-        category: '1. Primary Patient Documents',
-        items: [
-          'Valid Bangladeshi Passport with at least 6 months validity and minimum 2 blank pages.',
-          'Two passport-size studio photos (35mm x 50mm, white background, no reflections/glasses).',
-          'Completed online Medical e-Visa application form.',
-          'Clear scanned copy of passport bio-data page.'
-        ]
-      },
-      {
-        category: '2. MHTC Hospital Invitation Letter',
-        items: [
-          'Official Visa Approval Letter (VAL) and Medical Appointment Letter issued by member hospital of Malaysia Healthcare Travel Council (MHTC).',
-          'Estimated cost of medical treatment and expected hospitalization schedule.',
-          'Comprehensive medical history reports, lab test results, imaging reports (MRI/PET-CT) in English.'
-        ]
-      },
-      {
-        category: '3. Financial & Arrival Compliance',
-        items: [
-          'Bank statement of the last 6 months with bank solvency certificate showing sufficient balance.',
-          'Malaysia Digital Arrival Card (MDAC) submitted online within 3 days before travel.',
-          'Round-trip flight booking and accommodation arrangement in Kuala Lumpur / Selangor.'
-        ]
-      },
-      {
-        category: '4. Medical Escort & Attendants',
-        items: [
-          'Maximum of 2 companions/attendants permitted under Medical eVisa.',
-          'Passport copy and relationship proof with patient.',
-          'Medical escort authorization letter if patient requires wheelchair or stretcher assistance.'
-        ]
-      }
-    ],
-    importantNotes: [
-      'MHTC Concierge & Lounge at Kuala Lumpur International Airport (KLIA) provides free patient escort and immigration fast-track for IMIC patients.',
-      'Hospital ambulance pick-up from KLIA directly to hospital can be pre-arranged 48 hours prior to arrival.'
-    ]
-  },
-  {
-    id: 'thailand',
-    name: 'Thailand',
-    flagImg: '/images/flags/thailand.png',
-    visaType: 'Non-Immigrant “O” Medical Treatment Visa / Tourist Medical Visa (MT)',
-    processingTime: '3 – 5 Working Days',
-    validity: '60 – 90 Days (Extendable at Thai Immigration Bureau)',
-    partnerHospitals: 'Samitivej Sukhumvit, Vejthani Hospital, BNH Hospital, Bangkok Hospital (BDMS), MedPark Hospital',
-    overview: 'Thailand is renowned for international clinical excellence and holistic wellness. IMIC assists patients in acquiring authentic hospital confirmation letters required for Thai Royal Embassy Dhaka and VFS Global medical visa applications.',
-    keyRequirements: [
-      {
-        category: '1. Primary Patient Documents',
-        items: [
-          'Original Passport valid for at least 6 months from arrival date with at least 2 blank pages.',
-          'Two recent passport-sized color photos (3.5cm x 4.5cm, white background, taken within 6 months).',
-          'Completed and signed Royal Thai Embassy visa application form.',
-          'Copies of all previous Thai visas and renewal stamps.'
-        ]
-      },
-      {
-        category: '2. Thai Hospital Certification',
-        items: [
-          'Official Medical Invitation and Hospital Admission Confirmation signed by an authorized Thai medical director.',
-          'Detailed clinical schedule and projected surgical/treatment itinerary.',
-          'Recommendation letter from Bangladeshi consultant physician advocating treatment abroad.',
-          'Recent investigation reports (Blood panels, Histopathology, CT/MRI, Coronary angiograms).'
-        ]
-      },
-      {
-        category: '3. Financial & Accommodation Evidence',
-        items: [
-          'Original 6-month Bank Statement with Bank Solvency Certificate (minimum closing balance BDT 150,000+ per applicant).',
-          'Confirmed round-trip flight booking with Bangkok (BKK/DMK) arrival.',
-          'Hotel booking or hospital inpatient admission confirmation voucher.'
-        ]
-      },
-      {
-        category: '4. Attendants / Family Companions',
-        items: [
-          'Valid passports and photographs for medical attendants (up to 3 family members).',
-          'Notarized relationship certificate / Marriage or Birth certificate.',
-          'No Objection Letter (NOC) from employer or trade license if business owner.'
-        ]
-      }
-    ],
-    importantNotes: [
-      'Medical visas can be extended up to 90 days or 1 year in Bangkok with hospital medical cert for long-term oncology or rehabilitation cases.',
-      'Bangla language interpreter assistance is provided at hospital bedside.'
     ]
   },
   {
     id: 'india',
     name: 'India',
     flagImg: '/images/flags/india.png',
-    visaType: 'Indian Medical Visa (MED) & Medical Attendant Visa (MEDX)',
-    processingTime: '2 – 5 Working Days (Emergency medical fast-track available)',
-    validity: 'Up to 6 Months / 1 Year (Triple / Multiple Entry as approved)',
-    partnerHospitals: 'Fortis Healthcare, Apollo Hospitals, Max Healthcare, Medanta The Medicity, Tata Memorial Hospital, Sankara Nethralaya, Kokilaben Dhirubhai Ambani, AIG Hospitals, KIMS',
-    overview: 'India is the most frequent medical destination for Bangladeshi patients. IMIC works directly with premier hospital international desks across Kolkata, Delhi NCR, Chennai, Mumbai, Bangalore, and Hyderabad to dispatch official visa invitation letters with doctor registration details.',
-    keyRequirements: [
+    hospitalPartner: 'Fortis Healthcare, Apollo Hospitals, Max Healthcare, Medanta, Tata Memorial, Sankara Nethralaya, Kokilaben, AIG Hospitals, KIMS',
+    visaOptions: [
       {
-        category: '1. Primary Patient Documents',
-        items: [
-          'Original Current Passport (minimum 6 months validity) plus ALL old original passports.',
-          'Two 2x2 inch (50mm x 50mm) studio photos (white background, matte paper, 80% face coverage).',
-          'Online IVAC Visa Application Form with submitted barcode confirmation printout.',
-          'National ID Card (NID) copy or Birth Certificate copy.'
+        typeId: 'in-medical',
+        typeName: 'Indian Medical Visa Checklist (MED & MEDX for Attendants)',
+        badge: 'Most Popular',
+        validity: '6 Months to 1 Year (Triple / Multiple Entry)',
+        processingTime: '2 – 5 Working Days (Emergency fast-track available)',
+        overview: 'Complete official IMIC documentation checklist required for Indian Medical Visa (MED) for patients and Medical Attendant Visa (MEDX) for companions submitted via IVAC Bangladesh.',
+        basicDocuments: [
+          'Current Medical reports (Biopsy, MRI/CT, Discharge summary, Doctor prescription).',
+          'Bank statements 6 months with adequate balance (minimum BDT 20,000+ or International Credit Card endorsement).',
+          'The passport validity minimum 7 months.',
+          'All old passports should be submitted with application form.',
+          'One 2X2 inch color photograph with white background, having full face & ears (matte paper).',
+          'A copy of National ID Card (NID).',
+          'Recent Utility Bill copy (electricity, water, or gas bill) of applicant’s current residence.',
+          'Official Medical Visa Invitation Letter from Indian hospital with doctor’s registration number.'
+        ],
+        professionRequirements: [
+          {
+            profession: 'Job Holder / Service',
+            icon: 'user',
+            items: ['No Objection Certificate (NOC)', 'Visiting Card', 'Office ID Card copy']
+          },
+          {
+            profession: 'Business Person',
+            icon: 'briefcase',
+            items: ['Trade License copy (Renewed)', 'Visiting Card']
+          },
+          {
+            profession: 'Student',
+            icon: 'graduation-cap',
+            items: ['Student ID card copy', 'Birth Certificate copy']
+          }
+        ],
+        onlineApplicationFields: [
+          '1. Email Address & Active Mobile Phone Number',
+          '2. Educational Qualification',
+          '3. Countries Visited in the last 10 Years (If any)',
+          '4. Port of Arrival / Port of Exit in India (Air or Land Ports)',
+          '5. Address Where You Stayed In India previously (If visited earlier)',
+          '6. Address where you will stay upon arrival (Hospital / Hotel address in India)',
+          '7. Previous Indian Visa page/s (If any)',
+          '8. Present Occupation & Past Occupation with Designation',
+          '9. Guardian Information (Spouse or Parents full name & nationality)',
+          '10. Employer Name, Office Address, and Phone Number'
+        ],
+        additionalNotes: [
+          'Maximum 2 attendants are permitted under MEDX medical attendant category per patient.',
+          'Registration with FRRO is required if continuous stay in India exceeds 180 days.'
         ]
       },
       {
-        category: '2. Medical Records & Hospital Invitation',
-        items: [
-          'Official Medical Visa Invitation Letter from an accredited Indian hospital with authorized doctor’s medical council registration number.',
-          'Bangladesh treating doctor’s formal medical prescription & recommendation letter advising treatment in India.',
-          'All recent original clinical reports (Endoscopy, Biopsy, MRI/CT, ECHO, Blood tests) dated within last 3 months.'
-        ]
-      },
-      {
-        category: '3. Residence & Financial Proof',
-        items: [
-          'Recent Utility Bill copy (Electricity, Gas, or Water bill) of applicant’s current residence.',
-          'Bank statement of the last 6 months with minimum balance of BDT 20,000+ or International Credit Card endorsement ($150+).',
-          'Professional proof: Trade license for business, NOC & ID card for job holders, Student ID card for students.'
-        ]
-      },
-      {
-        category: '4. Medical Attendant (MEDX) Requirements',
-        items: [
-          'Maximum 2 medical attendants permitted per patient under MEDX visa category.',
-          'Attendant passport, photos, utility bill, and professional proof matching patient’s application.',
-          'Relationship proof document (Nikahnama, Marriage Certificate, or Birth Certificate).'
+        typeId: 'in-tourist',
+        typeName: 'Indian Tourist Visa Checklist',
+        validity: 'Up to 1 Year (Multiple Entry)',
+        processingTime: '3 – 7 Working Days',
+        overview: 'Requirements for tourist / general visitor visas to India through IVAC Dhaka/Chittagong/Sylhet/Rajshahi.',
+        basicDocuments: [
+          'Bank statements 6 months.',
+          'The passport validity 7 months.',
+          'All old passports should be submitted with application form.',
+          'One 2X2 color photograph with white background, having full face & ears.',
+          'A copy of National ID Card.',
+          'Utility Bill (electricity, water bill, recent copy).'
+        ],
+        professionRequirements: [
+          {
+            profession: 'Job Holder',
+            icon: 'user',
+            items: ['NOC & visiting card']
+          },
+          {
+            profession: 'Business Person',
+            icon: 'briefcase',
+            items: ['Trade License']
+          },
+          {
+            profession: 'Student',
+            icon: 'graduation-cap',
+            items: ['ID card, Birth certificate']
+          }
+        ],
+        onlineApplicationFields: [
+          'Email Address & Phone Number',
+          'Educational Qualification',
+          'Country Visited in last 10 Years (If any)',
+          'Port of arrival/Exit',
+          'Address Where You Stayed In India previously (If visited)',
+          'Address where you will stay upon arrival',
+          'Previous Indian Visa page/s (If any)',
+          'Present Occupation & Past Occupation with Designation',
+          'Guardian Info (Spouse/Parents) & Employer Details'
         ]
       }
-    ],
-    importantNotes: [
-      'Registration with Foreigners Regional Registration Office (FRRO) is required if continuous stay exceeds 180 days.',
-      'Port endorsement changes (Air/Rail/Land borders seperti Haridaspur/Gede/Ghojadanga) can be coordinated based on patient travel preferences.'
+    ]
+  },
+  {
+    id: 'malaysia',
+    name: 'Malaysia',
+    flagImg: '/images/flags/malaysia.png',
+    hospitalPartner: 'Sunway Medical Centre, Prince Court Medical Centre, Beacon Hospital, SJMC, Gleneagles KL',
+    visaOptions: [
+      {
+        typeId: 'my-medical',
+        typeName: 'Malaysia Medical Visa Requirement (MHTC / eVisa Medical)',
+        badge: 'Official Sunway Medical Centre Partner',
+        validity: '30 – 90 Days (Single/Multiple Entry)',
+        processingTime: '2 – 4 Working Days',
+        overview: 'Official checklist verified with Sunway Medical Centre & Malaysia Healthcare Travel Council (MHTC) for Bangladeshi medical travelers.',
+        basicDocuments: [
+          '1. A valid passport with minimum six months validity.',
+          '2. One color-sized photo (3.5 x 5.0cm) taken against a white background.',
+          '3. Original Bank Statement Last Six Months & Solvency Certificate.',
+          '4. Medical Report & clinical investigation summaries.',
+          '5. NID (Adult), Birth Certificate (Child).',
+          '6. Forwarding Letter & Visiting Card.',
+          '7. Malaysia Digital Arrival Card (MDAC) submitted online 3 days prior to flight.'
+        ],
+        professionRequirements: [
+          {
+            profession: 'For Business Person',
+            icon: 'briefcase',
+            items: [
+              'Trade License in English with Notarized translation.',
+              'Memorandum of Article & Form XII (If limited company).',
+              'Visiting Card & Letterhead Pad.'
+            ]
+          },
+          {
+            profession: 'For Service / Job Holder',
+            icon: 'user',
+            items: [
+              'No Objection Certificate (NOC) from employer.',
+              'Office ID Card copy.',
+              'Visiting Card.'
+            ]
+          },
+          {
+            profession: 'For Student',
+            icon: 'graduation-cap',
+            items: [
+              'Student ID Card copy (Only For Student).',
+              'Leave letter from school/college/university.'
+            ]
+          }
+        ],
+        additionalNotes: [
+          'MHTC Concierge & Lounge at KLIA (Terminal 1 & 2) provides complimentary meet-and-greet and immigration escort for IMIC patients.',
+          'Hospital ambulance transport from KLIA directly to hospital can be scheduled in advance.'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'thailand',
+    name: 'Thailand',
+    flagImg: '/images/flags/thailand.png',
+    hospitalPartner: 'Samitivej Sukhumvit Hospital, Vejthani Hospital, BNH Hospital, Bangkok Hospital (BDMS), MedPark',
+    visaOptions: [
+      {
+        typeId: 'th-medical',
+        typeName: 'Thailand Medical Visa Checklist (Patients & Attendant/s)',
+        badge: 'Official Samitivej Hospital Partner',
+        validity: '60 – 90 Days (Extendable in Bangkok)',
+        processingTime: '3 – 5 Working Days',
+        overview: 'Official checklist issued in partnership with Samitivej Hospital Bangkok for patients and family attendants applying through Royal Thai Embassy Dhaka / VFS Global.',
+        basicDocuments: [
+          '1. A valid passport with minimum six months validity.',
+          '2. Thai visa page & renewal page (if any previous visits).',
+          '3. Two (2) color passport-sized photos (3.5 x 4.5cm) taken against a white background on matt paper.',
+          '4. Original Bank Statement Last Six Months & Solvency Certificate (minimum BDT 150,000+ balance).',
+          '5. Medical Reports, scan reports, and prescription from Bangladesh.',
+          '6. Forwarding Letter & Visiting Card.',
+          '7. Utility Bill (recent electricity/water/gas copy).',
+          '8. Official Hospital Invitation & Appointment Letter from Samitivej / Thai partner hospital.'
+        ],
+        professionRequirements: [
+          {
+            profession: 'For Business Person',
+            icon: 'briefcase',
+            items: [
+              'Trade License in English with Notarized copy.',
+              'Business Letterhead Pad & Business Card.',
+              'Memorandum of Article (If limited company).'
+            ]
+          },
+          {
+            profession: 'For Service Holder',
+            icon: 'user',
+            items: [
+              'No Objection Certificate (NOC) from office.',
+              'Office ID Card copy.',
+              'Business Visiting Card.'
+            ]
+          },
+          {
+            profession: 'For Student',
+            icon: 'graduation-cap',
+            items: [
+              'Student ID Card (Only For Student).',
+              'Leave approval from educational institution.'
+            ]
+          }
+        ],
+        additionalNotes: [
+          'Medical visa extension for long-term treatments can be renewed at Thai Immigration Bureau in Bangkok with hospital certification.',
+          'Bangla & English interpreter services provided at hospital admission.'
+        ]
+      }
     ]
   },
   {
     id: 'china',
     name: 'China',
     flagImg: '/images/flags/china.png',
-    visaType: 'China Medical Visa (S2 Short-Term Medical / S1 Long-Term Medical Treatment)',
-    processingTime: '4 – 7 Working Days (Express priority available)',
-    validity: '30 – 180 Days depending on treatment schedule',
-    partnerHospitals: 'Modern Cancer Hospital Guangzhou (St. Stamford), Foshan Fosun Chancheng Hospital, Guangzhou Fosun Chancheng Hospital (Xinshi), Shenzhen Hengsheng Hospital, StarKids Shanghai',
-    overview: 'China is a world leader in minimally invasive oncology (Cryotherapy, NanoKnife, Particle Implantation) and advanced robotic surgery. IMIC provides end-to-end guidance for Chinese Visa Application Service Centre (Dhaka) submissions.',
-    keyRequirements: [
+    hospitalPartner: 'Modern Cancer Hospital Guangzhou, Foshan Fosun Chancheng Hospital, Guangzhou Xinshi, Shenzhen Hengsheng',
+    visaOptions: [
       {
-        category: '1. Primary Patient Documents',
-        items: [
-          'Original Passport with at least 6 months validity and minimum 2 blank visa pages.',
-          'Two passport photos (33mm x 48mm, white background, bare-headed, no jewelry/glasses).',
-          'Completed China Online Visa Application (COVA) form with signature sheet.',
-          'NID card and clear photocopy of previous Chinese visas (if any).'
+        typeId: 'cn-tourist-medical',
+        typeName: 'China Tourist & Medical Travel Visa Requirement',
+        badge: 'Explore Holidays / IMIC Official',
+        validity: '30 – 90 Days / Two-Year Multiple-Entry Visa Available',
+        processingTime: '4 – 7 Working Days (Express priority available: Extra 5,500/- BDT)',
+        overview: 'Mandatory documentation guidelines for Bangladeshi patients and travelers applying for Chinese Visas at Chinese Visa Application Service Centre Dhaka.',
+        basicDocuments: [
+          'Valid passport (minimum 6 month valid) & all Old passport/s.',
+          'Two (2) Copies Recent photos ("33mm x 48mm" size) with White Background (bare-headed, no glasses/jewelry).',
+          'Previous visa & Other country E-visa Copies with Entry-Exit seal (If Have).',
+          'Last 6 months Bank Statement & Bank Solvency Certificate with Bank Seal (Balance Minimum: 300,000/- BDT).',
+          'TIN Certificate copy.',
+          'Confirmed Air-Ticket booking.',
+          'Completed China Visa Information Page (Work history, education & family details).',
+          'Special Note: Two-Year Multiple-Entry Visa available (No fingerprint required for applicants under 14 or over 70 years of age).'
+        ],
+        professionRequirements: [
+          {
+            profession: 'For Business Person',
+            icon: 'briefcase',
+            items: [
+              'Company Updated Trade License.',
+              'Memorandum of Article for limited company & Form XII.',
+              'Company Letterhead Pad.',
+              'Visiting Card.'
+            ]
+          },
+          {
+            profession: 'For Job Holder',
+            icon: 'user',
+            items: [
+              'Office ID Card copy.',
+              'Leave letter or No Objection Certificate (NOC).',
+              'Visiting Card.',
+              'BMDC Certificate (for Doctors).',
+              'BAR Council Certificate (for Advocates).',
+              'Retirement Certificate (for Retired Persons).'
+            ]
+          },
+          {
+            profession: 'For Student',
+            icon: 'graduation-cap',
+            items: [
+              'Student valid ID Card copy.',
+              'Leave letter or NOC from Educational Institute.'
+            ]
+          }
+        ],
+        onlineApplicationFields: [
+          'Applicant Name & Passport Number',
+          'Work Experience in the Last/Past 5 Years (From/To dates, Company Name, Address, Supervisor Name & Phone Number)',
+          'Family Information (Spouse DOB, Children Names & DOBs, Father DOB, Mother DOB)',
+          'Education History (School & Group, College & Group, Graduation Institute & Major, Post-graduation Institute & Major)',
+          'Tentative Stay in China (Tentative Departure & Arrival Dates)'
+        ],
+        additionalNotes: [
+          'Urgent delivery fee: Extra BDT 5,500/- if urgent processing is required.',
+          'Consular officer reserves the right to request additional documentation as deemed necessary.'
         ]
       },
       {
-        category: '2. Chinese Hospital Invitation with Official Seal',
-        items: [
-          'Official Medical Admission Letter & Treatment Plan issued by the hospital in China bearing official institutional red seal stamp.',
-          'Detailed clinical summary describing the oncology / surgical protocol, estimated hospitalization days, and physician assignment.',
-          'Bangladeshi doctor referral note and English translated biopsy, histopathology, and PET-CT scan reports.'
-        ]
-      },
-      {
-        category: '3. Financial Solvency Proof',
-        items: [
-          'Bank Statement of the last 6 months with Bank Solvency Certificate reflecting adequate treatment funds.',
-          'Proof of round-trip air ticket reservation (e.g. Dhaka to Guangzhou CAN / Shanghai PVG).',
-          'Hotel or hospital inpatient ward booking confirmation.'
-        ]
-      },
-      {
-        category: '4. Accompanying Family Members',
-        items: [
-          'Passports and photographs of medical attendants.',
-          'Notarized proof of family relationship (Marriage Certificate, Birth Certificate) authenticated if required.',
-          'Attendant employment / financial proof.'
+        typeId: 'cn-business',
+        typeName: 'China Business Visa Requirement',
+        validity: '30 – 180 Days / Multiple Entry',
+        processingTime: '4 – 7 Working Days',
+        overview: 'Official requirements for commercial and medical business travel to China.',
+        basicDocuments: [
+          'Valid passport (minimum 6 month valid) & Old passport/s.',
+          'Two (2) Copies Recent photos ("33mm x 48mm" size) with White Background.',
+          'Trade License & TIN Certificate.',
+          'Visiting Card.',
+          'Official Invitation Letter & TE verification letter from Chinese enterprise/institution.',
+          'Office ID card & NOC (For Job Holder).',
+          'Completed Information Page.'
+        ],
+        professionRequirements: [
+          {
+            profession: 'For Business Delegate',
+            icon: 'briefcase',
+            items: ['Trade License', 'TIN Certificate', 'Official Invitation & TE letter', 'Visiting Card']
+          }
         ]
       }
-    ],
-    importantNotes: [
-      'IMIC partner hospitals in Guangzhou offer complimentary airport transfer and 24/7 Bangla and English speaking medical translator coordinators.',
-      'Special visa extension support is provided directly by the hospital International Patient Office in Guangzhou / Foshan.'
     ]
   },
   {
     id: 'indonesia',
     name: 'Indonesia',
     flagImg: '/images/flags/indonesia.png',
-    visaType: 'Indonesia Medical Treatment e-Visa (B211A / C13 Medical Treatment)',
-    processingTime: '3 – 5 Working Days',
-    validity: '60 Days (Extendable up to 180 days)',
-    partnerHospitals: 'Medistra Hospital Jakarta, RSUPN Dr. Cipto Mangunkusumo (RSCM)',
-    overview: 'Indonesia offers top-tier quaternary clinical centers in Jakarta specializing in complex adult & pediatric surgery, cardiology, and liver transplants with streamlined electronic visa issuance.',
-    keyRequirements: [
+    hospitalPartner: 'Medistra Hospital Jakarta, RSUPN Dr. Cipto Mangunkusumo (RSCM)',
+    visaOptions: [
       {
-        category: '1. Primary Patient Documents',
-        items: [
-          'Valid Passport with minimum 6 months validity.',
-          'Recent color passport-size photograph (4cm x 6cm, white background).',
-          'Completed Indonesian Medical e-Visa application form.',
-          'National ID and COVID-19 health compliance certificates.'
-        ]
-      },
-      {
-        category: '2. Hospital Sponsorship & Guarantee',
-        items: [
-          'Official Guarantee & Medical Appointment Letter from partner hospital in Jakarta.',
-          'Physician diagnosis summary and expected treatment schedule.',
-          'Complete Bangladeshi medical records translated in English.'
-        ]
-      },
-      {
-        category: '3. Financial & Travel Documents',
-        items: [
-          'Bank statement of the last 3-6 months with bank solvency letter.',
-          'Confirmed round-trip flight booking to Jakarta (CGK).',
-          'Electronic Custom Declaration (e-CD) QR code prior to arrival.'
-        ]
-      },
-      {
-        category: '4. Medical Escort',
-        items: [
-          'Companion passport copies and relationship proof.',
-          'Emergency contact details and travel insurance policy.'
+        typeId: 'id-medical',
+        typeName: 'Indonesia Medical Treatment e-Visa (B211A / C13)',
+        badge: 'Quaternary Care Jakarta',
+        validity: '60 Days (Extendable online)',
+        processingTime: '3 – 5 Working Days',
+        overview: 'Document checklist for patients and attendants traveling for quaternary procedures in Jakarta.',
+        basicDocuments: [
+          'Valid Bangladeshi Passport with at least 6 months validity.',
+          'Two color passport-size photos (4cm x 6cm, white background).',
+          'Original 6-month Bank Statement & Bank Solvency Certificate.',
+          'Official Hospital Letter of Guarantee & Doctor Appointment Confirmation from Jakarta hospital.',
+          'Complete Bangladeshi medical files & English translated diagnostic reports.',
+          'Confirmed return flight booking and electronic customs declaration (e-CD).'
+        ],
+        professionRequirements: [
+          {
+            profession: 'Business Person',
+            icon: 'briefcase',
+            items: ['Trade License copy', 'Visiting Card', 'Bank Solvency']
+          },
+          {
+            profession: 'Service Holder',
+            icon: 'user',
+            items: ['NOC from employer', 'Office ID Card', 'Visiting Card']
+          },
+          {
+            profession: 'Student',
+            icon: 'graduation-cap',
+            items: ['Student ID Card', 'Birth Certificate']
+          }
         ]
       }
-    ],
-    importantNotes: [
-      'Direct coordination with hospital international patient division for VIP airport pick-up and hospital admission.',
-      'Visa extension can be processed online without leaving Jakarta.'
-    ]
-  }
-];
-
-const generalChecklistItems = [
-  {
-    category: '🩺 Medical Records & Diagnostics',
-    items: [
-      'Original and digital copies of all recent medical records, biopsy reports, and doctor prescriptions.',
-      'High-resolution imaging files on CD/DVD/USB (MRI, CT, PET-CT, Angiograms, X-rays).',
-      'Doctor recommendation and case summary written or translated into English.',
-      'List of all current medications, allergies, and dosage schedules.'
-    ]
-  },
-  {
-    category: '✈️ Travel & Immigration Documents',
-    items: [
-      'Passports valid for at least 6 months from travel date for all travelers.',
-      'Printed copies of Official Hospital Invitation Letter & Doctor Appointment Confirmation.',
-      'Approved Medical Visa grant notice / eVisa printouts.',
-      'Confirmed return or onward flight tickets and lodging/hospital room confirmation.',
-      'Relationship certificates (Marriage, Birth) for accompanying attendants.'
-    ]
-  },
-  {
-    category: '💊 Medications & Health Essentials',
-    items: [
-      'Carry minimum 2–4 weeks supply of current prescription medicines in original pharmacy packaging.',
-      'Doctor’s signed prescription letter justifying the carried medications for airport customs.',
-      'Fit-to-Fly medical certificate from treating physician if traveling with reduced mobility.',
-      'Wheelchair or oxygen assistance requested on flight booking through airline in advance.'
-    ]
-  },
-  {
-    category: '💳 Financial & Payment Preparedness',
-    items: [
-      'Bank statement (6 months) & Bank Solvency Certificate with bank seal.',
-      'International dual-currency Credit/Debit cards endorsed with foreign currency.',
-      'Sufficient foreign currency cash for initial out-of-pocket expenses and local transportation.',
-      'Hospital billing estimate and overseas wire transfer guidelines from IMIC.'
     ]
   }
 ];
 
 export default function TravelKitPage() {
   const [selectedCountry, setSelectedCountry] = useState<string>('singapore');
+  const [selectedVisaType, setSelectedVisaType] = useState<string>('sg-medical-new');
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>({});
 
-  const activeCountry = countryVisaList.find((c) => c.id === selectedCountry) || countryVisaList[0];
+  const activeCountry = officialVisaData.find((c) => c.id === selectedCountry) || officialVisaData[0];
+  const activeVisa =
+    activeCountry.visaOptions.find((v) => v.typeId === selectedVisaType) || activeCountry.visaOptions[0];
+
+  const handleCountryChange = (countryId: string) => {
+    setSelectedCountry(countryId);
+    const country = officialVisaData.find((c) => c.id === countryId);
+    if (country && country.visaOptions.length > 0) {
+      setSelectedVisaType(country.visaOptions[0].typeId);
+    }
+  };
 
   const toggleCheck = (itemKey: string) => {
     setCheckedItems((prev) => ({
@@ -407,18 +565,18 @@ export default function TravelKitPage() {
 
       <main className="flex-1">
         {/* Hero Banner */}
-        <section className="bg-gradient-to-br from-imic-navy via-slate-900 to-imic-teal/90 text-white py-16 px-4 text-center relative overflow-hidden">
+        <section className="bg-gradient-to-br from-imic-navy via-slate-900 to-imic-teal/90 text-white py-14 px-4 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
           <div className="max-w-5xl mx-auto space-y-4 relative z-10">
             <div className="inline-flex items-center gap-2 bg-imic-teal/20 text-imic-teal border border-imic-teal/30 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
               <Briefcase className="w-4 h-4" />
-              <span>Patient Travel Kit</span>
+              <span>Official Patient Travel Kit & Visa Guide</span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Medical Visa Checklist & Travel Guide
+              Medical & Travel Visa Checklists
             </h1>
-            <p className="text-slate-200 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed">
-              Complete, verified visa documentation checklists, hospital invitation guidelines, and pre-departure preparation kits for patients traveling from Bangladesh to Singapore, Malaysia, Thailand, India, China & Indonesia.
+            <p className="text-slate-200 max-w-3xl mx-auto text-xs sm:text-base leading-relaxed">
+              Official visa requirement checklists, required documents by profession, hospital invitation guidelines, and online application questionnaires for Singapore, India, Malaysia, Thailand, China & Indonesia.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
@@ -427,38 +585,38 @@ export default function TravelKitPage() {
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl border border-white/20 backdrop-blur-sm transition"
               >
                 <Printer className="w-4 h-4 text-imic-teal" />
-                <span>Print Checklist</span>
+                <span>Print Official Checklist</span>
               </button>
               <Link
                 href="/book-appointment"
                 className="inline-flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-lg transition"
               >
                 <Calendar className="w-4 h-4" />
-                <span>Get Fast-Track Visa Invitation</span>
+                <span>Request Hospital Invitation Letter</span>
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Interactive Country Tabs Section */}
-        <section className="py-12 max-w-7xl mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto space-y-2 mb-8">
+        {/* Interactive Country & Visa Type Selection */}
+        <section className="py-10 max-w-7xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto space-y-2 mb-6">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-imic-navy">
               Select Destination Country
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm">
-              Click a country below to view its specific medical visa category, required documents, hospital invitation letters, and processing times.
+              Choose your destination to view the official checklist prepared by International Medical Information Centre (IMIC).
             </p>
           </div>
 
           {/* 6 Country Selector Buttons */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-10">
-            {countryVisaList.map((country) => {
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+            {officialVisaData.map((country) => {
               const isSelected = country.id === selectedCountry;
               return (
                 <button
                   key={country.id}
-                  onClick={() => setSelectedCountry(country.id)}
+                  onClick={() => handleCountryChange(country.id)}
                   className={`p-3.5 rounded-2xl border transition-all duration-200 flex flex-col items-center gap-2.5 text-center ${
                     isSelected
                       ? 'bg-imic-navy text-white border-imic-navy shadow-lg ring-2 ring-imic-teal'
@@ -482,12 +640,35 @@ export default function TravelKitPage() {
             })}
           </div>
 
-          {/* Selected Country Checklist Details */}
+          {/* Visa Sub-Category Tabs (If multiple options exist for this country) */}
+          {activeCountry.visaOptions.length > 1 && (
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+              {activeCountry.visaOptions.map((opt) => {
+                const isOptActive = opt.typeId === activeVisa.typeId;
+                return (
+                  <button
+                    key={opt.typeId}
+                    onClick={() => setSelectedVisaType(opt.typeId)}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+                      isOptActive
+                        ? 'bg-imic-teal text-white shadow-md'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                    }`}
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    <span>{opt.typeName}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Official Checklist Container Card */}
           <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
-            {/* Country Header Info Banner */}
+            {/* Header / Brand Banner */}
             <div className="bg-slate-900 text-white p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-800">
               <div className="space-y-3">
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   <div className="relative w-10 h-6 rounded-md overflow-hidden shadow border border-white/40 shrink-0">
                     <Image
                       src={activeCountry.flagImg}
@@ -498,30 +679,35 @@ export default function TravelKitPage() {
                     />
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-black text-white">
-                    {activeCountry.name} Medical Visa Checklist
+                    {activeVisa.typeName}
                   </h3>
+                  {activeVisa.badge && (
+                    <span className="bg-imic-teal text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
+                      {activeVisa.badge}
+                    </span>
+                  )}
                 </div>
 
                 <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-                  {activeCountry.overview}
+                  {activeVisa.overview}
                 </p>
 
                 <div className="flex flex-wrap gap-4 pt-1 text-xs text-slate-300">
                   <div className="flex items-center gap-1.5">
-                    <FileText className="w-4 h-4 text-imic-teal shrink-0" />
-                    <span><strong className="text-white">Visa:</strong> {activeCountry.visaType}</span>
+                    <Clock className="w-4 h-4 text-imic-teal shrink-0" />
+                    <span><strong className="text-white">Processing Time:</strong> {activeVisa.processingTime}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 text-imic-teal shrink-0" />
-                    <span><strong className="text-white">Time:</strong> {activeCountry.processingTime}</span>
+                    <Calendar className="w-4 h-4 text-imic-teal shrink-0" />
+                    <span><strong className="text-white">Validity:</strong> {activeVisa.validity}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Action Box */}
+              {/* Action Buttons */}
               <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2.5">
                 <a
-                  href={`https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20need%20assistance%20for%20a%20Medical%20Visa%20to%20${encodeURIComponent(activeCountry.name)}`}
+                  href={`https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20need%20visa%20checklist%20guidance%20for%20${encodeURIComponent(activeCountry.name)}`}
                   target="_blank"
                   rel="noreferrer"
                   className="bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold py-3 px-5 rounded-xl transition flex items-center justify-center gap-2 shadow-md"
@@ -534,83 +720,205 @@ export default function TravelKitPage() {
                   className="bg-imic-teal hover:bg-imic-teal-hover text-white text-xs font-bold py-3 px-5 rounded-xl transition flex items-center justify-center gap-2 shadow-md"
                 >
                   <Calendar className="w-4 h-4" />
-                  <span>Request Hospital Invitation</span>
+                  <span>Get Hospital Invitation</span>
                 </Link>
               </div>
             </div>
 
-            {/* Checklist Grid */}
+            {/* Content Sections */}
             <div className="p-6 sm:p-8 space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {activeCountry.keyRequirements.map((reqGroup, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4"
-                  >
-                    <h4 className="text-sm font-black text-imic-navy uppercase tracking-wider border-b border-slate-200 pb-2">
-                      {reqGroup.category}
-                    </h4>
+              {/* Section 1: Mandatory Basic Documents */}
+              <div className="bg-slate-50 p-6 sm:p-8 rounded-2xl border border-slate-200 space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                  <h4 className="text-sm sm:text-base font-black text-imic-navy uppercase tracking-wider flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-imic-teal" />
+                    <span>Mandatory Basic Documents</span>
+                  </h4>
+                  <span className="text-[11px] text-slate-500 font-medium">Click item to check off</span>
+                </div>
 
-                    <div className="space-y-3">
-                      {reqGroup.items.map((item, itemIdx) => {
-                        const itemKey = `${activeCountry.id}-${idx}-${itemIdx}`;
-                        const isChecked = !!checkedItems[itemKey];
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                  {activeVisa.basicDocuments.map((doc, dIdx) => {
+                    const itemKey = `${activeVisa.typeId}-basic-${dIdx}`;
+                    const isChecked = !!checkedItems[itemKey];
 
-                        return (
-                          <div
-                            key={itemIdx}
-                            onClick={() => toggleCheck(itemKey)}
-                            className="flex items-start gap-3 cursor-pointer group select-none"
-                          >
-                            <div className="mt-0.5 shrink-0 text-imic-teal">
-                              {isChecked ? (
-                                <CheckSquare className="w-4 h-4 text-imic-teal" />
-                              ) : (
-                                <Square className="w-4 h-4 text-slate-400 group-hover:text-imic-teal" />
-                              )}
-                            </div>
-                            <span
-                              className={`text-xs sm:text-sm leading-relaxed transition ${
-                                isChecked
-                                  ? 'line-through text-slate-400 font-medium'
-                                  : 'text-slate-700 font-medium group-hover:text-slate-900'
-                              }`}
-                            >
-                              {item}
-                            </span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
+                    return (
+                      <div
+                        key={dIdx}
+                        onClick={() => toggleCheck(itemKey)}
+                        className={`flex items-start gap-3 p-3.5 rounded-xl border transition cursor-pointer select-none ${
+                          isChecked
+                            ? 'bg-emerald-50/70 border-emerald-200'
+                            : 'bg-white hover:bg-slate-50 border-slate-200/80 shadow-sm'
+                        }`}
+                      >
+                        <div className="mt-0.5 shrink-0">
+                          {isChecked ? (
+                            <CheckSquare className="w-4 h-4 text-emerald-600" />
+                          ) : (
+                            <Square className="w-4 h-4 text-slate-400" />
+                          )}
+                        </div>
+                        <span
+                          className={`text-xs sm:text-sm leading-relaxed ${
+                            isChecked
+                              ? 'line-through text-slate-400 font-medium'
+                              : 'text-slate-800 font-medium'
+                          }`}
+                        >
+                          {doc}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
-              {/* Partner Hospitals & Important Notes */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-4 border-t border-slate-200">
-                {/* Associated Hospitals */}
+              {/* Section 2: Profession Specific Proofs */}
+              {activeVisa.professionRequirements.length > 0 && (
+                <div className="space-y-4">
+                  <h4 className="text-sm sm:text-base font-black text-imic-navy uppercase tracking-wider flex items-center gap-2">
+                    <Briefcase className="w-4 h-4 text-imic-teal" />
+                    <span>Required Proof of Profession</span>
+                  </h4>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {activeVisa.professionRequirements.map((prof, pIdx) => (
+                      <div
+                        key={pIdx}
+                        className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3"
+                      >
+                        <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+                          <div className="w-7 h-7 rounded-lg bg-imic-teal/10 text-imic-teal flex items-center justify-center shrink-0">
+                            {prof.profession.includes('Business') ? (
+                              <Briefcase className="w-3.5 h-3.5" />
+                            ) : prof.profession.includes('Student') ? (
+                              <GraduationCap className="w-3.5 h-3.5" />
+                            ) : (
+                              <User className="w-3.5 h-3.5" />
+                            )}
+                          </div>
+                          <h5 className="text-xs sm:text-sm font-bold text-imic-navy">
+                            {prof.profession}
+                          </h5>
+                        </div>
+
+                        <ul className="space-y-2">
+                          {prof.items.map((it, itIdx) => {
+                            const itemKey = `${activeVisa.typeId}-prof-${pIdx}-${itIdx}`;
+                            const isChecked = !!checkedItems[itemKey];
+
+                            return (
+                              <li
+                                key={itIdx}
+                                onClick={() => toggleCheck(itemKey)}
+                                className="flex items-start gap-2 text-xs text-slate-700 cursor-pointer select-none"
+                              >
+                                {isChecked ? (
+                                  <CheckSquare className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                                ) : (
+                                  <Square className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                                )}
+                                <span className={isChecked ? 'line-through text-slate-400' : 'font-medium'}>
+                                  {it}
+                                </span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Section 3: Online Application Fields (For India & China) */}
+              {activeVisa.onlineApplicationFields && activeVisa.onlineApplicationFields.length > 0 && (
+                <div className="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-4">
+                  <div className="border-b border-slate-800 pb-3">
+                    <span className="text-[11px] font-black text-imic-teal uppercase tracking-widest block mb-1">
+                      Online Form Preparation
+                    </span>
+                    <h4 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-imic-teal" />
+                      <span>Required Information For Online Application Portal</span>
+                    </h4>
+                  </div>
+
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Have these exact details ready before filling out the online visa submission form or when submitting your case to the IMIC visa desk:
+                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                    {activeVisa.onlineApplicationFields.map((field, fIdx) => (
+                      <div
+                        key={fIdx}
+                        className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 text-xs text-slate-200 flex items-start gap-2"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                        <span>{field}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Section 4: Associated Partner Hospitals & Important Notes */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
+                {/* Associated Network */}
                 <div className="bg-teal-50/60 p-5 rounded-2xl border border-teal-100 space-y-2">
                   <div className="flex items-center gap-2 text-imic-teal font-bold text-xs uppercase tracking-wider">
                     <Building2 className="w-4 h-4" />
                     <span>Associated Network Hospitals in {activeCountry.name}</span>
                   </div>
                   <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                    {activeCountry.partnerHospitals}
+                    {activeCountry.hospitalPartner}
                   </p>
                 </div>
 
                 {/* Important Notes */}
-                <div className="bg-amber-50/60 p-5 rounded-2xl border border-amber-200/80 space-y-2">
-                  <div className="flex items-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider">
-                    <AlertCircle className="w-4 h-4 text-amber-600" />
-                    <span>Important Travel Notes</span>
+                {activeVisa.additionalNotes && activeVisa.additionalNotes.length > 0 && (
+                  <div className="bg-amber-50/60 p-5 rounded-2xl border border-amber-200/80 space-y-2">
+                    <div className="flex items-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider">
+                      <AlertCircle className="w-4 h-4 text-amber-600" />
+                      <span>Important Travel Notes</span>
+                    </div>
+                    <ul className="text-xs text-amber-900 space-y-1.5 list-disc list-inside">
+                      {activeVisa.additionalNotes.map((note, nIdx) => (
+                        <li key={nIdx}>{note}</li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="text-xs text-amber-900 space-y-1.5 list-disc list-inside">
-                    {activeCountry.importantNotes.map((note, nIdx) => (
-                      <li key={nIdx}>{note}</li>
-                    ))}
-                  </ul>
+                )}
+              </div>
+            </div>
+
+            {/* Official Footer Verification Banner */}
+            <div className="bg-slate-50 p-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600">
+              <div className="flex items-center gap-3">
+                <div className="relative w-28 h-8 shrink-0">
+                  <Image
+                    src="/images/imic-logo.png"
+                    alt="IMIC Logo"
+                    fill
+                    className="object-contain"
+                  />
                 </div>
+                <div>
+                  <span className="font-bold text-imic-navy block">International Medical Information Centre (IMIC)</span>
+                  <span className="text-[11px] text-slate-500">Level: 2, House: 108, Road: 11, Block: C, Banani, Dhaka - 1213</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4 text-xs font-semibold">
+                <a href="tel:+8801710802000" className="hover:text-imic-teal flex items-center gap-1">
+                  <Phone className="w-3.5 h-3.5 text-imic-teal" />
+                  <span>+8801710 80 2000</span>
+                </a>
+                <a href="mailto:info@imic.com.bd" className="hover:text-imic-teal flex items-center gap-1">
+                  <Mail className="w-3.5 h-3.5 text-imic-teal" />
+                  <span>info@imic.com.bd</span>
+                </a>
               </div>
             </div>
           </div>
@@ -622,36 +930,96 @@ export default function TravelKitPage() {
             <div className="text-center max-w-3xl mx-auto space-y-3">
               <div className="inline-flex items-center gap-2 bg-imic-teal/10 text-imic-teal px-3 py-1 rounded-full text-xs font-bold uppercase">
                 <ShieldCheck className="w-4 h-4" />
-                <span>Universal Preparation Kit</span>
+                <span>Universal Pre-Departure Kit</span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-extrabold text-imic-navy">
-                Essential Pre-Departure Checklist for All Destinations
+                Essential Patient Travel Checklist
               </h2>
               <p className="text-slate-600 text-xs sm:text-sm">
-                Make sure you and your accompanying family members have covered these 4 critical pillars before departing Shahjalal International Airport (DAC) or any Bangladeshi port of departure.
+                Before boarding your flight from Shahjalal International Airport (DAC) or any Bangladeshi port, ensure you have completed these four essential preparation steps.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {generalChecklistItems.map((cat, cIdx) => (
-                <div
-                  key={cIdx}
-                  className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-md transition space-y-4"
-                >
-                  <h3 className="text-sm font-bold text-imic-navy border-b border-slate-100 pb-2 flex items-center gap-2">
-                    <span>{cat.category}</span>
-                  </h3>
+              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+                <h3 className="text-sm font-bold text-imic-navy border-b border-slate-100 pb-2 flex items-center gap-2">
+                  <span>🩺 Medical Records & Diagnostics</span>
+                </h3>
+                <ul className="space-y-2.5 text-xs text-slate-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>Original diagnostic reports, biopsy summaries, and doctor prescription copies.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>High-resolution imaging files on CD/DVD/USB (MRI, CT, PET-CT, Angiograms).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>Clinical case summary translated in English.</span>
+                  </li>
+                </ul>
+              </div>
 
-                  <ul className="space-y-3">
-                    {cat.items.map((it, itIdx) => (
-                      <li key={itIdx} className="flex items-start gap-2.5 text-xs text-slate-600 leading-relaxed">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
-                        <span>{it}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+                <h3 className="text-sm font-bold text-imic-navy border-b border-slate-100 pb-2 flex items-center gap-2">
+                  <span>✈️ Travel & Passports</span>
+                </h3>
+                <ul className="space-y-2.5 text-xs text-slate-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>Passports with minimum 6–7 months validity for all traveling persons.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>Printed copies of Hospital Invitation & Doctor Appointment Confirmation.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>Confirmed round-trip flight booking & hospital/hotel voucher.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+                <h3 className="text-sm font-bold text-imic-navy border-b border-slate-100 pb-2 flex items-center gap-2">
+                  <span>💊 Prescription Medicines</span>
+                </h3>
+                <ul className="space-y-2.5 text-xs text-slate-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>Minimum 2–4 weeks supply of current prescription medicine in original packaging.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>Doctor’s prescription letter explaining medicines carried for customs.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>Fit-to-Fly medical certificate from treating doctor if wheelchair/stretcher required.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+                <h3 className="text-sm font-bold text-imic-navy border-b border-slate-100 pb-2 flex items-center gap-2">
+                  <span>💳 Currency & Payment</span>
+                </h3>
+                <ul className="space-y-2.5 text-xs text-slate-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>Bank statement (6 months) & Bank Solvency Certificate with bank seal.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>International dual-currency Credit/Debit cards endorsed with foreign currency.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-imic-teal shrink-0 mt-0.5" />
+                    <span>Hospital billing estimate and wire transfer instructions from IMIC.</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
@@ -661,13 +1029,13 @@ export default function TravelKitPage() {
           <div className="bg-gradient-to-br from-imic-navy via-slate-900 to-imic-teal text-white p-8 sm:p-12 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="space-y-3 max-w-xl text-center md:text-left">
               <span className="bg-white/20 text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full">
-                Zero Visa Coordination Fee
+                Zero Visa Coordination Markup
               </span>
               <h3 className="text-2xl sm:text-3xl font-black text-white">
                 Need Help With Hospital Invitation or Medical Visa?
               </h3>
               <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
-                Our Banani Dhaka patient support team assists patients with doctor recommendations, official hospital invitation letters, emergency visa invitation dispatch, and flight ambulance coordination.
+                Visit our Banani Dhaka office or call our 24/7 helpline. IMIC team provides direct doctor coordination, hospital invitation letter dispatch within 24–48 hours, and flight logistics.
               </p>
             </div>
 
