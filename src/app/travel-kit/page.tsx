@@ -27,7 +27,6 @@ interface CountryVisaData {
   name: string;
   flagImg: string;
   title: string;
-  badge?: string;
   validity: string;
   processingTime: string;
   hospitalPartner: string;
@@ -47,7 +46,6 @@ const officialVisaData: CountryVisaData[] = [
     name: 'Singapore',
     flagImg: '/images/flags/singapore.png',
     title: 'Singapore Medical Visa Information',
-    badge: 'Medical Travel',
     validity: 'Initial 30 Days (Extendable based on doctor’s recommendation)',
     processingTime: '1 – 3 Working Days (Fast-track emergency assistance available)',
     hospitalPartner: 'Farrer Park Hospital, Gleneagles, Mount Elizabeth Novena & Orchard, NCCS, SNEC, ICON Cancer',
@@ -96,12 +94,11 @@ const officialVisaData: CountryVisaData[] = [
     id: 'india',
     name: 'India',
     flagImg: '/images/flags/india.png',
-    title: 'Indian Medical Visa Information (MED & MEDX for Attendants)',
-    badge: 'High Frequency',
+    title: 'Indian Medical Visa Information',
     validity: '6 Months to 1 Year (Triple / Multiple Entry)',
     processingTime: '2 – 5 Working Days (Emergency fast-track available)',
     hospitalPartner: 'Fortis Healthcare, Apollo Hospitals, Max Healthcare, Medanta, Tata Memorial, Sankara Nethralaya, Kokilaben, AIG Hospitals, KIMS',
-    overview: 'Official IMIC visa documentation requirements for Indian Medical Visa (MED) for patients and Medical Attendant Visa (MEDX) for companions submitted via IVAC Bangladesh.',
+    overview: 'Official IMIC visa documentation requirements for Indian Medical Visa for patients and Medical Attendant Visa for companions submitted via IVAC Bangladesh.',
     basicDocuments: [
       'Current Medical reports (Biopsy, MRI/CT, Discharge summary, Doctor prescription).',
       'Bank statements 6 months with adequate balance (minimum BDT 20,000+ or International Credit Card endorsement).',
@@ -147,8 +144,7 @@ const officialVisaData: CountryVisaData[] = [
     id: 'malaysia',
     name: 'Malaysia',
     flagImg: '/images/flags/malaysia.png',
-    title: 'Malaysia Medical Visa Requirements (MHTC / eVisa Medical)',
-    badge: 'Sunway Medical Centre Partner',
+    title: 'Malaysia Medical Visa Information',
     validity: '30 – 90 Days (Single/Multiple Entry)',
     processingTime: '2 – 4 Working Days',
     hospitalPartner: 'Sunway Medical Centre, Prince Court Medical Centre, Beacon Hospital, SJMC, Gleneagles KL',
@@ -196,8 +192,7 @@ const officialVisaData: CountryVisaData[] = [
     id: 'thailand',
     name: 'Thailand',
     flagImg: '/images/flags/thailand.png',
-    title: 'Thailand Medical Visa Information (Patients & Attendants)',
-    badge: 'Samitivej Hospital Partner',
+    title: 'Thailand Medical Visa Information',
     validity: '60 – 90 Days (Extendable in Bangkok)',
     processingTime: '3 – 5 Working Days',
     hospitalPartner: 'Samitivej Sukhumvit Hospital, Vejthani Hospital, BNH Hospital, Bangkok Hospital (BDMS), MedPark',
@@ -247,7 +242,6 @@ const officialVisaData: CountryVisaData[] = [
     name: 'China',
     flagImg: '/images/flags/china.png',
     title: 'China Tourist & Medical Visa Information',
-    badge: 'Explore Holidays & IMIC',
     validity: '30 – 90 Days / Two-Year Multiple-Entry Visa Available',
     processingTime: '4 – 7 Working Days (Express priority available: Extra 5,500/- BDT)',
     hospitalPartner: 'Modern Cancer Hospital Guangzhou, Foshan Fosun Chancheng Hospital, Guangzhou Xinshi, Shenzhen Hengsheng',
@@ -308,8 +302,7 @@ const officialVisaData: CountryVisaData[] = [
     id: 'indonesia',
     name: 'Indonesia',
     flagImg: '/images/flags/indonesia.png',
-    title: 'Indonesia Medical Treatment e-Visa Information (B211A / C13)',
-    badge: 'Quaternary Care Jakarta',
+    title: 'Indonesia Medical Treatment Visa Information',
     validity: '60 Days (Extendable online)',
     processingTime: '3 – 5 Working Days',
     hospitalPartner: 'Medistra Hospital Jakarta, RSUPN Dr. Cipto Mangunkusumo (RSCM)',
