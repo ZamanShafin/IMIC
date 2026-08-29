@@ -19,20 +19,18 @@ import {
   GraduationCap,
   Building2,
   Phone,
-  Mail,
-  Plane,
-  CreditCard,
-  Pill,
-  Sparkles,
-  Info
+  Mail
 } from 'lucide-react';
 
-interface VisaTypeOption {
-  typeId: string;
-  typeName: string;
+interface CountryVisaData {
+  id: string;
+  name: string;
+  flagImg: string;
+  title: string;
   badge?: string;
   validity: string;
   processingTime: string;
+  hospitalPartner: string;
   overview: string;
   basicDocuments: string[];
   professionRequirements: {
@@ -43,454 +41,299 @@ interface VisaTypeOption {
   additionalNotes?: string[];
 }
 
-interface CountryVisaData {
-  id: string;
-  name: string;
-  flagImg: string;
-  hospitalPartner: string;
-  visaOptions: VisaTypeOption[];
-}
-
 const officialVisaData: CountryVisaData[] = [
   {
     id: 'singapore',
     name: 'Singapore',
     flagImg: '/images/flags/singapore.png',
+    title: 'Singapore Medical Visa Information',
+    badge: 'Medical Travel',
+    validity: 'Initial 30 Days (Extendable based on doctor’s recommendation)',
+    processingTime: '1 – 3 Working Days (Fast-track emergency assistance available)',
     hospitalPartner: 'Farrer Park Hospital, Gleneagles, Mount Elizabeth Novena & Orchard, NCCS, SNEC, ICON Cancer',
-    visaOptions: [
+    overview: 'Official Farrer Park Hospital & IMIC visa requirements for Bangladeshi patients and accompanying medical attendants traveling to Singapore for treatment.',
+    basicDocuments: [
+      'Passport with at least 07 Months validity along with all Old Passport/s.',
+      'Two (2) Copies Recent 35mm x 45mm Size Photograph with white background on Matt Paper.',
+      'Original Bank Statement For Last Six Months & Bank Solvency Certificate with bank seal.',
+      'NID Card (Adult), Birth Certificate (Child).',
+      'Medical Reports, recent diagnostic scans (CD/DVD), biopsy/pathology summaries, and doctor prescriptions.',
+      'Hotel & Air Ticket Booking Confirmation.',
+      'Singapore Electronic Arrival Card (SGAC) with Health Declaration (within 3 days prior to arrival).'
+    ],
+    professionRequirements: [
       {
-        typeId: 'sg-medical-new',
-        typeName: 'Singapore Medical Visa Information (New Patients & Attendant/s)',
-        badge: 'Medical Travel',
-        validity: 'Initial 30 Days (Extendable with Hospital Recommendation)',
-        processingTime: '1 – 3 Working Days (Emergency fast-track available)',
-        overview: 'Official Farrer Park Hospital & IMIC visa requirements for Bangladeshi patients and accompanying medical attendants traveling to Singapore for treatment.',
-        basicDocuments: [
-          'Passport with at least 07 Months validity along with all Old Passport/s.',
-          'Two (2) Copies Recent 35mm x 45mm Size Photograph with white background on Matt Paper.',
-          'Original Bank Statement For Last Six Months & Bank Solvency Certificate with bank seal.',
-          'NID Card (Adult), Birth Certificate (Child).',
-          'Medical Reports, recent diagnostic scans (CD/DVD), biopsy/pathology summaries, and doctor prescriptions.',
-          'Hotel & Air Ticket Booking Confirmation.',
-          'Singapore Electronic Arrival Card (SGAC) with Health Declaration (within 3 days prior to arrival).'
-        ],
-        professionRequirements: [
-          {
-            profession: 'For Business Person',
-            items: [
-              'Updated Trade License (English translated & notarized if applicable).',
-              'Company Letterhead Pad.',
-              'Business Visiting Card.'
-            ]
-          },
-          {
-            profession: 'For Service Holder / Job',
-            items: [
-              'No Objection Certificate (NOC) / Leave Letter from Employer.',
-              'Office ID Card copy.',
-              'Official Business Visiting Card.'
-            ]
-          },
-          {
-            profession: 'For Student',
-            items: [
-              'Valid Student ID Card copy.',
-              'Leave Letter or NOC from Educational Institute.'
-            ]
-          }
-        ],
-        additionalNotes: [
-          'Patients and family attendants submit identical basic financial and identity proofs.',
-          'Official MOH-accredited hospital invitation is arranged directly through IMIC Banani Dhaka office.'
+        profession: 'For Business Person',
+        items: [
+          'Updated Trade License (English translated & notarized if applicable).',
+          'Company Letterhead Pad.',
+          'Business Visiting Card.'
         ]
       },
       {
-        typeId: 'sg-medical-old',
-        typeName: 'Singapore Medical Visa Information (Follow-up / Old Patients)',
-        badge: 'Follow-Up Visits',
-        validity: '30 Days',
-        processingTime: '1 – 3 Working Days',
-        overview: 'Documentation for patients who have previously consulted or been treated at Singapore partner hospitals returning for follow-up review or surgical checkups.',
-        basicDocuments: [
-          'Passport with at least 07 Months validity along with all Old Passport/s.',
-          'Two (2) Copies Recent 35mm x 45mm Size Photograph with white background on Matt Paper.',
-          'NID Card (Adult), Birth Certificate (Child).',
-          'Previous Singapore Medical Reports & Follow-up Appointment Letter from Singapore Specialist.',
-          'Hotel & Air Ticket Booking Confirmation.'
-        ],
-        professionRequirements: [
-          {
-            profession: 'For Business Person',
-            items: ['Trade License', 'Business Letterhead Pad', 'Business Visiting Card']
-          },
-          {
-            profession: 'For Service Holder',
-            items: ['No Objection Certificate (NOC)', 'Office ID Card', 'Business Visiting Card']
-          },
-          {
-            profession: 'For Student',
-            items: ['Student ID Card', 'Leave Letter from Institute']
-          }
+        profession: 'For Service Holder / Job',
+        items: [
+          'No Objection Certificate (NOC) / Leave Letter from Employer.',
+          'Office ID Card copy.',
+          'Official Business Visiting Card.'
         ]
       },
       {
-        typeId: 'sg-tourist',
-        typeName: 'Singapore Tourist Visa Information',
-        validity: '30 Days (Single/Multiple Entry)',
-        processingTime: '3 – 5 Working Days',
-        overview: 'General visit and tourist visa requirements for family members or visitors traveling to Singapore.',
-        basicDocuments: [
-          'Passport 07 Months validity With Old Passport/s.',
-          'Two Copies Recent 35 x 45 MM Size Photo with white background on Matt Paper.',
-          'Original Bank Statement For Last Six Months & Solvency Certificate.',
-          'NID (Adult), Birth Certificate (Child).',
-          'Hotel & Air Ticket Booking Confirmation.'
-        ],
-        professionRequirements: [
-          {
-            profession: 'For Business Person',
-            items: ['Trade License', 'Business Letterhead Pad', 'Business Visiting Card']
-          },
-          {
-            profession: 'For Service Holder',
-            items: ['No Objection Certificate (NOC)', 'Office ID Card', 'Business Visiting Card']
-          },
-          {
-            profession: 'For Student',
-            items: ['Student ID Card (Only For Student)']
-          }
+        profession: 'For Student',
+        items: [
+          'Valid Student ID Card copy.',
+          'Leave Letter or NOC from Educational Institute.'
         ]
       }
+    ],
+    additionalNotes: [
+      'Patients and family attendants submit identical basic financial and identity proofs.',
+      'Official MOH-accredited hospital invitation is arranged directly through IMIC Banani Dhaka office.',
+      'Follow-up / Old Patients: Submit previous Singapore medical reports & doctor appointment letter.'
     ]
   },
   {
     id: 'india',
     name: 'India',
     flagImg: '/images/flags/india.png',
+    title: 'Indian Medical Visa Information (MED & MEDX for Attendants)',
+    badge: 'High Frequency',
+    validity: '6 Months to 1 Year (Triple / Multiple Entry)',
+    processingTime: '2 – 5 Working Days (Emergency fast-track available)',
     hospitalPartner: 'Fortis Healthcare, Apollo Hospitals, Max Healthcare, Medanta, Tata Memorial, Sankara Nethralaya, Kokilaben, AIG Hospitals, KIMS',
-    visaOptions: [
+    overview: 'Official IMIC visa documentation requirements for Indian Medical Visa (MED) for patients and Medical Attendant Visa (MEDX) for companions submitted via IVAC Bangladesh.',
+    basicDocuments: [
+      'Current Medical reports (Biopsy, MRI/CT, Discharge summary, Doctor prescription).',
+      'Bank statements 6 months with adequate balance (minimum BDT 20,000+ or International Credit Card endorsement).',
+      'The passport validity minimum 7 months.',
+      'All old passports should be submitted with application form.',
+      'One 2X2 inch color photograph with white background, having full face & ears (matte paper).',
+      'A copy of National ID Card (NID).',
+      'Recent Utility Bill copy (electricity, water, or gas bill) of applicant’s current residence.',
+      'Official Medical Visa Invitation Letter from Indian hospital with doctor’s registration number.'
+    ],
+    professionRequirements: [
       {
-        typeId: 'in-medical',
-        typeName: 'Indian Medical Visa Information (MED & MEDX for Attendants)',
-        badge: 'High Frequency',
-        validity: '6 Months to 1 Year (Triple / Multiple Entry)',
-        processingTime: '2 – 5 Working Days (Emergency fast-track available)',
-        overview: 'Official IMIC visa documentation requirements for Indian Medical Visa (MED) for patients and Medical Attendant Visa (MEDX) for companions submitted via IVAC Bangladesh.',
-        basicDocuments: [
-          'Current Medical reports (Biopsy, MRI/CT, Discharge summary, Doctor prescription).',
-          'Bank statements 6 months with adequate balance (minimum BDT 20,000+ or International Credit Card endorsement).',
-          'The passport validity minimum 7 months.',
-          'All old passports should be submitted with application form.',
-          'One 2X2 inch color photograph with white background, having full face & ears (matte paper).',
-          'A copy of National ID Card (NID).',
-          'Recent Utility Bill copy (electricity, water, or gas bill) of applicant’s current residence.',
-          'Official Medical Visa Invitation Letter from Indian hospital with doctor’s registration number.'
-        ],
-        professionRequirements: [
-          {
-            profession: 'Job Holder / Service',
-            items: ['No Objection Certificate (NOC)', 'Visiting Card', 'Office ID Card copy']
-          },
-          {
-            profession: 'Business Person',
-            items: ['Trade License copy (Renewed)', 'Visiting Card']
-          },
-          {
-            profession: 'Student',
-            items: ['Student ID card copy', 'Birth Certificate copy']
-          }
-        ],
-        onlineApplicationFields: [
-          '1. Email Address & Active Mobile Phone Number',
-          '2. Educational Qualification',
-          '3. Countries Visited in the last 10 Years (If any)',
-          '4. Port of Arrival / Port of Exit in India (Air or Land Ports)',
-          '5. Address Where You Stayed In India previously (If visited earlier)',
-          '6. Address where you will stay upon arrival (Hospital / Hotel address in India)',
-          '7. Previous Indian Visa page/s (If any)',
-          '8. Present Occupation & Past Occupation with Designation',
-          '9. Guardian Information (Spouse or Parents full name & nationality)',
-          '10. Employer Name, Office Address, and Phone Number'
-        ],
-        additionalNotes: [
-          'Maximum 2 attendants are permitted under MEDX medical attendant category per patient.',
-          'Registration with FRRO is required if continuous stay in India exceeds 180 days.'
-        ]
+        profession: 'Job Holder / Service',
+        items: ['No Objection Certificate (NOC)', 'Visiting Card', 'Office ID Card copy']
       },
       {
-        typeId: 'in-tourist',
-        typeName: 'Indian Tourist Visa Information',
-        validity: 'Up to 1 Year (Multiple Entry)',
-        processingTime: '3 – 7 Working Days',
-        overview: 'Requirements for tourist / general visitor visas to India through IVAC Dhaka/Chittagong/Sylhet/Rajshahi.',
-        basicDocuments: [
-          'Bank statements 6 months.',
-          'The passport validity 7 months.',
-          'All old passports should be submitted with application form.',
-          'One 2X2 color photograph with white background, having full face & ears.',
-          'A copy of National ID Card.',
-          'Utility Bill (electricity, water bill, recent copy).'
-        ],
-        professionRequirements: [
-          {
-            profession: 'Job Holder',
-            items: ['NOC & visiting card']
-          },
-          {
-            profession: 'Business Person',
-            items: ['Trade License']
-          },
-          {
-            profession: 'Student',
-            items: ['ID card, Birth certificate']
-          }
-        ],
-        onlineApplicationFields: [
-          'Email Address & Phone Number',
-          'Educational Qualification',
-          'Country Visited in last 10 Years (If any)',
-          'Port of arrival/Exit',
-          'Address Where You Stayed In India previously (If visited)',
-          'Address where you will stay upon arrival',
-          'Previous Indian Visa page/s (If any)',
-          'Present Occupation & Past Occupation with Designation',
-          'Guardian Info (Spouse/Parents) & Employer Details'
-        ]
+        profession: 'Business Person',
+        items: ['Trade License copy (Renewed)', 'Visiting Card']
+      },
+      {
+        profession: 'Student',
+        items: ['Student ID card copy', 'Birth Certificate copy']
       }
+    ],
+    onlineApplicationFields: [
+      '1. Email Address & Active Mobile Phone Number',
+      '2. Educational Qualification',
+      '3. Countries Visited in the last 10 Years (If any)',
+      '4. Port of Arrival / Port of Exit in India (Air or Land Ports)',
+      '5. Address Where You Stayed In India previously (If visited earlier)',
+      '6. Address where you will stay upon arrival (Hospital / Hotel address in India)',
+      '7. Previous Indian Visa page/s (If any)',
+      '8. Present Occupation & Past Occupation with Designation',
+      '9. Guardian Information (Spouse or Parents full name & nationality)',
+      '10. Employer Name, Office Address, and Phone Number'
+    ],
+    additionalNotes: [
+      'Maximum 2 attendants are permitted under MEDX medical attendant category per patient.',
+      'Registration with FRRO is required if continuous stay in India exceeds 180 days.'
     ]
   },
   {
     id: 'malaysia',
     name: 'Malaysia',
     flagImg: '/images/flags/malaysia.png',
+    title: 'Malaysia Medical Visa Requirements (MHTC / eVisa Medical)',
+    badge: 'Sunway Medical Centre Partner',
+    validity: '30 – 90 Days (Single/Multiple Entry)',
+    processingTime: '2 – 4 Working Days',
     hospitalPartner: 'Sunway Medical Centre, Prince Court Medical Centre, Beacon Hospital, SJMC, Gleneagles KL',
-    visaOptions: [
+    overview: 'Official requirements verified with Sunway Medical Centre & Malaysia Healthcare Travel Council (MHTC) for Bangladeshi medical travelers.',
+    basicDocuments: [
+      '1. A valid passport with minimum six months validity.',
+      '2. One color-sized photo (3.5 x 5.0cm) taken against a white background.',
+      '3. Original Bank Statement Last Six Months & Solvency Certificate.',
+      '4. Medical Report & clinical investigation summaries.',
+      '5. NID (Adult), Birth Certificate (Child).',
+      '6. Forwarding Letter & Visiting Card.',
+      '7. Malaysia Digital Arrival Card (MDAC) submitted online 3 days prior to flight.'
+    ],
+    professionRequirements: [
       {
-        typeId: 'my-medical',
-        typeName: 'Malaysia Medical Visa Requirement (MHTC / eVisa Medical)',
-        badge: 'Sunway Medical Centre Partner',
-        validity: '30 – 90 Days (Single/Multiple Entry)',
-        processingTime: '2 – 4 Working Days',
-        overview: 'Official requirements verified with Sunway Medical Centre & Malaysia Healthcare Travel Council (MHTC) for Bangladeshi medical travelers.',
-        basicDocuments: [
-          '1. A valid passport with minimum six months validity.',
-          '2. One color-sized photo (3.5 x 5.0cm) taken against a white background.',
-          '3. Original Bank Statement Last Six Months & Solvency Certificate.',
-          '4. Medical Report & clinical investigation summaries.',
-          '5. NID (Adult), Birth Certificate (Child).',
-          '6. Forwarding Letter & Visiting Card.',
-          '7. Malaysia Digital Arrival Card (MDAC) submitted online 3 days prior to flight.'
-        ],
-        professionRequirements: [
-          {
-            profession: 'For Business Person',
-            items: [
-              'Trade License in English with Notarized translation.',
-              'Memorandum of Article & Form XII (If limited company).',
-              'Visiting Card & Letterhead Pad.'
-            ]
-          },
-          {
-            profession: 'For Service / Job Holder',
-            items: [
-              'No Objection Certificate (NOC) from employer.',
-              'Office ID Card copy.',
-              'Visiting Card.'
-            ]
-          },
-          {
-            profession: 'For Student',
-            items: [
-              'Student ID Card copy (Only For Student).',
-              'Leave letter from school/college/university.'
-            ]
-          }
-        ],
-        additionalNotes: [
-          'MHTC Concierge & Lounge at KLIA (Terminal 1 & 2) provides complimentary meet-and-greet and immigration escort for IMIC patients.',
-          'Hospital ambulance transport from KLIA directly to hospital can be scheduled in advance.'
+        profession: 'For Business Person',
+        items: [
+          'Trade License in English with Notarized translation.',
+          'Memorandum of Article & Form XII (If limited company).',
+          'Visiting Card & Letterhead Pad.'
+        ]
+      },
+      {
+        profession: 'For Service / Job Holder',
+        items: [
+          'No Objection Certificate (NOC) from employer.',
+          'Office ID Card copy.',
+          'Visiting Card.'
+        ]
+      },
+      {
+        profession: 'For Student',
+        items: [
+          'Student ID Card copy (Only For Student).',
+          'Leave letter from school/college/university.'
         ]
       }
+    ],
+    additionalNotes: [
+      'MHTC Concierge & Lounge at KLIA (Terminal 1 & 2) provides complimentary meet-and-greet and immigration escort for IMIC patients.',
+      'Hospital ambulance transport from KLIA directly to hospital can be scheduled in advance.'
     ]
   },
   {
     id: 'thailand',
     name: 'Thailand',
     flagImg: '/images/flags/thailand.png',
+    title: 'Thailand Medical Visa Information (Patients & Attendants)',
+    badge: 'Samitivej Hospital Partner',
+    validity: '60 – 90 Days (Extendable in Bangkok)',
+    processingTime: '3 – 5 Working Days',
     hospitalPartner: 'Samitivej Sukhumvit Hospital, Vejthani Hospital, BNH Hospital, Bangkok Hospital (BDMS), MedPark',
-    visaOptions: [
+    overview: 'Official requirements issued in partnership with Samitivej Hospital Bangkok for patients and family attendants applying through Royal Thai Embassy Dhaka / VFS Global.',
+    basicDocuments: [
+      '1. A valid passport with minimum six months validity.',
+      '2. Thai visa page & renewal page (if any previous visits).',
+      '3. Two (2) color passport-sized photos (3.5 x 4.5cm) taken against a white background on matt paper.',
+      '4. Original Bank Statement Last Six Months & Solvency Certificate (minimum BDT 150,000+ balance).',
+      '5. Medical Reports, scan reports, and prescription from Bangladesh.',
+      '6. Forwarding Letter & Visiting Card.',
+      '7. Utility Bill (recent electricity/water/gas copy).',
+      '8. Official Hospital Invitation & Appointment Letter from Samitivej / Thai partner hospital.'
+    ],
+    professionRequirements: [
       {
-        typeId: 'th-medical',
-        typeName: 'Thailand Medical Visa Information (Patients & Attendant/s)',
-        badge: 'Samitivej Hospital Partner',
-        validity: '60 – 90 Days (Extendable in Bangkok)',
-        processingTime: '3 – 5 Working Days',
-        overview: 'Official requirements issued in partnership with Samitivej Hospital Bangkok for patients and family attendants applying through Royal Thai Embassy Dhaka / VFS Global.',
-        basicDocuments: [
-          '1. A valid passport with minimum six months validity.',
-          '2. Thai visa page & renewal page (if any previous visits).',
-          '3. Two (2) color passport-sized photos (3.5 x 4.5cm) taken against a white background on matt paper.',
-          '4. Original Bank Statement Last Six Months & Solvency Certificate (minimum BDT 150,000+ balance).',
-          '5. Medical Reports, scan reports, and prescription from Bangladesh.',
-          '6. Forwarding Letter & Visiting Card.',
-          '7. Utility Bill (recent electricity/water/gas copy).',
-          '8. Official Hospital Invitation & Appointment Letter from Samitivej / Thai partner hospital.'
-        ],
-        professionRequirements: [
-          {
-            profession: 'For Business Person',
-            items: [
-              'Trade License in English with Notarized copy.',
-              'Business Letterhead Pad & Business Card.',
-              'Memorandum of Article (If limited company).'
-            ]
-          },
-          {
-            profession: 'For Service Holder',
-            items: [
-              'No Objection Certificate (NOC) from office.',
-              'Office ID Card copy.',
-              'Business Visiting Card.'
-            ]
-          },
-          {
-            profession: 'For Student',
-            items: [
-              'Student ID Card (Only For Student).',
-              'Leave approval from educational institution.'
-            ]
-          }
-        ],
-        additionalNotes: [
-          'Medical visa extension for long-term treatments can be renewed at Thai Immigration Bureau in Bangkok with hospital certification.',
-          'Bangla & English interpreter services provided at hospital admission.'
+        profession: 'For Business Person',
+        items: [
+          'Trade License in English with Notarized copy.',
+          'Business Letterhead Pad & Business Card.',
+          'Memorandum of Article (If limited company).'
+        ]
+      },
+      {
+        profession: 'For Service Holder',
+        items: [
+          'No Objection Certificate (NOC) from office.',
+          'Office ID Card copy.',
+          'Business Visiting Card.'
+        ]
+      },
+      {
+        profession: 'For Student',
+        items: [
+          'Student ID Card (Only For Student).',
+          'Leave approval from educational institution.'
         ]
       }
+    ],
+    additionalNotes: [
+      'Medical visa extension for long-term treatments can be renewed at Thai Immigration Bureau in Bangkok with hospital certification.',
+      'Bangla & English interpreter services provided at hospital admission.'
     ]
   },
   {
     id: 'china',
     name: 'China',
     flagImg: '/images/flags/china.png',
+    title: 'China Tourist & Medical Visa Information',
+    badge: 'Explore Holidays & IMIC',
+    validity: '30 – 90 Days / Two-Year Multiple-Entry Visa Available',
+    processingTime: '4 – 7 Working Days (Express priority available: Extra 5,500/- BDT)',
     hospitalPartner: 'Modern Cancer Hospital Guangzhou, Foshan Fosun Chancheng Hospital, Guangzhou Xinshi, Shenzhen Hengsheng',
-    visaOptions: [
+    overview: 'Mandatory documentation guidelines for Bangladeshi patients and travelers applying for Chinese Visas at Chinese Visa Application Service Centre Dhaka.',
+    basicDocuments: [
+      'Valid passport (minimum 6 month valid) & all Old passport/s.',
+      'Two (2) Copies Recent photos ("33mm x 48mm" size) with White Background (bare-headed, no glasses/jewelry).',
+      'Previous visa & Other country E-visa Copies with Entry-Exit seal (If Have).',
+      'Last 6 months Bank Statement & Bank Solvency Certificate with Bank Seal (Balance Minimum: 300,000/- BDT).',
+      'TIN Certificate copy.',
+      'Confirmed Air-Ticket booking.',
+      'Completed China Visa Information Page (Work history, education & family details).',
+      'Special Note: Two-Year Multiple-Entry Visa available (No fingerprint required for applicants under 14 or over 70 years of age).'
+    ],
+    professionRequirements: [
       {
-        typeId: 'cn-tourist-medical',
-        typeName: 'China Tourist & Medical Travel Visa Information',
-        badge: 'Explore Holidays & IMIC',
-        validity: '30 – 90 Days / Two-Year Multiple-Entry Visa Available',
-        processingTime: '4 – 7 Working Days (Express priority available: Extra 5,500/- BDT)',
-        overview: 'Mandatory documentation guidelines for Bangladeshi patients and travelers applying for Chinese Visas at Chinese Visa Application Service Centre Dhaka.',
-        basicDocuments: [
-          'Valid passport (minimum 6 month valid) & all Old passport/s.',
-          'Two (2) Copies Recent photos ("33mm x 48mm" size) with White Background (bare-headed, no glasses/jewelry).',
-          'Previous visa & Other country E-visa Copies with Entry-Exit seal (If Have).',
-          'Last 6 months Bank Statement & Bank Solvency Certificate with Bank Seal (Balance Minimum: 300,000/- BDT).',
-          'TIN Certificate copy.',
-          'Confirmed Air-Ticket booking.',
-          'Completed China Visa Information Page (Work history, education & family details).',
-          'Special Note: Two-Year Multiple-Entry Visa available (No fingerprint required for applicants under 14 or over 70 years of age).'
-        ],
-        professionRequirements: [
-          {
-            profession: 'For Business Person',
-            items: [
-              'Company Updated Trade License.',
-              'Memorandum of Article for limited company & Form XII.',
-              'Company Letterhead Pad.',
-              'Visiting Card.'
-            ]
-          },
-          {
-            profession: 'For Job Holder',
-            items: [
-              'Office ID Card copy.',
-              'Leave letter or No Objection Certificate (NOC).',
-              'Visiting Card.',
-              'BMDC Certificate (for Doctors).',
-              'BAR Council Certificate (for Advocates).',
-              'Retirement Certificate (for Retired Persons).'
-            ]
-          },
-          {
-            profession: 'For Student',
-            items: [
-              'Student valid ID Card copy.',
-              'Leave letter or NOC from Educational Institute.'
-            ]
-          }
-        ],
-        onlineApplicationFields: [
-          'Applicant Name & Passport Number',
-          'Work Experience in the Last/Past 5 Years (From/To dates, Company Name, Address, Supervisor Name & Phone Number)',
-          'Family Information (Spouse DOB, Children Names & DOBs, Father DOB, Mother DOB)',
-          'Education History (School & Group, College & Group, Graduation Institute & Major, Post-graduation Institute & Major)',
-          'Tentative Stay in China (Tentative Departure & Arrival Dates)'
-        ],
-        additionalNotes: [
-          'Urgent delivery fee: Extra BDT 5,500/- if urgent processing is required.',
-          'Consular officer reserves the right to request additional documentation as deemed necessary.'
+        profession: 'For Business Person',
+        items: [
+          'Company Updated Trade License.',
+          'Memorandum of Article for limited company & Form XII.',
+          'Company Letterhead Pad.',
+          'Visiting Card.'
         ]
       },
       {
-        typeId: 'cn-business',
-        typeName: 'China Business Visa Information',
-        validity: '30 – 180 Days / Multiple Entry',
-        processingTime: '4 – 7 Working Days',
-        overview: 'Official requirements for commercial and medical business travel to China.',
-        basicDocuments: [
-          'Valid passport (minimum 6 month valid) & Old passport/s.',
-          'Two (2) Copies Recent photos ("33mm x 48mm" size) with White Background.',
-          'Trade License & TIN Certificate.',
+        profession: 'For Job Holder',
+        items: [
+          'Office ID Card copy.',
+          'Leave letter or No Objection Certificate (NOC).',
           'Visiting Card.',
-          'Official Invitation Letter & TE verification letter from Chinese enterprise/institution.',
-          'Office ID card & NOC (For Job Holder).',
-          'Completed Information Page.'
-        ],
-        professionRequirements: [
-          {
-            profession: 'For Business Delegate',
-            items: ['Trade License', 'TIN Certificate', 'Official Invitation & TE letter', 'Visiting Card']
-          }
+          'BMDC Certificate (for Doctors).',
+          'BAR Council Certificate (for Advocates).',
+          'Retirement Certificate (for Retired Persons).'
+        ]
+      },
+      {
+        profession: 'For Student',
+        items: [
+          'Student valid ID Card copy.',
+          'Leave letter or NOC from Educational Institute.'
         ]
       }
+    ],
+    onlineApplicationFields: [
+      'Applicant Name & Passport Number',
+      'Work Experience in the Last/Past 5 Years (From/To dates, Company Name, Address, Supervisor Name & Phone Number)',
+      'Family Information (Spouse DOB, Children Names & DOBs, Father DOB, Mother DOB)',
+      'Education History (School & Group, College & Group, Graduation Institute & Major, Post-graduation Institute & Major)',
+      'Tentative Stay in China (Tentative Departure & Arrival Dates)'
+    ],
+    additionalNotes: [
+      'Urgent delivery fee: Extra BDT 5,500/- if urgent processing is required.',
+      'Consular officer reserves the right to request additional documentation as deemed necessary.',
+      'China Business Visa also requires Trade License, TIN, and Official Invitation Letter & TE verification letter.'
     ]
   },
   {
     id: 'indonesia',
     name: 'Indonesia',
     flagImg: '/images/flags/indonesia.png',
+    title: 'Indonesia Medical Treatment e-Visa Information (B211A / C13)',
+    badge: 'Quaternary Care Jakarta',
+    validity: '60 Days (Extendable online)',
+    processingTime: '3 – 5 Working Days',
     hospitalPartner: 'Medistra Hospital Jakarta, RSUPN Dr. Cipto Mangunkusumo (RSCM)',
-    visaOptions: [
+    overview: 'Document guidelines for patients and attendants traveling for quaternary medical procedures in Jakarta.',
+    basicDocuments: [
+      'Valid Bangladeshi Passport with at least 6 months validity.',
+      'Two color passport-size photos (4cm x 6cm, white background).',
+      'Original 6-month Bank Statement & Bank Solvency Certificate.',
+      'Official Hospital Letter of Guarantee & Doctor Appointment Confirmation from Jakarta hospital.',
+      'Complete Bangladeshi medical files & English translated diagnostic reports.',
+      'Confirmed return flight booking and electronic customs declaration (e-CD).'
+    ],
+    professionRequirements: [
       {
-        typeId: 'id-medical',
-        typeName: 'Indonesia Medical Treatment e-Visa Information (B211A / C13)',
-        badge: 'Quaternary Care Jakarta',
-        validity: '60 Days (Extendable online)',
-        processingTime: '3 – 5 Working Days',
-        overview: 'Document guidelines for patients and attendants traveling for quaternary medical procedures in Jakarta.',
-        basicDocuments: [
-          'Valid Bangladeshi Passport with at least 6 months validity.',
-          'Two color passport-size photos (4cm x 6cm, white background).',
-          'Original 6-month Bank Statement & Bank Solvency Certificate.',
-          'Official Hospital Letter of Guarantee & Doctor Appointment Confirmation from Jakarta hospital.',
-          'Complete Bangladeshi medical files & English translated diagnostic reports.',
-          'Confirmed return flight booking and electronic customs declaration (e-CD).'
-        ],
-        professionRequirements: [
-          {
-            profession: 'Business Person',
-            items: ['Trade License copy', 'Visiting Card', 'Bank Solvency']
-          },
-          {
-            profession: 'Service Holder',
-            items: ['NOC from employer', 'Office ID Card', 'Visiting Card']
-          },
-          {
-            profession: 'Student',
-            items: ['Student ID Card', 'Birth Certificate']
-          }
-        ]
+        profession: 'Business Person',
+        items: ['Trade License copy', 'Visiting Card', 'Bank Solvency']
+      },
+      {
+        profession: 'Service Holder',
+        items: ['NOC from employer', 'Office ID Card', 'Visiting Card']
+      },
+      {
+        profession: 'Student',
+        items: ['Student ID Card', 'Birth Certificate']
       }
     ]
   }
@@ -498,19 +341,8 @@ const officialVisaData: CountryVisaData[] = [
 
 export default function TravelKitPage() {
   const [selectedCountry, setSelectedCountry] = useState<string>('singapore');
-  const [selectedVisaType, setSelectedVisaType] = useState<string>('sg-medical-new');
 
   const activeCountry = officialVisaData.find((c) => c.id === selectedCountry) || officialVisaData[0];
-  const activeVisa =
-    activeCountry.visaOptions.find((v) => v.typeId === selectedVisaType) || activeCountry.visaOptions[0];
-
-  const handleCountryChange = (countryId: string) => {
-    setSelectedCountry(countryId);
-    const country = officialVisaData.find((c) => c.id === countryId);
-    if (country && country.visaOptions.length > 0) {
-      setSelectedVisaType(country.visaOptions[0].typeId);
-    }
-  };
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -553,7 +385,7 @@ export default function TravelKitPage() {
           </div>
         </section>
 
-        {/* Interactive Country & Visa Type Selection */}
+        {/* Interactive Country Selection */}
         <section className="py-10 max-w-7xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto space-y-2 mb-6">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-imic-navy">
@@ -565,13 +397,13 @@ export default function TravelKitPage() {
           </div>
 
           {/* 6 Country Selector Buttons */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
             {officialVisaData.map((country) => {
               const isSelected = country.id === selectedCountry;
               return (
                 <button
                   key={country.id}
-                  onClick={() => handleCountryChange(country.id)}
+                  onClick={() => setSelectedCountry(country.id)}
                   className={`p-3.5 rounded-2xl border transition-all duration-200 flex flex-col items-center gap-2.5 text-center ${
                     isSelected
                       ? 'bg-imic-navy text-white border-imic-navy shadow-lg ring-2 ring-imic-teal'
@@ -595,29 +427,6 @@ export default function TravelKitPage() {
             })}
           </div>
 
-          {/* Visa Sub-Category Tabs (If multiple options exist for this country) */}
-          {activeCountry.visaOptions.length > 1 && (
-            <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-              {activeCountry.visaOptions.map((opt) => {
-                const isOptActive = opt.typeId === activeVisa.typeId;
-                return (
-                  <button
-                    key={opt.typeId}
-                    onClick={() => setSelectedVisaType(opt.typeId)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
-                      isOptActive
-                        ? 'bg-imic-teal text-white shadow-md'
-                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-                    }`}
-                  >
-                    <FileText className="w-3.5 h-3.5" />
-                    <span>{opt.typeName}</span>
-                  </button>
-                );
-              })}
-            </div>
-          )}
-
           {/* Official Information Container Card */}
           <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
             {/* Header / Brand Banner */}
@@ -634,27 +443,27 @@ export default function TravelKitPage() {
                     />
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-black text-white">
-                    {activeVisa.typeName}
+                    {activeCountry.title}
                   </h3>
-                  {activeVisa.badge && (
+                  {activeCountry.badge && (
                     <span className="bg-imic-teal text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-                      {activeVisa.badge}
+                      {activeCountry.badge}
                     </span>
                   )}
                 </div>
 
                 <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-                  {activeVisa.overview}
+                  {activeCountry.overview}
                 </p>
 
                 <div className="flex flex-wrap gap-4 pt-1 text-xs text-slate-300">
                   <div className="flex items-center gap-1.5">
                     <Clock className="w-4 h-4 text-imic-teal shrink-0" />
-                    <span><strong className="text-white">Processing Time:</strong> {activeVisa.processingTime}</span>
+                    <span><strong className="text-white">Processing Time:</strong> {activeCountry.processingTime}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-4 h-4 text-imic-teal shrink-0" />
-                    <span><strong className="text-white">Validity:</strong> {activeVisa.validity}</span>
+                    <span><strong className="text-white">Validity:</strong> {activeCountry.validity}</span>
                   </div>
                 </div>
               </div>
@@ -692,7 +501,7 @@ export default function TravelKitPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                  {activeVisa.basicDocuments.map((doc, dIdx) => (
+                  {activeCountry.basicDocuments.map((doc, dIdx) => (
                     <div
                       key={dIdx}
                       className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm"
@@ -709,7 +518,7 @@ export default function TravelKitPage() {
               </div>
 
               {/* Section 2: Profession Specific Proofs */}
-              {activeVisa.professionRequirements.length > 0 && (
+              {activeCountry.professionRequirements && activeCountry.professionRequirements.length > 0 && (
                 <div className="space-y-4">
                   <h4 className="text-sm sm:text-base font-black text-imic-navy uppercase tracking-wider flex items-center gap-2">
                     <Briefcase className="w-4 h-4 text-imic-teal" />
@@ -717,7 +526,7 @@ export default function TravelKitPage() {
                   </h4>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {activeVisa.professionRequirements.map((prof, pIdx) => (
+                    {activeCountry.professionRequirements.map((prof, pIdx) => (
                       <div
                         key={pIdx}
                         className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3"
@@ -755,7 +564,7 @@ export default function TravelKitPage() {
               )}
 
               {/* Section 3: Online Application Fields (For India & China) */}
-              {activeVisa.onlineApplicationFields && activeVisa.onlineApplicationFields.length > 0 && (
+              {activeCountry.onlineApplicationFields && activeCountry.onlineApplicationFields.length > 0 && (
                 <div className="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-4">
                   <div className="border-b border-slate-800 pb-3">
                     <span className="text-[11px] font-black text-imic-teal uppercase tracking-widest block mb-1">
@@ -772,7 +581,7 @@ export default function TravelKitPage() {
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-                    {activeVisa.onlineApplicationFields.map((field, fIdx) => (
+                    {activeCountry.onlineApplicationFields.map((field, fIdx) => (
                       <div
                         key={fIdx}
                         className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 text-xs text-slate-200 flex items-start gap-2"
@@ -799,14 +608,14 @@ export default function TravelKitPage() {
                 </div>
 
                 {/* Important Notes */}
-                {activeVisa.additionalNotes && activeVisa.additionalNotes.length > 0 && (
+                {activeCountry.additionalNotes && activeCountry.additionalNotes.length > 0 && (
                   <div className="bg-amber-50/60 p-5 rounded-2xl border border-amber-200/80 space-y-2">
                     <div className="flex items-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider">
                       <AlertCircle className="w-4 h-4 text-amber-600" />
                       <span>Important Travel Notes</span>
                     </div>
                     <ul className="text-xs text-amber-900 space-y-1.5 list-disc list-inside">
-                      {activeVisa.additionalNotes.map((note, nIdx) => (
+                      {activeCountry.additionalNotes.map((note, nIdx) => (
                         <li key={nIdx}>{note}</li>
                       ))}
                     </ul>
