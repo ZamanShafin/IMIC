@@ -615,12 +615,12 @@ export default function TravelKitPage() {
             {/* Official Footer Verification Banner */}
             <div className="bg-slate-50 p-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600">
               <div className="flex items-center gap-3">
-                <div className="relative w-28 h-8 shrink-0">
+                <div className="relative w-36 h-10 shrink-0">
                   <Image
-                    src="/images/imic-logo.png"
+                    src="/images/logo/logo.png"
                     alt="IMIC Logo"
                     fill
-                    className="object-contain"
+                    className="object-contain object-left"
                   />
                 </div>
                 <div>
