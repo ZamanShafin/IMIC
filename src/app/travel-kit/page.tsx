@@ -445,11 +445,6 @@ export default function TravelKitPage() {
                   <h3 className="text-2xl sm:text-3xl font-black text-white">
                     {activeCountry.title}
                   </h3>
-                  {activeCountry.badge && (
-                    <span className="bg-imic-teal text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-                      {activeCountry.badge}
-                    </span>
-                  )}
                 </div>
 
                 <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
