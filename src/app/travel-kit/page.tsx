@@ -363,16 +363,16 @@ export default function TravelKitPage() {
                 className="inline-flex items-center gap-2 bg-imic-teal hover:bg-imic-teal-hover text-white text-xs font-bold px-6 py-3 rounded-xl shadow-lg transition"
               >
                 <Calendar className="w-4 h-4" />
-                <span>Request Hospital Invitation Letter</span>
+                <span>Book Appointment</span>
               </Link>
               <a
-                href="https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20need%20visa%20information%20support"
+                href="https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20need%20visa%20and%20travel%20support"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold px-6 py-3 rounded-xl shadow-lg transition"
               >
                 <MessageCircle className="w-4 h-4 fill-white" />
-                <span>WhatsApp Visa Helpdesk</span>
+                <span>WhatsApp Helpdesk</span>
               </a>
             </div>
           </div>
@@ -459,20 +459,20 @@ export default function TravelKitPage() {
               {/* Action Buttons */}
               <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2.5">
                 <a
-                  href={`https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20need%20visa%20information%20for%20${encodeURIComponent(activeCountry.name)}`}
+                  href={`https://wa.me/8801710802000?text=Hello%20IMIC%2C%20I%20need%20help%20with%20${encodeURIComponent(activeCountry.name)}%20visa%20and%20treatment`}
                   target="_blank"
                   rel="noreferrer"
                   className="bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold py-3 px-5 rounded-xl transition flex items-center justify-center gap-2 shadow-md"
                 >
                   <MessageCircle className="w-4 h-4 fill-white" />
-                  <span>WhatsApp Visa Helpdesk</span>
+                  <span>WhatsApp Helpdesk</span>
                 </a>
                 <Link
                   href="/book-appointment"
                   className="bg-imic-teal hover:bg-imic-teal-hover text-white text-xs font-bold py-3 px-5 rounded-xl transition flex items-center justify-center gap-2 shadow-md"
                 >
                   <Calendar className="w-4 h-4" />
-                  <span>Get Hospital Invitation</span>
+                  <span>Book Appointment</span>
                 </Link>
               </div>
             </div>
