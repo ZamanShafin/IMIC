@@ -7,19 +7,19 @@ import { Mail, Phone, ShieldCheck } from 'lucide-react';
 
 const teamMembers = [
   {
-    role: "Director",
-    name: "Muntasir Mamun",
-    email: "muntasir@imic.com.bd",
-    phone: "+8801711100306",
-    image: "/images/team/muntasir-mamun.jpg",
-    objectPosition: "object-top"
-  },
-  {
     role: "Managing Director",
     name: "Maruf Hassan",
     email: "maruf@imic.com.bd",
     phone: "+8801777995995",
     image: "/images/team/maruf-hassan.png",
+    objectPosition: "object-top"
+  },
+  {
+    role: "Director",
+    name: "Muntasir Mamun",
+    email: "muntasir@imic.com.bd",
+    phone: "+8801711100306",
+    image: "/images/team/muntasir-mamun.jpg",
     objectPosition: "object-top"
   }
 ];
