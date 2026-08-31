@@ -101,12 +101,6 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/founder-message" className="hover:text-imic-teal transition flex items-center gap-1.5">
-                <ArrowRight className="w-3 h-3 text-imic-teal" />
-                <span>Founder Message</span>
-              </Link>
-            </li>
-            <li>
               <Link href="/team-member" className="hover:text-imic-teal transition flex items-center gap-1.5">
                 <ArrowRight className="w-3 h-3 text-imic-teal" />
                 <span>Our Team Members</span>

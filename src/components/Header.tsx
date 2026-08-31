@@ -93,9 +93,6 @@ export default function Header() {
                 <Link href="/about-us" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
                   About IMIC
                 </Link>
-                <Link href="/founder-message" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
-                  Founder Message
-                </Link>
                 <Link href="/team-member" className="block px-4 py-2.5 hover:bg-slate-50 hover:text-imic-teal text-sm font-medium">
                   Team Members
                 </Link>
@@ -186,9 +183,6 @@ export default function Header() {
             <span className="text-xs font-bold text-slate-400 block uppercase">About Us</span>
             <Link href="/about-us" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs hover:text-imic-teal">
               About IMIC
-            </Link>
-            <Link href="/founder-message" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs hover:text-imic-teal">
-              Founder Message
             </Link>
             <Link href="/team-member" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs hover:text-imic-teal">
               Team Members
