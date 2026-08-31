@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import Image from 'next/image';
-import { Mail, Phone, ShieldCheck, User, Award } from 'lucide-react';
+import { Mail, Phone, ShieldCheck, User } from 'lucide-react';
 
 interface TeamMember {
   role: string;
@@ -14,16 +14,15 @@ interface TeamMember {
   objectPosition?: string;
 }
 
-const founder: TeamMember = {
-  role: "Chairman & Founder",
-  name: "Farzana Wali Liza",
-  email: "info@imic.com.bd",
-  phone: "+8801710802000",
-  image: "/images/team/farzana-wali-liza.jpg",
-  objectPosition: "object-top"
-};
-
 const teamMembers: TeamMember[] = [
+  {
+    role: "Chairman & Founder",
+    name: "Farzana Wali Liza",
+    email: "info@imic.com.bd",
+    phone: "+8801710802000",
+    image: "/images/team/farzana-wali-liza.jpg",
+    objectPosition: "object-top"
+  },
   {
     role: "Managing Director",
     name: "Maruf Hassan",
@@ -73,74 +72,13 @@ export default function TeamMemberPage() {
           </div>
         </section>
 
-        {/* Team Section */}
+        {/* Team Cards Grid */}
         <section className="py-16 max-w-5xl mx-auto px-4">
-          {/* Top Founder & Chairman Card */}
-          <div className="max-w-md sm:max-w-lg mx-auto mb-12">
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border-2 border-imic-teal/30 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center space-y-5 group relative overflow-hidden">
-              {/* Founder Badge */}
-              <div className="absolute top-0 right-0 bg-gradient-to-l from-imic-teal to-imic-navy text-white text-[11px] font-black uppercase tracking-wider px-4 py-1.5 rounded-bl-2xl shadow-sm flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5" />
-                <span>Founder & Chairman</span>
-              </div>
-
-              {/* Large Profile Image */}
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 border-2 border-slate-100 shadow-md flex items-center justify-center">
-                <Image
-                  src={founder.image!}
-                  alt={founder.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 450px"
-                  priority
-                  className={`object-cover ${founder.objectPosition || 'object-top'} group-hover:scale-105 transition-transform duration-500`}
-                />
-              </div>
-
-              {/* Profile Information */}
-              <div className="space-y-1 w-full">
-                <h3 className="text-2xl sm:text-3xl font-black text-imic-navy tracking-tight">
-                  {founder.name}
-                </h3>
-                <div className="space-y-0.5">
-                  <span className="text-sm font-bold text-imic-teal uppercase tracking-wider block">
-                    {founder.role}
-                  </span>
-                  <p className="text-xs font-semibold text-slate-500">
-                    International Medical Information Centre
-                  </p>
-                </div>
-              </div>
-
-              {/* Contact Actions */}
-              <div className="pt-4 border-t border-slate-100 w-full space-y-2.5 text-xs sm:text-sm text-slate-700">
-                {founder.phone && (
-                  <a
-                    href={`tel:${founder.phone.replace(/[^0-9+]/g, '')}`}
-                    className="flex items-center justify-center gap-2.5 bg-slate-50 hover:bg-teal-50 text-slate-800 hover:text-imic-teal p-3 rounded-xl border border-slate-200/80 hover:border-imic-teal/50 transition font-semibold"
-                  >
-                    <Phone className="w-4 h-4 text-imic-teal shrink-0" />
-                    <span>{founder.phone}</span>
-                  </a>
-                )}
-                {founder.email && (
-                  <a
-                    href={`mailto:${founder.email}`}
-                    className="flex items-center justify-center gap-2.5 bg-slate-50 hover:bg-teal-50 text-slate-800 hover:text-imic-teal p-3 rounded-xl border border-slate-200/80 hover:border-imic-teal/50 transition font-semibold"
-                  >
-                    <Mail className="w-4 h-4 text-imic-teal shrink-0" />
-                    <span>{founder.email}</span>
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Leadership & Executive Team Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {teamMembers.map((member, i) => (
               <div
                 key={i}
-                className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center space-y-5 group"
+                className={`${i === 0 ? 'md:col-span-2 md:max-w-md md:mx-auto w-full' : ''} bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center space-y-5 group`}
               >
                 {/* Profile Image / Blank Placeholder */}
                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 border-2 border-slate-100 shadow-md flex items-center justify-center">
@@ -150,7 +88,7 @@ export default function TeamMemberPage() {
                       alt={member.name}
                       fill
                       sizes="(max-width: 768px) 100vw, 450px"
-                      priority={i < 2}
+                      priority={i < 3}
                       className={`object-cover ${member.objectPosition || 'object-top'} group-hover:scale-105 transition-transform duration-500`}
                     />
                   ) : (
