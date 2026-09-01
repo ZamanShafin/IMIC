@@ -18,8 +18,8 @@ const teamMembers: TeamMember[] = [
   {
     role: "Chairman & Founder",
     name: "Farzana Wali Liza",
-    email: "info@imic.com.bd",
-    phone: "+8801710802000",
+    email: "farzana@imic.com.bd",
+    phone: "+8801783929292",
     image: "/images/team/farzana-wali-liza.jpg",
     objectPosition: "object-top"
   },
