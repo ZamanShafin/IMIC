@@ -178,7 +178,8 @@ export default function Footer() {
             </a>
           </div>
 
-          <div className="pt-2">
+          {/* Staff & Admin Portal Login (Hidden from public view, accessible via direct URL /admin/login) */}
+          <div className="hidden pt-2">
             <Link
               href="/admin/login"
               className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-300 transition"
