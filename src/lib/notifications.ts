@@ -40,7 +40,25 @@ export class GenericSmsAdapter implements SmsGatewayProvider {
   }
 }
 
-export async function sendEmailNotification({ to, subject, html }: { to: string; subject: string; html: string }) {
+export interface EmailAttachment {
+  filename: string;
+  content: string | Buffer; // Base64 string or Buffer
+  contentType?: string;
+}
+
+export const ADMIN_NOTIFICATION_EMAIL = process.env.ADMIN_NOTIFICATION_EMAIL || 'info@imic.com.bd';
+
+export async function sendEmailNotification({
+  to,
+  subject,
+  html,
+  attachments = []
+}: {
+  to: string;
+  subject: string;
+  html: string;
+  attachments?: EmailAttachment[];
+}) {
   const resendApiKey = process.env.RESEND_API_KEY;
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
@@ -49,6 +67,12 @@ export async function sendEmailNotification({ to, subject, html }: { to: string;
   // 1. Resend API Dispatch
   if (resendApiKey) {
     try {
+      const resendAttachments = attachments.map((att) => ({
+        filename: att.filename,
+        content: typeof att.content === 'string' ? att.content : att.content.toString('base64'),
+        contentType: att.contentType
+      }));
+
       const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -59,7 +83,8 @@ export async function sendEmailNotification({ to, subject, html }: { to: string;
           from: process.env.EMAIL_FROM || 'IMIC Patient Care <onboarding@resend.dev>',
           to: [to],
           subject,
-          html
+          html,
+          ...(resendAttachments.length > 0 ? { attachments: resendAttachments } : {})
         })
       });
 
@@ -86,11 +111,18 @@ export async function sendEmailNotification({ to, subject, html }: { to: string;
         auth: { user, pass },
       });
 
+      const nodemailerAttachments = attachments.map((att) => ({
+        filename: att.filename,
+        content: typeof att.content === 'string' ? Buffer.from(att.content, 'base64') : att.content,
+        contentType: att.contentType
+      }));
+
       await transporter.sendMail({
         from: `"IMIC Patient Assistance" <${process.env.SMTP_FROM || user}>`,
         to,
         subject,
         html,
+        attachments: nodemailerAttachments
       });
       return { success: true };
     } catch (error: any) {
@@ -99,7 +131,7 @@ export async function sendEmailNotification({ to, subject, html }: { to: string;
     }
   }
 
-  console.log(`[Email Note] No RESEND_API_KEY or SMTP_HOST configured. Logged email to ${to}`);
+  console.log(`[Email Note] Logged email to ${to} (Subject: ${subject}, Attachments: ${attachments.length})`);
   return { success: true, simulated: true };
 }
 

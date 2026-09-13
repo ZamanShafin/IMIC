@@ -4,7 +4,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import { Calendar, User, FileText, CheckCircle2, Send, Upload, MessageCircle, MapPin, Building2 } from 'lucide-react';
+import { Calendar, User, FileText, CheckCircle2, Send, Upload, MessageCircle, MapPin, Building2, Paperclip, X } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
@@ -17,6 +17,9 @@ function BookAppointmentForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [bookingRef, setBookingRef] = useState<string | null>(null);
+  const [attachments, setAttachments] = useState<
+    Array<{ filename: string; content: string; contentType: string; size: number }>
+  >([]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -41,6 +44,47 @@ function BookAppointmentForm() {
     }
   }, [initialHospital, initialSpecialty, initialCountry]);
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const filesArray = Array.from(e.target.files);
+
+    const newAttachments: Array<{ filename: string; content: string; contentType: string; size: number }> = [];
+
+    for (const file of filesArray) {
+      if (file.size > 10 * 1024 * 1024) {
+        alert(`File ${file.name} exceeds the 10MB size limit.`);
+        continue;
+      }
+
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result as string;
+          // Extract base64 content
+          const base64Data = result.includes(',') ? result.split(',')[1] : result;
+          resolve(base64Data);
+        };
+        reader.onerror = (err) => reject(err);
+        reader.readAsDataURL(file);
+      });
+
+      newAttachments.push({
+        filename: file.name,
+        content: base64,
+        contentType: file.type || 'application/octet-stream',
+        size: file.size
+      });
+    }
+
+    setAttachments((prev) => [...prev, ...newAttachments]);
+    // Reset file input value so user can re-select same file if desired
+    e.target.value = '';
+  };
+
+  const removeAttachment = (indexToRemove: number) => {
+    setAttachments((prev) => prev.filter((_, idx) => idx !== indexToRemove));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -49,7 +93,10 @@ function BookAppointmentForm() {
       const res = await fetch('/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          attachments
+        })
       });
       const data = await res.json();
       if (res.ok && data.success) {
@@ -253,15 +300,62 @@ function BookAppointmentForm() {
               />
             </div>
 
-            <div className="p-4 bg-white border border-dashed border-slate-300 rounded-2xl text-center space-y-2">
-              <Upload className="w-6 h-6 text-imic-teal mx-auto" />
-              <span className="text-xs font-bold text-imic-navy block">
-                Attach Medical Reports / Prescriptions (Optional)
-              </span>
-              <span className="text-[11px] text-slate-400 block">
-                PDF, JPG, PNG up to 10MB (You can also send via WhatsApp)
-              </span>
-              <input type="file" className="text-xs text-slate-500 mx-auto" />
+            <div className="p-5 bg-white border border-dashed border-slate-300 rounded-2xl text-center space-y-3">
+              <Upload className="w-7 h-7 text-imic-teal mx-auto" />
+              <div className="space-y-0.5">
+                <span className="text-xs font-bold text-imic-navy block">
+                  Attach Medical Reports, Prescriptions & Scans (Optional)
+                </span>
+                <span className="text-[11px] text-slate-400 block">
+                  PDF, JPG, PNG, DOCX up to 10MB each (Directly sent to info@imic.com.bd)
+                </span>
+              </div>
+
+              <label className="inline-flex items-center gap-2 bg-slate-50 hover:bg-teal-50 text-imic-navy hover:text-imic-teal text-xs font-bold px-4 py-2.5 rounded-xl border border-slate-200 hover:border-imic-teal/50 cursor-pointer transition shadow-sm">
+                <Paperclip className="w-3.5 h-3.5 text-imic-teal" />
+                <span>Choose Files to Upload</span>
+                <input
+                  type="file"
+                  multiple
+                  accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.webp"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+              </label>
+
+              {attachments.length > 0 && (
+                <div className="pt-2 space-y-2 text-left">
+                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                    Attached Documents ({attachments.length}):
+                  </span>
+                  <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                    {attachments.map((file, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between gap-2 p-2.5 bg-slate-50 border border-slate-200/90 rounded-xl text-xs"
+                      >
+                        <div className="flex items-center gap-2 truncate">
+                          <FileText className="w-4 h-4 text-imic-teal shrink-0" />
+                          <span className="font-semibold text-slate-800 truncate" title={file.filename}>
+                            {file.filename}
+                          </span>
+                          <span className="text-[10px] text-slate-400 shrink-0">
+                            ({(file.size / 1024).toFixed(0)} KB)
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeAttachment(idx)}
+                          className="text-slate-400 hover:text-red-500 p-1 shrink-0 rounded-md transition"
+                          title="Remove file"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
