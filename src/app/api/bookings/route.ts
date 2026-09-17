@@ -183,9 +183,10 @@ export async function POST(req: Request) {
         </div>
       `;
 
+      const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || 'info@imic.com.bd, zamanshafin64@gmail.com';
       await sendEmailNotification({
-        to: 'info@imic.com.bd',
-        subject: `🚨 New Appointment Booking: ${patientName} (${destinationCountry}) — Ref: ${refNumber}`,
+        to: adminEmail,
+        subject: `[IMIC Booking] New Patient Consultation: ${patientName} (${destinationCountry}) — Ref: ${refNumber}`,
         html: adminEmailHtml,
         attachments: attachments.map(att => ({
           filename: att.filename,

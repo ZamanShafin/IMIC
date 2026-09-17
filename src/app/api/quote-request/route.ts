@@ -28,9 +28,10 @@ export async function POST(req: Request) {
 
     // Notify info@imic.com.bd
     try {
+      const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || 'info@imic.com.bd, zamanshafin64@gmail.com';
       await sendEmailNotification({
-        to: 'info@imic.com.bd',
-        subject: `📋 New Medical Quote Request: ${name} (${country})`,
+        to: adminEmail,
+        subject: `[IMIC Quote] New Medical Quote Request: ${name} (${country})`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; color: #1e293b;">
             <div style="background-color: #0f172a; padding: 20px; color: #ffffff; text-align: center;">
