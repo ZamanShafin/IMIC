@@ -50,11 +50,13 @@ export const ADMIN_NOTIFICATION_EMAIL = process.env.ADMIN_NOTIFICATION_EMAIL || 
 
 export async function sendEmailNotification({
   to,
+  bcc,
   subject,
   html,
   attachments = []
 }: {
   to: string;
+  bcc?: string;
   subject: string;
   html: string;
   attachments?: EmailAttachment[];
@@ -82,8 +84,9 @@ export async function sendEmailNotification({
       }));
 
       await transporter.sendMail({
-        from: process.env.SMTP_FROM || `"IMIC Patient Assistance" <${user}>`,
+        from: process.env.SMTP_FROM || `"Zaman Shafin | Patient Intake" <${user}>`,
         to,
+        ...(bcc ? { bcc } : {}),
         replyTo: process.env.SMTP_REPLY_TO || user,
         subject,
         html,
