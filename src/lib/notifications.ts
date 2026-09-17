@@ -64,7 +64,40 @@ export async function sendEmailNotification({
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
 
-  // 1. Resend API Dispatch
+  // 1. Nodemailer SMTP (e.g. Gmail / Corporate SMTP)
+  if (host && user && pass) {
+    try {
+      const port = Number(process.env.SMTP_PORT) || 465;
+      const transporter = nodemailer.createTransport({
+        host,
+        port,
+        secure: port === 465,
+        auth: { user, pass },
+      });
+
+      const nodemailerAttachments = attachments.map((att) => ({
+        filename: att.filename,
+        content: typeof att.content === 'string' ? Buffer.from(att.content, 'base64') : att.content,
+        contentType: att.contentType
+      }));
+
+      await transporter.sendMail({
+        from: process.env.SMTP_FROM || `"IMIC Patient Assistance" <${user}>`,
+        to,
+        replyTo: process.env.SMTP_REPLY_TO || user,
+        subject,
+        html,
+        attachments: nodemailerAttachments
+      });
+      console.log(`[SMTP] Successfully sent email to ${to} (Subject: ${subject})`);
+      return { success: true };
+    } catch (error: any) {
+      console.error('SMTP Email Error:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  // 2. Resend API Dispatch Fallback
   if (resendApiKey) {
     try {
       const resendAttachments = attachments.map((att) => ({
@@ -98,36 +131,6 @@ export async function sendEmailNotification({
       }
     } catch (err: any) {
       console.error('Resend API Fetch Error:', err);
-    }
-  }
-
-  // 2. Nodemailer SMTP Fallback
-  if (host && user && pass) {
-    try {
-      const transporter = nodemailer.createTransport({
-        host,
-        port: Number(process.env.SMTP_PORT) || 587,
-        secure: Number(process.env.SMTP_PORT) === 465,
-        auth: { user, pass },
-      });
-
-      const nodemailerAttachments = attachments.map((att) => ({
-        filename: att.filename,
-        content: typeof att.content === 'string' ? Buffer.from(att.content, 'base64') : att.content,
-        contentType: att.contentType
-      }));
-
-      await transporter.sendMail({
-        from: `"IMIC Patient Assistance" <${process.env.SMTP_FROM || user}>`,
-        to,
-        subject,
-        html,
-        attachments: nodemailerAttachments
-      });
-      return { success: true };
-    } catch (error: any) {
-      console.error('SMTP Email Error:', error);
-      return { success: false, error: error.message };
     }
   }
 
