@@ -1,33 +1,88 @@
 const QRCode = require('qrcode');
+const sharp = require('sharp');
+const jsQR = require('jsqr');
 const fs = require('fs');
 const path = require('path');
 
 const targetUrl = 'https://imic.com.bd/#reviews';
 const publicDir = path.join(__dirname, '..', 'public', 'images');
+const logoIconPath = path.join(publicDir, 'logo', 'logo-icon.png');
 const artifactDir = 'C:\\Users\\snake\\.gemini\\antigravity\\brain\\425d783d-780e-41fb-a3a3-39daad1b9e68';
 
 async function generate() {
-  if (!fs.existsSync(publicDir)) {
-    fs.mkdirSync(publicDir, { recursive: true });
-  }
-
-  // 1. High Resolution PNG (1200x1200px)
-  const pngPath = path.join(publicDir, 'qr-reviews.png');
-  await QRCode.toFile(pngPath, targetUrl, {
+  const qrSize = 1200;
+  // Generate base QR buffer
+  const qrBuffer = await QRCode.toBuffer(targetUrl, {
     errorCorrectionLevel: 'H',
     type: 'png',
     margin: 3,
-    width: 1200,
+    width: qrSize,
     color: {
       dark: '#0f172a', // IMIC slate-900 / navy
       light: '#ffffff'
     }
   });
-  console.log('PNG generated at:', pngPath);
 
-  // 2. Scalable Vector SVG
-  const svgPath = path.join(publicDir, 'qr-reviews.svg');
-  await QRCode.toFile(svgPath, targetUrl, {
+  // Center badge dimensions (22% of total QR size)
+  const badgeSize = 270;
+  const logoInnerSize = 200;
+  const radius = 38;
+
+  // Create rounded white badge with subtle border
+  const badgeSvg = Buffer.from(`
+    <svg width="${badgeSize}" height="${badgeSize}" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="${badgeSize - 4}" height="${badgeSize - 4}" rx="${radius}" fill="#ffffff" stroke="#e2e8f0" stroke-width="4"/>
+      <rect x="6" y="6" width="${badgeSize - 12}" height="${badgeSize - 12}" rx="${radius - 4}" fill="#ffffff" stroke="#0d9488" stroke-width="2" stroke-opacity="0.3"/>
+    </svg>
+  `);
+
+  // Resize logo-icon.png
+  const resizedLogo = await sharp(logoIconPath)
+    .resize(logoInnerSize, logoInnerSize, { fit: 'contain' })
+    .toBuffer();
+
+  // Composite the badge and logo together
+  const badgeWithLogo = await sharp(badgeSvg)
+    .composite([
+      {
+        input: resizedLogo,
+        top: Math.round((badgeSize - logoInnerSize) / 2),
+        left: Math.round((badgeSize - logoInnerSize) / 2)
+      }
+    ])
+    .png()
+    .toBuffer();
+
+  // Composite badge onto QR code center
+  const centerPos = Math.round((qrSize - badgeSize) / 2);
+  const finalQrPng = await sharp(qrBuffer)
+    .composite([
+      {
+        input: badgeWithLogo,
+        top: centerPos,
+        left: centerPos
+      }
+    ])
+    .png()
+    .toBuffer();
+
+  // Save PNG
+  const pngPath = path.join(publicDir, 'qr-reviews.png');
+  fs.writeFileSync(pngPath, finalQrPng);
+  console.log('Final QR PNG with IMIC logo saved to:', pngPath);
+
+  // Verify readability with jsQR
+  const rawData = await sharp(finalQrPng).ensureAlpha().raw().toBuffer();
+  const code = jsQR(new Uint8ClampedArray(rawData), qrSize, qrSize);
+  if (code && code.data === targetUrl) {
+    console.log('✅ QR Code Scan VERIFIED! Decoded URL:', code.data);
+  } else {
+    console.warn('⚠️ Warning: QR Code scan check failed or returned:', code ? code.data : null);
+  }
+
+  // 2. Scalable Vector SVG with Base64 Logo in the Center
+  const logoBase64 = fs.readFileSync(logoIconPath).toString('base64');
+  const qrSvgRaw = await QRCode.toString(targetUrl, {
     errorCorrectionLevel: 'H',
     type: 'svg',
     margin: 3,
@@ -36,23 +91,29 @@ async function generate() {
       light: '#ffffff'
     }
   });
-  console.log('SVG generated at:', svgPath);
 
-  // 3. Branded Standee / Card SVG
-  // We embed the QR SVG inside an elegant printable display card
-  const qrSvgString = await QRCode.toString(targetUrl, {
-    errorCorrectionLevel: 'H',
-    type: 'svg',
-    margin: 1,
-    color: {
-      dark: '#0f172a',
-      light: '#ffffff'
-    }
-  });
+  // Extract viewBox width/height from raw QR svg
+  const vbMatch = qrSvgRaw.match(/viewBox="0 0 (\d+) (\d+)"/);
+  const vbDim = vbMatch ? parseInt(vbMatch[1], 10) : 45;
+  const svgBadgeDim = (vbDim * 0.24).toFixed(2);
+  const svgLogoDim = (vbDim * 0.18).toFixed(2);
+  const svgBadgePos = ((vbDim - svgBadgeDim) / 2).toFixed(2);
+  const svgLogoPos = ((vbDim - svgLogoDim) / 2).toFixed(2);
 
-  // Extract inner SVG content (rectangles/paths) from qrSvgString
-  const innerQr = qrSvgString.replace(/<\?xml.*?\?>/, '').replace(/<svg.*?>/, '').replace(/<\/svg>/, '');
+  const innerQrPaths = qrSvgRaw.replace(/<\?xml.*?\?>/, '').replace(/<svg.*?>/, '').replace(/<\/svg>/, '');
 
+  const finalQrSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vbDim} ${vbDim}" width="1200" height="1200">
+  ${innerQrPaths}
+  <!-- IMIC Center Logo Badge -->
+  <rect x="${svgBadgePos}" y="${svgBadgePos}" width="${svgBadgeDim}" height="${svgBadgeDim}" rx="1.5" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.3"/>
+  <image href="data:image/png;base64,${logoBase64}" x="${svgLogoPos}" y="${svgLogoPos}" width="${svgLogoDim}" height="${svgLogoDim}" preserveAspectRatio="xMidYMid meet"/>
+</svg>`;
+
+  const svgPath = path.join(publicDir, 'qr-reviews.svg');
+  fs.writeFileSync(svgPath, finalQrSvg, 'utf8');
+  console.log('SVG with logo saved to:', svgPath);
+
+  // 3. Branded Display Card SVG
   const brandedCardSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1100" width="800" height="1100" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
   <defs>
     <linearGradient id="headerGrad" x1="0" y1="0" x2="1" y2="1">
@@ -78,8 +139,6 @@ async function generate() {
 
   <!-- Top Decorative Header Bar -->
   <path d="M 50 86 Q 50 50 86 50 L 714 50 Q 750 50 750 86 L 750 240 L 50 240 Z" fill="url(#headerGrad)"/>
-
-  <!-- Accent Line -->
   <rect x="50" y="236" width="700" height="6" fill="url(#tealGrad)"/>
 
   <!-- Company Title -->
@@ -97,14 +156,15 @@ async function generate() {
   <text x="400" y="365" text-anchor="middle" fill="#0f172a" font-size="32" font-weight="900">Scan to Read Patient Reviews</text>
   <text x="400" y="398" text-anchor="middle" fill="#64748b" font-size="16" font-weight="500">Authentic experiences from verified Bangladesh patients &amp; families</text>
 
-  <!-- QR Frame -->
+  <!-- QR Frame with Embedded QR & Center Logo -->
   <g transform="translate(190, 430)">
     <rect x="-15" y="-15" width="450" height="450" rx="28" fill="#ffffff" stroke="#0d9488" stroke-width="4"/>
     <rect x="-8" y="-8" width="436" height="436" rx="22" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
     
-    <!-- Embedded QR -->
-    <svg x="0" y="0" width="420" height="420" viewBox="0 0 45 45">
-      ${innerQr}
+    <svg x="0" y="0" width="420" height="420" viewBox="0 0 ${vbDim} ${vbDim}">
+      ${innerQrPaths}
+      <rect x="${svgBadgePos}" y="${svgBadgePos}" width="${svgBadgeDim}" height="${svgBadgeDim}" rx="1.5" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.3"/>
+      <image href="data:image/png;base64,${logoBase64}" x="${svgLogoPos}" y="${svgLogoPos}" width="${svgLogoDim}" height="${svgLogoDim}" preserveAspectRatio="xMidYMid meet"/>
     </svg>
   </g>
 
@@ -120,7 +180,7 @@ async function generate() {
 
   const cardSvgPath = path.join(publicDir, 'qr-reviews-card.svg');
   fs.writeFileSync(cardSvgPath, brandedCardSvg, 'utf8');
-  console.log('Branded Card SVG generated at:', cardSvgPath);
+  console.log('Branded Card SVG with logo generated at:', cardSvgPath);
 
   // Copy to Artifact Directory for display in conversation
   if (fs.existsSync(artifactDir)) {
