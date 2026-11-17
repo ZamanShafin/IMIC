@@ -13,7 +13,8 @@ export default function Testimonials() {
   const item = googleReviewsData[current];
 
   return (
-    <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
+    <section id="reviews" className="py-20 bg-slate-900 text-white relative overflow-hidden scroll-mt-24">
+      <span id="testimonials" className="sr-only" />
       {/* Background ambient glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-imic-teal/10 rounded-full blur-3xl pointer-events-none" />
 
